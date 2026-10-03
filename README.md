@@ -1,6 +1,6 @@
 # Synkrisis
 
-Εργαλείο συγκριτικής αξιολόγησης μεταφραστικών εκδοχών στον browser: κατάτμηση, παραλληλοποίηση και αντιπαραβολή πολλών εκδοχών του ίδιου κειμένου ως προς ένα κείμενο-βάση, με περιγραφικό (van Leuven-Zwart) και αξιολογικό (MQM) σχολιασμό. Ένα αυτόνομο αρχείο HTML, χωρίς εγκατάσταση και χωρίς εξωτερικές εξαρτήσεις· τα κείμενα επεξεργάζονται τοπικά και δεν αποθηκεύονται.
+Εργαλείο συγκριτικής αξιολόγησης μεταφραστικών εκδοχών στον browser: κατάτμηση, παραλληλοποίηση και αντιπαραβολή πολλών εκδοχών του ίδιου κειμένου ως προς ένα κείμενο-βάση, με περιγραφικό (van Leuven-Zwart) και αξιολογικό (MQM) σχολιασμό. Ένα αυτόνομο αρχείο HTML, χωρίς εγκατάσταση και χωρίς εξωτερικές εξαρτήσεις· τα κείμενα υποβάλλονται σε τοπική επεξεργασία και δεν αποθηκεύονται.
 
 A browser-based tool for the comparative evaluation of translation versions: segmentation, alignment and collation of multiple versions of the same text against a base text, with descriptive (van Leuven-Zwart) and evaluative (MQM) annotation. A single self-contained HTML file, with no installation and no external dependencies; texts are processed locally and are not stored.
 
