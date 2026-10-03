@@ -1,0 +1,2006 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synkrisis · Συγκριτική αξιολόγηση μεταφραστικών εκδοχών</title>
+<meta name="description" content="Synkrisis: εργαλείο συγκριτικής αξιολόγησης μεταφραστικών εκδοχών. Κατάτμηση ανά πρόταση, παράγραφο ή γραμμή και αντιπαραβολή με κείμενο-βάση.">
+<meta name="author" content="Ελένη Τζιάφα">
+<link rel="canonical" href="https://elenitziafa.com/synkrisis.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://elenitziafa.com/synkrisis.html">
+<meta property="og:title" content="Synkrisis · Συγκριτική αξιολόγηση μεταφραστικών εκδοχών">
+<meta property="og:description" content="Εργαλείο για την αντιπαραβολή, τον σχολιασμό και την τεκμηρίωση πολλών μεταφραστικών εκδοχών του ίδιου κειμένου. Λειτουργεί εξ ολοκλήρου τοπικά στον φυλλομετρητή.">
+<meta property="og:locale" content="el_GR">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="alternate icon" href="favicon.ico">
+<style>html{font-size:106.25%}
+  
+  :root{
+    --paper:#f6f1e7;
+    --paper-2:#efe8d9;
+    --ink:#211c16;
+    --ink-soft:#5c5345;
+    --line:#d8cfba;
+    --oxblood:#7c2d2d;
+    --teal:#2f5d57;
+    --add-bg:rgba(47,93,87,.16);
+    --add-line:#2f5d57;
+    --omit:#7c2d2d;
+    --warn-bg:#f3e3c7;
+    --serif:Georgia,"Times New Roman",serif;
+    --display:"Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --oxblood-hover:#641f1f;
+    --glow:#fdfaf2;
+    --card-bg:#fffdf8;
+    --input-bg:#fff;
+    --inset:#fff;
+    --source-bg:#f4f8f6;
+    --ann-bg:#fbf7ee;
+    --reveal-bg:#f6e7e2;
+    --reveal-line:#e0b7ad;
+    --rno-bg:#fffaf0;
+    --warn-line:#e0c890;
+  }
+  html[data-theme="dark"]{
+    --paper:#171310;
+    --paper-2:#211c15;
+    --ink:#e9e2d3;
+    --ink-soft:#a89b84;
+    --line:#413a2d;
+    --oxblood:#c4685f;
+    --oxblood-hover:#a1524a;
+    --teal:#5f9e94;
+    --add-bg:rgba(95,158,148,.24);
+    --add-line:#5f9e94;
+    --omit:#d38c81;
+    --warn-bg:#332a17;
+    --warn-line:#6a5a2c;
+    --glow:#241f17;
+    --card-bg:#201b14;
+    --input-bg:#181410;
+    --inset:rgba(255,255,255,.04);
+    --source-bg:#1c2622;
+    --ann-bg:#1d1811;
+    --reveal-bg:#3a2522;
+    --reveal-line:#6b3f38;
+    --rno-bg:#262017;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(circle at 12% -10%, var(--glow) 0, transparent 45%),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:1.125rem;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px 90px}
+  header.mast{padding:34px 0 18px;border-bottom:2px solid var(--ink)}
+  .mast h1{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(2.375rem,6vw,3.875rem);line-height:.98;margin:0;letter-spacing:.5px;
+  }
+  .mast .sub{font-family:var(--sans);color:var(--ink-soft);margin-top:8px;font-size:1rem;max-width:900px}
+  .privacy{
+    margin-top:16px;font-family:var(--sans);font-size:0.8438rem;
+    background:var(--paper-2);border:1px solid var(--line);border-left:4px solid var(--teal);
+    padding:10px 14px;color:var(--ink-soft);border-radius:2px;
+  }
+  .privacy b{color:var(--teal)}
+  h2.sec{
+    font-family:var(--sans);text-transform:uppercase;letter-spacing:.16em;
+    font-size:0.8125rem;color:var(--oxblood);font-weight:700;margin:38px 0 14px;
+    display:flex;align-items:baseline;gap:10px;
+  }
+  h2.sec::before{content:"";flex:0 0 26px;height:2px;background:var(--oxblood);transform:translateY(-4px)}
+
+  /* inputs */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+  .card{background:var(--card-bg);border:1px solid var(--line);border-radius:4px;padding:14px 14px 16px;box-shadow:0 1px 0 var(--inset) inset, 0 6px 18px -14px rgba(33,28,22,.5)}
+  .card .row1{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .card .vtag{font-family:var(--sans);font-weight:700;font-size:0.75rem;color:#fff;background:var(--ink);border-radius:3px;padding:3px 8px;letter-spacing:.05em;white-space:nowrap}
+  .card input.name{flex:1;font-family:var(--sans);font-size:0.875rem;border:1px solid var(--line);background:var(--paper);border-radius:3px;padding:6px 8px;color:var(--ink)}
+  .card .src textarea,.card textarea{width:100%;min-height:150px;resize:vertical;font-family:var(--serif);font-size:0.9688rem;line-height:1.45;border:1px solid var(--line);border-radius:3px;padding:9px 10px;background:var(--input-bg);color:var(--ink)}
+  .card textarea.prov{min-height:34px;margin-top:8px;font-family:var(--sans);font-size:0.7812rem;line-height:1.3;background:var(--paper);color:var(--ink-soft);padding:6px 8px}
+  .card .ctl{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-family:var(--sans);font-size:0.7812rem;color:var(--ink-soft)}
+  .filelbl{cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  .filelbl input{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden}
+  .filelbl{position:relative}
+  .filelbl:focus-within{outline:2px solid var(--teal);outline-offset:2px}
+  .rm{cursor:pointer;color:var(--oxblood);background:none;border:none;font-family:var(--sans);font-size:0.7812rem;text-decoration:underline;text-underline-offset:2px}
+  .src textarea{min-height:90px}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;margin-top:18px;font-family:var(--sans)}
+  .toolbar-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-family:var(--sans)}
+  .fld{display:flex;flex-direction:column;gap:4px}
+  .fld label{font-size:0.7188rem;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft)}
+  .fld select{font-family:var(--sans);font-size:0.875rem;padding:7px 9px;border:1px solid var(--line);border-radius:3px;background:var(--card-bg);color:var(--ink)}
+  .chk{display:flex;align-items:center;gap:7px;font-size:0.8438rem;color:var(--ink-soft);padding-bottom:7px}
+  .btn{font-family:var(--sans);font-weight:700;font-size:0.875rem;letter-spacing:.02em;cursor:pointer;border:none;border-radius:3px;padding:10px 18px}
+  .btn.primary{background:var(--oxblood);color:#fdf6f2}
+  .btn.primary:hover{background:var(--oxblood-hover)}
+  .btn.ghost{background:transparent;border:1px solid var(--ink);color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn.mini{padding:7px 12px;font-size:0.8125rem}
+  .addbtn{font-family:var(--sans);font-size:0.8438rem;cursor:pointer;background:transparent;border:1px dashed var(--ink-soft);color:var(--ink-soft);border-radius:4px;padding:9px 14px;margin-top:8px}
+  .addbtn:hover{border-color:var(--ink);color:var(--ink)}
+
+  /* results */
+  #results{margin-top:8px}
+  .seg{border:1px solid var(--line);border-radius:5px;margin:16px 0;background:var(--card-bg);overflow:visible}
+  .seg.mismatch{border-color:var(--oxblood)}
+  .seghead{display:flex;align-items:center;gap:12px;background:var(--paper-2);border-bottom:1px solid var(--line);padding:7px 14px;font-family:var(--sans);font-size:0.7812rem;color:var(--ink-soft)}
+  .seghead .no{font-weight:700;color:var(--ink);background:var(--input-bg);border:1px solid var(--line);border-radius:3px;padding:1px 8px}
+  .seghead .miss{color:var(--oxblood);font-weight:700}
+  .cols{display:grid;gap:0}
+  .col{padding:12px 14px;border-right:1px solid var(--line)}
+  .col:last-child{border-right:none}
+  .col .lbl{font-family:var(--sans);font-size:0.6875rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+  .col.issource{background:var(--source-bg)}
+  .col .txt{font-size:1.0312rem;line-height:1.5}
+  .tok-add{background:var(--add-bg);border-bottom:2px solid var(--add-line);border-radius:1px;padding:0 1px}
+  .omit{color:var(--omit);font-weight:700;cursor:pointer;font-family:var(--sans);font-size:0.75rem;vertical-align:super}
+  .omit-reveal{font-family:var(--sans);font-size:0.7812rem;color:var(--omit);background:var(--reveal-bg);border:1px solid var(--reveal-line);border-radius:3px;padding:0 5px;margin:0 3px}
+
+  .ann{border-top:1px dashed var(--line);background:var(--ann-bg);padding:0}
+  .ann summary{cursor:pointer;list-style:none;font-family:var(--sans);font-size:0.875rem;font-weight:700;color:var(--oxblood);padding:10px 14px;user-select:none;background:var(--paper-2)}
+  .ann summary:hover{text-decoration:underline;text-underline-offset:3px}
+  .ann summary::-webkit-details-marker{display:none}
+  .ann summary::before{content:"▸ ";color:var(--ink-soft)}
+  .ann[open] summary::before{content:"▾ "}
+  .ann .body{padding:4px 14px 16px}
+  .ann .best{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--sans);font-size:0.8438rem;margin:6px 0 12px}
+  .ann .best label{display:flex;align-items:center;gap:5px;cursor:pointer}
+  .cats{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+  .cat{font-family:var(--sans);font-size:0.7812rem;border:1px solid var(--line);background:var(--input-bg);color:var(--ink-soft);border-radius:14px;padding:4px 11px;cursor:pointer;user-select:none}
+  .cat.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .seghead{border-radius:5px 5px 0 0}
+  .ann{border-radius:0 0 5px 5px}
+  .col.vcell{border-top:1px dashed var(--line);background:var(--ann-bg);padding:8px 14px 10px}
+  .vsel{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px}
+  .vsel:empty{display:none}
+  .tag{font-family:var(--sans);font-size:0.75rem;line-height:1.3;border:none;border-radius:12px;padding:3px 9px;cursor:pointer;color:#fff;text-align:left}
+  .tag.desc{background:var(--teal)}
+  .tag.eval{background:var(--oxblood)}
+  html[data-theme="dark"] .tag, html[data-theme="dark"] .rolebadge, html[data-theme="dark"] .btn.primary{color:#171310}
+  .tag .x{opacity:.75;margin-left:5px}
+  .vbtns{display:flex;flex-wrap:wrap;gap:8px}
+  .pick{position:relative}
+  .pick>summary{list-style:none;cursor:pointer;font-family:var(--sans);font-size:0.75rem;font-weight:700;border:1px dashed;border-radius:3px;padding:3px 9px;user-select:none;background:var(--card-bg)}
+  .pick>summary::-webkit-details-marker{display:none}
+  .pick.desc>summary{color:var(--teal);border-color:var(--teal)}
+  .pick.eval>summary{color:var(--oxblood);border-color:var(--oxblood)}
+  .pick[open]>summary{border-style:solid}
+  .plist{position:absolute;z-index:30;top:calc(100% + 4px);left:0;width:300px;max-height:440px;overflow:auto;background:var(--card-bg);border:1px solid var(--line);border-radius:4px;box-shadow:0 10px 28px -10px rgba(33,28,22,.45);padding:10px 12px;display:flex;flex-direction:column;gap:5px;font-family:var(--sans);font-size:0.8125rem;color:var(--ink)}
+  .pick.right .plist{left:auto;right:0}
+  .plist label{display:flex;gap:7px;align-items:flex-start;cursor:pointer;line-height:1.3}
+  .psub{font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin:6px 0 1px;border-top:1px solid var(--line);padding-top:6px}
+  .phint{font-size:0.7188rem;color:var(--ink-soft);line-height:1.4;margin-bottom:4px}
+  .vann-hint{font-family:var(--sans);font-size:0.75rem;color:var(--ink-soft);line-height:1.45;margin:2px 0 8px}
+  .vann-hint b{color:var(--ink)}
+  .vann{display:grid;gap:8px;margin:0 0 12px}
+  .vrow{border:1px solid var(--line);border-radius:4px;padding:8px 10px;background:var(--card-bg)}
+  .vrow .vname{font-family:var(--sans);font-weight:700;font-size:0.8125rem;display:flex;gap:7px;align-items:center;margin-bottom:4px;color:var(--ink)}
+  .grp{display:flex;gap:10px;align-items:flex-start;margin:5px 0}
+  .grp .glbl{font-family:var(--sans);font-size:0.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);flex:0 0 108px;padding-top:6px}
+  .grp .cats{margin-bottom:0}
+  .grp.desc .cat.on{background:var(--teal);border-color:var(--teal);color:#fff}
+  .grp.eval .cat.on{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
+  .legacy{font-family:var(--sans);font-size:0.75rem;color:var(--ink-soft);margin:0 0 10px}
+  @media (max-width:640px){ .grp{flex-direction:column;gap:4px} .grp .glbl{flex:none;padding-top:0} }
+  /* per-version summary */
+  #summary{margin-top:26px}
+  .sumwrap{overflow:auto;border:1px solid var(--line);border-radius:5px;background:var(--card-bg)}
+  table.sumtable{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:0.8125rem}
+  .sumtable th,.sumtable td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:right;white-space:nowrap}
+  .sumtable th:first-child,.sumtable td:first-child{text-align:left;white-space:normal}
+  .sumtable thead th{background:var(--paper-2);color:var(--ink-soft);font-weight:700}
+  .sumtable tr.gh td{background:var(--paper-2);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:0.6875rem;color:var(--ink-soft);text-align:left}
+  .sumtable tr.tot td{font-weight:700}
+  .sumtable td.z{color:var(--line)}
+  .sumnote{font-family:var(--sans);font-size:0.75rem;color:var(--ink-soft);margin:8px 0 0}
+  .ann textarea{width:100%;min-height:54px;resize:vertical;font-family:var(--serif);font-size:0.9375rem;border:1px solid var(--line);border-radius:3px;padding:8px;background:var(--input-bg);margin-bottom:4px;color:var(--ink)}
+  .ann .flbl{font-family:var(--sans);font-size:0.7188rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);margin:6px 0 3px}
+
+
+
+  /* segmentation editor */
+  .segtoolwrap{margin-top:26px}
+  .seghelp{font-family:var(--sans);font-size:0.7812rem;color:var(--ink-soft);margin:-6px 0 12px;max-width:980px}
+  .seghelp code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--input-bg);border:1px solid var(--line);border-radius:3px;padding:1px 4px;color:var(--ink)}
+  .segactionsbar{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 12px;font-family:var(--sans)}
+  .segtablewrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:5px;background:var(--card-bg);box-shadow:0 1px 0 var(--inset) inset, 0 6px 18px -16px rgba(33,28,22,.55)}
+  .legend{display:none;font-family:var(--sans);font-size:0.8125rem;color:var(--ink-soft);margin:4px 0 10px;line-height:1.6}
+  .legend .lg-omit{color:var(--oxblood);font-weight:700}
+  .legend .lg-warn{color:var(--oxblood)}
+  table.segtable{border-collapse:collapse;width:100%;min-width:860px;font-family:var(--sans);font-size:0.7812rem}
+  .segtable th{position:sticky;top:0;z-index:1;background:var(--paper-2);color:var(--ink-soft);font-weight:700;text-align:left;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--line);padding:7px 8px}
+  .segtable td{vertical-align:top;border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:6px}
+  .segtable tr:last-child td{border-bottom:none}
+  .segtable td:last-child,.segtable th:last-child{border-right:none}
+  .segtable .rno{font-weight:700;color:var(--ink);white-space:nowrap;text-align:center;background:var(--rno-bg)}
+  .segcell{width:100%;min-width:210px;min-height:58px;resize:vertical;font-family:var(--serif);font-size:0.875rem;line-height:1.35;border:1px solid var(--line);border-radius:3px;background:var(--input-bg);color:var(--ink);padding:7px}
+  .segcell.source{background:var(--source-bg)}
+  .segrowtools{display:flex;flex-direction:column;gap:5px;min-width:120px}
+  .segrowtools button{font-family:var(--sans);font-size:0.7188rem;cursor:pointer;border:1px solid var(--line);background:var(--input-bg);color:var(--ink);border-radius:3px;padding:5px 7px;text-align:left}
+  .segrowtools button:hover{border-color:var(--ink);background:var(--paper-2)}
+
+  /* collapsible segmentation tool (secondary, below the comparison) */
+  .segtool{margin-top:26px;border:1px solid var(--line);border-radius:5px;background:var(--paper-2)}
+  .segtool>summary{cursor:pointer;list-style:none;font-family:var(--sans);font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:.12em;color:var(--oxblood);padding:12px 16px;user-select:none;display:flex;align-items:center;gap:10px}
+  .segtool>summary::-webkit-details-marker{display:none}
+  .segtool>summary::before{content:"▸";color:var(--ink-soft);font-size:0.75rem}
+  .segtool[open]>summary::before{content:"▾"}
+  .segtool>summary .hint{font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-soft);font-size:0.7812rem}
+  .segtool-body{padding:0 16px 16px}
+  .help-body p{margin:10px 0;font-size:0.9688rem;line-height:1.55}
+  .help-body b{color:var(--oxblood)}
+
+  /* mismatch nudge above results */
+  .nudge{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-family:var(--sans);font-size:0.8438rem;color:var(--ink);background:var(--warn-bg);border:1px solid var(--warn-line);border-left:4px solid var(--oxblood);border-radius:3px;padding:10px 14px;margin:4px 0 14px}
+  .nudge button{font-family:var(--sans);font-weight:700;font-size:0.8125rem;cursor:pointer;border:1px solid var(--oxblood);background:transparent;color:var(--oxblood);border-radius:3px;padding:6px 12px}
+  .nudge button:hover{background:var(--oxblood);color:var(--paper)}
+
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;padding-top:18px;border-top:2px solid var(--ink)}
+  .empty{font-family:var(--sans);color:var(--ink-soft);font-size:0.9375rem;padding:26px 0}
+  .foot{font-family:var(--sans);font-size:0.75rem;color:var(--ink-soft);margin-top:40px;border-top:1px solid var(--line);padding-top:14px}
+  .foot b{color:var(--ink)}
+  .credit{margin-top:12px;padding-top:10px;border-top:1px dotted var(--line)}
+  .credit a{color:var(--teal)}
+  .note{font-family:var(--sans);font-size:0.7812rem;color:var(--ink-soft);margin:-6px 0 0}
+  .rolebadge{font-family:var(--sans);font-size:0.5938rem;letter-spacing:.06em;background:var(--teal);color:#fff;border-radius:2px;padding:1px 5px}
+  .uictl{display:flex;justify-content:flex-end;align-items:center;gap:6px;padding-top:14px;margin-bottom:-8px;font-family:var(--sans)}
+  .uictl button{cursor:pointer;font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.04em;border:1px solid var(--line);background:var(--card-bg);color:var(--ink-soft);border-radius:3px;padding:5px 9px;line-height:1.2}
+  .uictl button:hover{border-color:var(--ink);color:var(--ink)}
+  .uictl button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+</style>
+<script>
+/* apply stored theme before first paint */
+(function(){
+  try{
+    var t = localStorage.getItem("synkrisis-theme");
+    if(t !== "dark" && t !== "light"){
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+  <div class="uictl">
+    <button type="button" data-lang="el" class="on">ΕΛ</button>
+    <button type="button" data-lang="fr">FR</button>
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" id="themeBtn" data-i18n-title="theme_title">🌙</button>
+  </div>
+  <header class="mast">
+    <h1>Synkrisis</h1>
+    <div class="sub" data-i18n-html="sub">Ένα περιβάλλον για την κριτική ανάγνωση μεταφράσεων:<br>σύγκριση, αξιολόγηση και τεκμηρίωση πολλαπλών εκδοχών του ίδιου κειμένου, εντός της ίδιας γλώσσας.</div>
+    <div class="privacy" data-i18n-html="privacy">🔒 <b>Τα κείμενα υποβάλλονται σε τοπική επεξεργασία και δεν αποθηκεύονται.</b> Η επεξεργασία γίνεται εξ ολοκλήρου στον φυλλομετρητή. Τίποτα δεν αποστέλλεται σε διακομιστή. Η ανανέωση της σελίδας διαγράφει τα πάντα.</div>
+  </header>
+
+  <details id="helpBox" class="segtool">
+    <summary data-i18n="help_title">Οδηγίες χρήσης</summary>
+    <div class="segtool-body help-body">
+      <p data-i18n-html="help_p1"><b>Τι κάνει.</b> Συγκρίνει δύο ή περισσότερες μεταφραστικές εκδοχές του ίδιου κειμένου, στην ίδια γλώσσα-στόχο, επισημαίνει τις διαφορές τους και σας βοηθά να τις αξιολογήσετε και να τεκμηριώσετε τις επιλογές σας. Δεν μεταφράζει και δεν αξιολογεί αυτόματα. Η κρίση παραμένει σε εσάς.</p>
+      <p data-i18n-html="help_p2"><b>Βασική ροή.</b> Επικολλήστε το πρωτότυπο (προαιρετικά), αν το χρειάζεστε ως σημείο αναφοράς, συμπληρώστε δύο ή περισσότερες μεταφραστικές εκδοχές και πατήστε «Κατάτμηση και σύγκριση».</p>
+      <p data-i18n-html="help_p3"><b>Βασικά κουμπιά.</b> «Κατάτμηση και σύγκριση»: χωρίζει τα κείμενα σε τμήματα, δηλαδή προτάσεις, παραγράφους ή γραμμές, ανάλογα με την επιλογή σας, και τα εμφανίζει σε αντιστοιχία. «Φόρτωση δείγματος»: φορτώνει ένα έτοιμο παράδειγμα, ώστε να δείτε αμέσως πώς λειτουργεί το εργαλείο. «Αποθήκευση συνεδρίας»: δημιουργεί τοπικό αρχείο με όλη τη δουλειά σας, δηλαδή κείμενα, κατάτμηση και σχολιασμούς, ώστε να τη συνεχίσετε αργότερα ή να τη στείλετε σε άλλα άτομα. «Φόρτωση συνεδρίας»: ανοίγει ένα τέτοιο αρχείο και επαναφέρει τα δεδομένα. Έτσι, για διδασκαλία μπορείτε να μοιράσετε μια έτοιμη άσκηση. «Καθαρισμός όλων»: διαγράφει τα πάντα και ξεκινά από την αρχή.</p>
+      <p data-i18n-html="help_p4"><b>Τι σημαίνουν τα σύμβολα.</b> Στις εκδοχές, το υπογραμμισμένο κείμενο διαφέρει από το κείμενο-βάση. Το σύμβολο ∅ δηλώνει στοιχείο που υπάρχει στη βάση αλλά δεν αντιστοιχίστηκε στη συγκεκριμένη εκδοχή. Δεν πρόκειται κατ’ ανάγκη για παράλειψη, καθώς μπορεί να οφείλεται σε αναδιατύπωση, συμπύκνωση ή αλλαγή σειράς. Κάντε κλικ στο ∅ για να δείτε το σχετικό κείμενο.</p>
+      <p data-i18n-html="help_p5"><b>Κείμενο-βάση.</b> Η σύγκριση γίνεται πάντα ως προς μία εκδοχή, η οποία λειτουργεί ως βάση. Μπορείτε να την αλλάξετε από το αντίστοιχο μενού, για να δείτε τις διαφορές από άλλη οπτική. Η βάση δεν είναι η «σωστή» εκδοχή, αλλά το σημείο αναφοράς της σύγκρισης.</p>
+      <p data-i18n-html="help_p6"><b>Αυτόματη παραλληλοποίηση.</b> Όταν οι εκδοχές χωρίζουν διαφορετικά τις προτάσεις, το εργαλείο αντιστοιχίζει τα τμήματα με βάση το λεξιλόγιο που μοιράζεται κάθε εκδοχή με το κείμενο-βάση. Όπου μια εκδοχή ενώνει δύο προτάσεις της βάσης, το τμήμα περιλαμβάνει και τις δύο. Το πρωτότυπο, επειδή είναι σε άλλη γλώσσα, αντιστοιχίζεται μόνο με βάση το μήκος των προτάσεων, οπότε ελέγξτε το. Αν απενεργοποιήσετε την επιλογή, τα τμήματα αντιστοιχίζονται με τη σειρά τους. <b>Διόρθωση κατάτμησης.</b> Αν τα τμήματα δεν στοιχίζονται σωστά, για παράδειγμα επειδή μια εκδοχή έχει διαφορετική στίξη ή διαφορετική κατανομή προτάσεων, ανοίξτε το πτυσσόμενο πεδίο «Έλεγχος και διόρθωση κατάτμησης», κάτω από τη σύγκριση, και διορθώστε το κείμενο κάθε τμήματος. Για να χωρίσετε ένα τμήμα στα δύο, πατήστε Ctrl+Enter στο σημείο της τομής μέσα στο κελί, ώστε να εισαχθεί το σύμβολο ||, ή γράψτε το, και έπειτα πατήστε «Διαίρεση με ||». Οι σχολιασμοί διατηρούνται στα τμήματα που δεν επηρεάζονται από τη διόρθωση. Σε διαίρεση, ο σχολιασμός μένει στο πρώτο από τα δύο νέα τμήματα. Σε συγχώνευση, διατηρείται ο σχολιασμός του πρώτου τμήματος.</p>
+      <p data-i18n-html="help_p7"><b>Αξιολόγηση.</b> Σε κάθε τμήμα, κάτω από το κείμενο κάθε εκδοχής, τα κουμπιά «+ Περιγραφική» και «+ Αξιολογική» ανοίγουν τις κατηγορίες. Οι περιγραφικές καταγράφουν μετατοπίσεις ως προς το πρωτότυπο και οι αξιολογικές τύπους σφάλματος κατά MQM. Οι δύο ομάδες αντιστοιχούν σε δύο χωριστούς τρόπους ανάγνωσης: μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα. Οι κατηγορίες που επιλέγετε εμφανίζονται κάτω από το κείμενο· πατήστε μία για να την αφαιρέσετε. Την καταλληλότερη εκδοχή, το σχόλιο και την αιτιολόγηση τα συμπληρώνετε ανοίγοντας τη γραμμή στο κάτω μέρος κάθε τμήματος. Η «Σύνοψη ανά εκδοχή», κάτω από τη σύγκριση, μετρά σε πόσα τμήματα σημειώθηκε κάθε κατηγορία σε κάθε εκδοχή.</p>
+      <p data-i18n-html="help_p8"><b>Εξαγωγή.</b> Το «Εξαγωγή αναφοράς (HTML)» δίνει αρχείο για ανάγνωση και εκτύπωση. Το «Εξαγωγή πίνακα (CSV)» δίνει αρχείο για επεξεργασία σε λογιστικό φύλλο. Το αρχείο συνεδρίας (JSON) χρησιμεύει για να συνεχίσετε τη δουλειά, όχι για ανάγνωση.</p>
+      <p data-i18n-html="help_p9"><b>Απόρρητο.</b> Όλα γίνονται τοπικά στον φυλλομετρητή. Τα κείμενα υποβάλλονται σε τοπική επεξεργασία και δεν αποθηκεύονται. Κανένα κείμενο δεν αποστέλλεται ούτε αποθηκεύεται σε διακομιστή, και η ανανέωση της σελίδας διαγράφει τα πάντα. Προσοχή: το αρχείο συνεδρίας που αποθηκεύετε περιέχει τα κείμενά σας. Μην το μοιράζεστε αν περιλαμβάνει προστατευμένες μεταφράσεις ή άλλο υλικό που δεν πρέπει να διανεμηθεί.</p>
+      <p data-i18n-html="help_p10"><b>Πλαίσιο και πηγές.</b> Η περιγραφική διάσταση βασίζεται σε προσαρμοσμένο υποσύνολο του συγκριτικού-περιγραφικού μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, με τις τρεις κύριες κατηγορίες του: μετατροπία (modulation), τροποποίηση (modification) και μετάλλαξη (mutation). Το εργαλείο δεν υλοποιεί την πλήρη διαδικασία του μοντέλου (transemes, architranseme, μετάβαση στο μακροδομικό επίπεδο). Η εξομάλυνση, η πολιτισμική αναφορά και η μεταφορά/εικόνα δεν ανήκουν στο μοντέλο· προστέθηκαν ως συχνά ζητήματα της κριτικής ανάγνωσης. Η αξιολογική διάσταση βασίζεται σε επιλεγμένες διαστάσεις σφαλμάτων της τυπολογίας MQM Core (έξι από τις επτά διαστάσεις της, χωρίς τη διάσταση design and markup, που δεν αφορά απλό κείμενο), χωρίς βαθμίδες σοβαρότητας και χωρίς βαθμολογία. Αναφορές: van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/</p>
+    </div>
+  </details>
+
+  <h2 class="sec"><span data-i18n="sec_source">Πρωτότυπο κείμενο</span> <span style="font-family:var(--sans);text-transform:none;letter-spacing:0;color:var(--ink-soft);font-weight:400" data-i18n="sec_source_note">(προαιρετικό, για αντιπαραβολή)</span></h2>
+  <div class="card src">
+    <div class="row1">
+      <span class="vtag" style="background:var(--teal)" data-i18n="vtag_source">ΠΗΓΗ</span>
+      <input class="name" id="srcName" data-i18n-ph="ph_srcname" placeholder="π.χ. Alphonse Daudet, «La mule du Pape»">
+    </div>
+    <textarea id="srcText" data-i18n-ph="ph_srctext" placeholder="Επικολλήστε εδώ το πρωτότυπο (π.χ. το γαλλικό κείμενο). Εμφανίζεται ως σημείο αναφοράς. Οι διαφορές επισημαίνονται μόνο μεταξύ των εκδοχών."></textarea>
+    <div class="ctl">
+      <label class="filelbl"><span data-i18n="load_txt">📄 Φόρτωση .txt</span><input type="file" accept=".txt,text/plain" data-src="1"></label>
+      <span></span>
+    </div>
+  </div>
+
+  <h2 class="sec" data-i18n="sec_versions">Μεταφραστικές εκδοχές</h2>
+  <p class="note" data-i18n="versions_note">Προσθέστε δύο ή περισσότερες εκδοχές στην ίδια γλώσσα. Η επισήμανση διαφορών γίνεται ανάμεσα στις εκδοχές, με βάση την εκδοχή που θα επιλέξετε ως κείμενο-βάση.</p>
+  <div class="grid" id="versions"></div>
+  <button class="addbtn" id="addVer" data-i18n="add_version">+ Προσθήκη εκδοχής</button>
+
+  <div class="toolbar">
+    <div class="fld">
+      <label for="segMode" data-i18n="fld_seg">Κατάτμηση</label>
+      <select id="segMode">
+        <option value="sentence" data-i18n="seg_sentence">Ανά πρόταση</option>
+        <option value="paragraph" data-i18n="seg_paragraph">Ανά παράγραφο</option>
+        <option value="line" data-i18n="seg_line">Ανά γραμμή</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label for="baseSel" data-i18n="fld_base">Κείμενο-βάση</label>
+      <select id="baseSel"></select>
+    </div>
+    <div class="chk"><input type="checkbox" id="autoAlign" checked><label for="autoAlign" data-i18n="auto_align" data-i18n-title="auto_align_title" title="">Αυτόματη παραλληλοποίηση</label></div>
+    <div class="chk"><input type="checkbox" id="showOmit" checked><label for="showOmit" data-i18n="show_omit" data-i18n-title="show_omit_title" title="ως προς το κείμενο-βάση">Εμφάνιση μη αντιστοιχισμένων στοιχείων</label></div>
+    <button class="btn primary" id="compareBtn" data-i18n-html="btn_compare">Κατάτμηση και σύγκριση</button>
+  </div>
+  <div class="toolbar-actions">
+    <button class="btn ghost mini" id="loadSample" data-i18n="btn_sample">Φόρτωση δείγματος</button>
+    <button class="btn ghost mini" id="loadSession" data-i18n="btn_loadsession">Φόρτωση συνεδρίας</button>
+    <button class="btn ghost mini" id="saveSession" data-i18n="btn_savesession">Αποθήκευση συνεδρίας</button>
+    <input type="file" id="sessionFile" accept=".json,application/json" style="display:none">
+    <button class="btn ghost mini" id="clearBtn" data-i18n="btn_clear">Καθαρισμός όλων</button>
+  </div>
+
+
+  <h2 class="sec" data-i18n="sec_compare">Σύγκριση</h2>
+  <div class="legend" id="legend" data-i18n-html="legend"><u>υπογράμμιση</u>: διαφορά από το κείμενο-βάση. <span class="lg-omit">∅</span>: μη αντιστοιχισμένο στοιχείο βάσης (κλικ για εμφάνιση). <span class="lg-warn">⚠</span>: μερική αντιστοιχία τμημάτων. Κάτω από κάθε εκδοχή: <b>+ Περιγραφική</b> και <b>+ Αξιολογική</b>.</div>
+  <div id="mismatchNudge"></div>
+  <div id="results"><div class="empty">Συμπληρώστε τις εκδοχές και πατήστε «Κατάτμηση και σύγκριση».</div></div>
+
+  <details id="segEditorWrap" class="segtool" style="display:none">
+    <summary><span data-i18n="segfix_title">Έλεγχος και διόρθωση κατάτμησης</span> <span class="hint" data-i18n="segfix_hint">(ανοίξτε αν χρειάζεται διόρθωση)</span></summary>
+    <div class="segtool-body">
+      <p class="seghelp" data-i18n-html="seghelp">Ελέγξτε και διορθώστε τα τμήματα. Για διαίρεση τμήματος, πατήστε Ctrl+Enter στο σημείο της τομής μέσα στο κελί, ώστε να εισαχθεί το σύμβολο <code>||</code>, ή γράψτε το, και έπειτα πατήστε «Διαίρεση με ||». Οι σχολιασμοί διατηρούνται στα τμήματα που δεν επηρεάζονται από τη διόρθωση.</p>
+      <div class="segactionsbar">
+        <button class="btn ghost mini" id="applySegEdits" data-i18n="btn_applyseg">Ενημέρωση σύγκρισης από διορθώσεις</button>
+        <button class="btn ghost mini" id="addSegRowEnd" data-i18n="btn_addrowend">+ Κενό τμήμα στο τέλος</button>
+      </div>
+      <div id="segEditor" class="segtablewrap"></div>
+    </div>
+  </details>
+
+  <div id="summary"></div>
+
+  <div class="exportbar" id="exportbar" style="display:none">
+    <button class="btn ghost" id="expHtml" data-i18n="btn_exphtml">Εξαγωγή αναφοράς (HTML)</button>
+    <button class="btn ghost" id="expCsv" data-i18n="btn_expcsv">Εξαγωγή πίνακα (CSV)</button>
+  </div>
+
+  <div class="foot">
+    <span data-i18n-html="foot_main"><b>Synkrisis</b>. Μοντέλο σύγκρισης: αντιπαραβολή ως προς ένα κείμενο-βάση, δηλαδή η μέθοδος που χρησιμοποιείται στις κριτικές εκδόσεις για τη συστηματική σύγκριση των διαφορετικών εκδοχών ενός κειμένου, εδώ σε επίπεδο λέξης. Ο σχολιασμός οργανώνεται σε δύο χωριστές ομάδες κατηγοριών: περιγραφικές, με βάση προσαρμοσμένο υποσύνολο του μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, και αξιολογικές, με βάση επιλεγμένες διαστάσεις σφαλμάτων του MQM, χωρίς βαθμολόγηση. Το εργαλείο δεν φιλοξενεί κείμενα και μεταφράσεις. Λειτουργεί με τη λογική «bring your own text»: εισάγετε μόνο κείμενα στα οποία έχετε νόμιμη πρόσβαση, και αυτά δεν αποθηκεύονται.</span>
+    <div class="credit" data-i18n-html="credit">«Synkrisis», έκδοση 1.0.0. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026. Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5 και Claude Fable 5 (Anthropic).</div>
+</div>
+</div>
+
+<script>
+"use strict";
+(function(){
+  /* ---- UI language & theme ---- */
+  const LANG_KEY = "synkrisis-lang", THEME_KEY = "synkrisis-theme";
+  const LOCALES = { el:"el-GR", fr:"fr-FR", en:"en-GB" };
+  const I18N = {
+  el: {
+    doc_title: "Synkrisis: συγκριτική αξιολόγηση μεταφραστικών εκδοχών",
+    sub: "Ένα περιβάλλον για την κριτική ανάγνωση μεταφράσεων:<br>σύγκριση, αξιολόγηση και τεκμηρίωση πολλαπλών εκδοχών του ίδιου κειμένου, εντός της ίδιας γλώσσας.",
+    privacy: "🔒 <b>Τα κείμενα υποβάλλονται σε τοπική επεξεργασία και δεν αποθηκεύονται.</b> Η επεξεργασία γίνεται εξ ολοκλήρου στον φυλλομετρητή. Τίποτα δεν αποστέλλεται σε διακομιστή. Η ανανέωση της σελίδας διαγράφει τα πάντα.",
+    theme_title: "Εναλλαγή φωτεινού/σκούρου θέματος",
+    help_title: "Οδηγίες χρήσης",
+    help_p1: "<b>Τι κάνει.</b> Συγκρίνει δύο ή περισσότερες μεταφραστικές εκδοχές του ίδιου κειμένου, στην ίδια γλώσσα-στόχο, επισημαίνει τις διαφορές τους και σας βοηθά να τις αξιολογήσετε και να τεκμηριώσετε τις επιλογές σας. Δεν μεταφράζει και δεν αξιολογεί αυτόματα. Η κρίση παραμένει σε εσάς.",
+    help_p2: "<b>Βασική ροή.</b> Επικολλήστε το πρωτότυπο (προαιρετικά), αν το χρειάζεστε ως σημείο αναφοράς, συμπληρώστε δύο ή περισσότερες μεταφραστικές εκδοχές και πατήστε «Κατάτμηση και σύγκριση».",
+    help_p3: "<b>Βασικά κουμπιά.</b> «Κατάτμηση και σύγκριση»: χωρίζει τα κείμενα σε τμήματα, δηλαδή προτάσεις, παραγράφους ή γραμμές, ανάλογα με την επιλογή σας, και τα εμφανίζει σε αντιστοιχία. «Φόρτωση δείγματος»: φορτώνει ένα έτοιμο παράδειγμα, ώστε να δείτε αμέσως πώς λειτουργεί το εργαλείο. «Αποθήκευση συνεδρίας»: δημιουργεί τοπικό αρχείο με όλη τη δουλειά σας, δηλαδή κείμενα, κατάτμηση και σχολιασμούς, ώστε να τη συνεχίσετε αργότερα ή να τη στείλετε σε άλλα άτομα. «Φόρτωση συνεδρίας»: ανοίγει ένα τέτοιο αρχείο και επαναφέρει τα δεδομένα. Έτσι, για διδασκαλία μπορείτε να μοιράσετε μια έτοιμη άσκηση. «Καθαρισμός όλων»: διαγράφει τα πάντα και ξεκινά από την αρχή.",
+    help_p4: "<b>Τι σημαίνουν τα σύμβολα.</b> Στις εκδοχές, το υπογραμμισμένο κείμενο διαφέρει από το κείμενο-βάση. Το σύμβολο ∅ δηλώνει στοιχείο που υπάρχει στη βάση αλλά δεν αντιστοιχίστηκε στη συγκεκριμένη εκδοχή. Δεν πρόκειται κατ’ ανάγκη για παράλειψη, καθώς μπορεί να οφείλεται σε αναδιατύπωση, συμπύκνωση ή αλλαγή σειράς. Κάντε κλικ στο ∅ για να δείτε το σχετικό κείμενο.",
+    help_p5: "<b>Κείμενο-βάση.</b> Η σύγκριση γίνεται πάντα ως προς μία εκδοχή, η οποία λειτουργεί ως βάση. Μπορείτε να την αλλάξετε από το αντίστοιχο μενού, για να δείτε τις διαφορές από άλλη οπτική. Η βάση δεν είναι η «σωστή» εκδοχή, αλλά το σημείο αναφοράς της σύγκρισης.",
+    help_p6: "<b>Αυτόματη παραλληλοποίηση.</b> Όταν οι εκδοχές χωρίζουν διαφορετικά τις προτάσεις, το εργαλείο αντιστοιχίζει τα τμήματα με βάση το λεξιλόγιο που μοιράζεται κάθε εκδοχή με το κείμενο-βάση. Όπου μια εκδοχή ενώνει δύο προτάσεις της βάσης, το τμήμα περιλαμβάνει και τις δύο. Το πρωτότυπο, επειδή είναι σε άλλη γλώσσα, αντιστοιχίζεται μόνο με βάση το μήκος των προτάσεων, οπότε ελέγξτε το. Αν απενεργοποιήσετε την επιλογή, τα τμήματα αντιστοιχίζονται με τη σειρά τους. <b>Διόρθωση κατάτμησης.</b> Αν τα τμήματα δεν στοιχίζονται σωστά, για παράδειγμα επειδή μια εκδοχή έχει διαφορετική στίξη ή διαφορετική κατανομή προτάσεων, ανοίξτε το πτυσσόμενο πεδίο «Έλεγχος και διόρθωση κατάτμησης», κάτω από τη σύγκριση, και διορθώστε το κείμενο κάθε τμήματος. Για να χωρίσετε ένα τμήμα στα δύο, πατήστε Ctrl+Enter στο σημείο της τομής μέσα στο κελί, ώστε να εισαχθεί το σύμβολο ||, ή γράψτε το, και έπειτα πατήστε «Διαίρεση με ||». Οι σχολιασμοί διατηρούνται στα τμήματα που δεν επηρεάζονται από τη διόρθωση. Σε διαίρεση, ο σχολιασμός μένει στο πρώτο από τα δύο νέα τμήματα. Σε συγχώνευση, διατηρείται ο σχολιασμός του πρώτου τμήματος.",
+    help_p7: "<b>Αξιολόγηση.</b> Σε κάθε τμήμα, κάτω από το κείμενο κάθε εκδοχής, τα κουμπιά «+ Περιγραφική» και «+ Αξιολογική» ανοίγουν τις κατηγορίες. Οι περιγραφικές καταγράφουν μετατοπίσεις ως προς το πρωτότυπο και οι αξιολογικές τύπους σφάλματος κατά MQM. Οι δύο ομάδες αντιστοιχούν σε δύο χωριστούς τρόπους ανάγνωσης: μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα. Οι κατηγορίες που επιλέγετε εμφανίζονται κάτω από το κείμενο· πατήστε μία για να την αφαιρέσετε. Την καταλληλότερη εκδοχή, το σχόλιο και την αιτιολόγηση τα συμπληρώνετε ανοίγοντας τη γραμμή στο κάτω μέρος κάθε τμήματος. Η «Σύνοψη ανά εκδοχή», κάτω από τη σύγκριση, μετρά σε πόσα τμήματα σημειώθηκε κάθε κατηγορία σε κάθε εκδοχή.",
+    help_p8: "<b>Εξαγωγή.</b> Το «Εξαγωγή αναφοράς (HTML)» δίνει αρχείο για ανάγνωση και εκτύπωση. Το «Εξαγωγή πίνακα (CSV)» δίνει αρχείο για επεξεργασία σε λογιστικό φύλλο. Το αρχείο συνεδρίας (JSON) χρησιμεύει για να συνεχίσετε τη δουλειά, όχι για ανάγνωση.",
+    help_p9: "<b>Απόρρητο.</b> Όλα γίνονται τοπικά στον φυλλομετρητή. Τα κείμενα υποβάλλονται σε τοπική επεξεργασία και δεν αποθηκεύονται. Κανένα κείμενο δεν αποστέλλεται ούτε αποθηκεύεται σε διακομιστή, και η ανανέωση της σελίδας διαγράφει τα πάντα. Προσοχή: το αρχείο συνεδρίας που αποθηκεύετε περιέχει τα κείμενά σας. Μην το μοιράζεστε αν περιλαμβάνει προστατευμένες μεταφράσεις ή άλλο υλικό που δεν πρέπει να διανεμηθεί.",
+    help_p10: "<b>Πλαίσιο και πηγές.</b> Η περιγραφική διάσταση βασίζεται σε προσαρμοσμένο υποσύνολο του συγκριτικού-περιγραφικού μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, με τις τρεις κύριες κατηγορίες του: μετατροπία (modulation), τροποποίηση (modification) και μετάλλαξη (mutation). Το εργαλείο δεν υλοποιεί την πλήρη διαδικασία του μοντέλου (transemes, architranseme, μετάβαση στο μακροδομικό επίπεδο). Η εξομάλυνση, η πολιτισμική αναφορά και η μεταφορά/εικόνα δεν ανήκουν στο μοντέλο· προστέθηκαν ως συχνά ζητήματα της κριτικής ανάγνωσης. Η αξιολογική διάσταση βασίζεται σε επιλεγμένες διαστάσεις σφαλμάτων της τυπολογίας MQM Core (έξι από τις επτά διαστάσεις της, χωρίς τη διάσταση design and markup, που δεν αφορά απλό κείμενο), χωρίς βαθμίδες σοβαρότητας και χωρίς βαθμολογία. Αναφορές: van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/",
+    sec_source: "Πρωτότυπο κείμενο",
+    sec_source_note: "(προαιρετικό, για αντιπαραβολή)",
+    vtag_source: "ΠΗΓΗ",
+    ph_srcname: "π.χ. Alphonse Daudet, «La mule du Pape»",
+    ph_srctext: "Επικολλήστε εδώ το πρωτότυπο (π.χ. το γαλλικό κείμενο). Εμφανίζεται ως σημείο αναφοράς. Οι διαφορές επισημαίνονται μόνο μεταξύ των εκδοχών.",
+    load_txt: "📄 Φόρτωση .txt",
+    sec_versions: "Μεταφραστικές εκδοχές",
+    versions_note: "Προσθέστε δύο ή περισσότερες εκδοχές στην ίδια γλώσσα. Η επισήμανση διαφορών γίνεται ανάμεσα στις εκδοχές, με βάση την εκδοχή που θα επιλέξετε ως κείμενο-βάση.",
+    add_version: "+ Προσθήκη εκδοχής",
+    ph_vername: "Όνομα εκδοχής (π.χ. ΤΝ-Α, Μτφρ. 1)",
+    ph_vertext: "Επικολλήστε εδώ τη μετάφραση.",
+    ph_verprov: "Προέλευση εκδοχής (μοντέλο, προτροπή, ακατέργαστη ή μετεπεξεργασμένη, ημερομηνία)",
+    remove: "Αφαίρεση",
+    fld_seg: "Κατάτμηση",
+    seg_sentence: "Ανά πρόταση",
+    seg_paragraph: "Ανά παράγραφο",
+    seg_line: "Ανά γραμμή",
+    fld_base: "Κείμενο-βάση",
+    show_omit: "Εμφάνιση μη αντιστοιχισμένων στοιχείων",
+    show_omit_title: "ως προς το κείμενο-βάση",
+    auto_align: "Αυτόματη παραλληλοποίηση",
+    auto_align_title: "Αντιστοιχίζει τα τμήματα με βάση το περιεχόμενο, όταν οι εκδοχές χωρίζουν διαφορετικά τις προτάσεις",
+    btn_compare: "Κατάτμηση και σύγκριση",
+    btn_sample: "Φόρτωση δείγματος",
+    btn_loadsession: "Φόρτωση συνεδρίας",
+    btn_savesession: "Αποθήκευση συνεδρίας",
+    btn_clear: "Καθαρισμός όλων",
+    sec_compare: "Σύγκριση",
+    legend: "<u>υπογράμμιση</u>: διαφορά από το κείμενο-βάση. <span class=\"lg-omit\">∅</span>: μη αντιστοιχισμένο στοιχείο βάσης (κλικ για εμφάνιση). <span class=\"lg-warn\">⚠</span>: μερική αντιστοιχία τμημάτων. Κάτω από κάθε εκδοχή: <b>+ Περιγραφική</b> και <b>+ Αξιολογική</b>.",
+    empty_initial: "Συμπληρώστε τις εκδοχές και πατήστε «Κατάτμηση και σύγκριση».",
+    empty_loaded: "Φορτώθηκε συνεδρία χωρίς αποτελέσματα. Πατήστε «Κατάτμηση και σύγκριση».",
+    segfix_title: "Έλεγχος και διόρθωση κατάτμησης",
+    segfix_hint: "(ανοίξτε αν χρειάζεται διόρθωση)",
+    seghelp: "Ελέγξτε και διορθώστε τα τμήματα. Για διαίρεση τμήματος, πατήστε Ctrl+Enter στο σημείο της τομής μέσα στο κελί, ώστε να εισαχθεί το σύμβολο <code>||</code>, ή γράψτε το, και έπειτα πατήστε «Διαίρεση με ||». Οι σχολιασμοί διατηρούνται στα τμήματα που δεν επηρεάζονται από τη διόρθωση.",
+    btn_applyseg: "Ενημέρωση σύγκρισης από διορθώσεις",
+    btn_addrowend: "+ Κενό τμήμα στο τέλος",
+    btn_exphtml: "Εξαγωγή αναφοράς (HTML)",
+    btn_expcsv: "Εξαγωγή πίνακα (CSV)",
+    foot_main: "<b>Synkrisis</b>. Μοντέλο σύγκρισης: αντιπαραβολή ως προς ένα κείμενο-βάση, δηλαδή η μέθοδος που χρησιμοποιείται στις κριτικές εκδόσεις για τη συστηματική σύγκριση των διαφορετικών εκδοχών ενός κειμένου, εδώ σε επίπεδο λέξης. Ο σχολιασμός οργανώνεται σε δύο χωριστές ομάδες κατηγοριών: περιγραφικές, με βάση προσαρμοσμένο υποσύνολο του μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, και αξιολογικές, με βάση επιλεγμένες διαστάσεις σφαλμάτων του MQM, χωρίς βαθμολόγηση. Το εργαλείο δεν φιλοξενεί κείμενα και μεταφράσεις. Λειτουργεί με τη λογική «bring your own text»: εισάγετε μόνο κείμενα στα οποία έχετε νόμιμη πρόσβαση, και αυτά δεν αποθηκεύονται.",
+    credit: "«Synkrisis», έκδοση {ver}. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026.{doi} Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5 και Claude Fable 5 (Anthropic).",
+    alert_need2: "Χρειάζονται τουλάχιστον δύο συμπληρωμένες εκδοχές.",
+    alert_nosegs: "Δεν προέκυψαν τμήματα.",
+    confirm_resegment: "Η εκ νέου κατάτμηση θα διαγράψει τους υπάρχοντες σχολιασμούς. Συνέχεια;",
+    mismatch_row: "⚠ Τα τμήματα δεν αντιστοιχούν πλήρως. Ελέγξτε τα στο πεδίο «Έλεγχος και διόρθωση κατάτμησης».",
+    source_default: "Πρωτότυπο",
+    ann_summary: "Καταλληλότερη εκδοχή, σχόλιο και αιτιολόγηση · τμήμα {n}",
+    best_in_summary: " · καταλληλότερη: {v}",
+    add_desc: "+ Περιγραφική", add_eval: "+ Αξιολογική",
+    hint_desc: "Περιγραφική διάσταση: μετατοπίσεις ως προς το πρωτότυπο, όχι ως προς το κείμενο-βάση, κατά το μοντέλο της van Leuven-Zwart (προσαρμοσμένο υποσύνολο). Μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα.",
+    hint_eval: "Αξιολογική διάσταση: τύποι σφάλματος κατά MQM, χωρίς βαθμολόγηση σοβαρότητας.",
+    sub_mod: "Μετατροπία (modulation)", sub_modif: "Τροποποίηση (modification)", sub_mut: "Μετάλλαξη (mutation)",
+    sub_other: "Εκτός μοντέλου: ζητήματα κριτικής ανάγνωσης",
+    remove_tag: "Πατήστε για αφαίρεση",
+    colon: ":",
+    best_label: "Καταλληλότερη εκδοχή:",
+    none: "καμία",
+    comment: "Σχόλιο",
+    justification: "Αιτιολόγηση επιλογής",
+    nudge_text: "⚠ Τμήματα που δεν αντιστοιχούν πλήρως: {n}. Ελέγξτε τα στο πεδίο «Έλεγχος και διόρθωση κατάτμησης».",
+    nudge_btn: "Άνοιγμα διόρθωσης κατάτμησης",
+    th_source: "Πηγή",
+    base_suffix: " (βάση)",
+    src_suffix: " (πηγή)",
+    badge_base: "βάση",
+    badge_source: "πηγή",
+    th_actions: "Ενέργειες",
+    btn_split: "Διαίρεση με ||",
+    btn_merge: "Συγχώνευση με επόμενο",
+    btn_addafter: "+ Κενό μετά",
+    btn_delrow: "Διαγραφή",
+    alert_split: "Βάλτε το σύμβολο || στο σημείο της τομής, ή πατήστε Ctrl+Enter μέσα στο κελί για να εισαχθεί εκεί που βρίσκεται ο δρομέας.",
+    alert_nomerge: "Δεν υπάρχει επόμενο τμήμα για συγχώνευση.",
+    alert_nodel: "Δεν μπορεί να διαγραφεί το μοναδικό τμήμα.",
+    omit_title: "Μη αντιστοιχισμένο στοιχείο βάσης: ",
+    report_title: "Αναφορά σύγκρισης",
+    report_h1: "Αναφορά σύγκρισης μεταφραστικών εκδοχών",
+    report_meta: "Εργαλείο «Synkrisis», Κατάτμηση: {mode}, Κείμενο-βάση: {base}, {date}",
+    prov_h: "Προέλευση εκδοχών",
+    seg_label: "Τμήμα {n}",
+    seg_mm_suffix: ", ⚠ δεν αντιστοιχεί πλήρως",
+    cats_label: "Κατηγορίες:",
+    report_local: "Παραγωγή με τοπική επεξεργασία. Κανένα κείμενο δεν αποθηκεύτηκε ή απεστάλη.",
+    report_credit: "«Synkrisis», έκδοση {ver}. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026.{doi} Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el\">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5 και Claude Fable 5 (Anthropic).",
+    mode_sentence: "ανά πρόταση",
+    mode_paragraph: "ανά παράγραφο",
+    mode_line: "ανά γραμμή",
+    csv_best: "Καταλληλότερη εκδοχή",
+    csv_cats: "Κατηγορίες",
+    csv_comment: "Σχόλιο",
+    csv_just: "Αιτιολόγηση",
+    csv_mm: "Μερική αντιστοιχία",
+    yes: "ναι",
+    confirm_clear: "Διαγραφή όλων των κειμένων, σχολιασμών και αποτελεσμάτων;",
+    confirm_sample: "Η φόρτωση του δείγματος θα αντικαταστήσει τα τρέχοντα κείμενα και αποτελέσματα. Συνέχεια;",
+    alert_nothing: "Δεν υπάρχει τίποτα να αποθηκευτεί ακόμη.",
+    alert_badsession: "Το αρχείο δεν είναι έγκυρη συνεδρία.",
+    confirm_loadsession: "Η φόρτωση συνεδρίας θα αντικαταστήσει τα τρέχοντα κείμενα και αποτελέσματα. Συνέχεια;",
+    alert_readsession: "Δεν ήταν δυνατή η ανάγνωση του αρχείου συνεδρίας.",
+    file_report: "synkrisis-anafora.html",
+    file_csv: "synkrisis-pinakas.csv",
+    file_session: "synkrisis-synedria.json",
+    grp_desc: "Περιγραφικές", grp_eval: "Αξιολογικές",
+    vann_hint: "<b>Περιγραφικές</b>: μετατοπίσεις ως προς το πρωτότυπο, όχι ως προς το κείμενο-βάση (προσαρμοσμένο υποσύνολο κατηγοριών της van Leuven-Zwart). Μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα. <b>Αξιολογικές</b>: τύποι σφάλματος κατά τις διαστάσεις του MQM, χωρίς βαθμολόγηση σοβαρότητας.",
+    legacy_label: "Κατηγορίες ανά τμήμα (παλαιότερη μορφή συνεδρίας):",
+    sum_title: "Σύνοψη ανά εκδοχή",
+    sum_best: "Επιλογή ως καταλληλότερη",
+    sum_annotated: "Τμήματα με σχολιασμό",
+    sum_tot_desc: "Σύνολο περιγραφικών",
+    sum_tot_eval: "Σύνολο αξιολογικών",
+    sum_note: "Οι αριθμοί μετρούν σε πόσα τμήματα σημειώθηκε κάθε κατηγορία για κάθε εκδοχή, όχι μεμονωμένες εμφανίσεις. Εμφανίζονται μόνο οι κατηγορίες που χρησιμοποιήθηκαν.",
+    sum_empty: "Δεν έχει καταχωριστεί ακόμη σχολιασμός.",
+    d_gen: "Γενίκευση", d_spec: "Εξειδίκευση", d_smod: "Σημασιολογική τροποποίηση",
+    d_styl: "Υφολογική τροποποίηση", d_synt: "Συντακτική τροποποίηση", d_prag: "Πραγματολογική τροποποίηση",
+    d_dadd: "Προσθήκη", d_ddel: "Αφαίρεση", d_rad: "Ριζική αλλαγή σημασίας",
+    d_norm: "Εξομάλυνση", d_cult: "Πολιτισμική αναφορά", d_met: "Μεταφορά/εικόνα",
+    e_term: "Ορολογία", e_mis: "Ακρίβεια: λανθασμένη απόδοση", e_eadd: "Ακρίβεια: προσθήκη",
+    e_eomit: "Ακρίβεια: παράλειψη", e_ling: "Γλωσσικές συμβάσεις", e_sty: "Ύφος",
+    e_loc: "Επιχώριες συμβάσεις", e_aud: "Καταλληλότητα για το κοινό",
+    cat_lex: "Λεξιλογική επιλογή", cat_term: "Ορολογία", cat_syn: "Σύνταξη", cat_sty: "Ύφος",
+    cat_reg: "Γλωσσικό επίπεδο", cat_cult: "Πολιτισμική αναφορά", cat_met: "Μεταφορά/εικόνα",
+    cat_add: "Προσθήκη", cat_omit: "Παράλειψη", cat_norm: "Εξομάλυνση",
+    cat_sem: "Σημασιολογική μετατόπιση", cat_prag: "Πραγματολογική μετατόπιση",
+    cat_read: "Αναγνωσιμότητα", cat_coh: "Συνοχή"
+  },
+  fr: {
+    doc_title: "Synkrisis : évaluation comparative de versions de traduction",
+    sub: "Un environnement pour la lecture critique des traductions :<br>comparaison, évaluation et documentation de plusieurs versions d’un même texte, dans une même langue.",
+    privacy: "🔒 <b>Les textes sont traités localement et ne sont pas conservés.</b> Le traitement s’effectue entièrement dans le navigateur. Rien n’est envoyé à un serveur. Le rechargement de la page efface tout.",
+    theme_title: "Basculer entre thème clair et thème sombre",
+    help_title: "Mode d’emploi",
+    help_p1: "<b>Ce que fait l’outil.</b> Il compare deux versions de traduction ou plus d’un même texte, dans la même langue cible, met en évidence leurs différences et vous aide à les évaluer et à documenter vos choix. Il ne traduit pas et n’évalue pas automatiquement. Le jugement vous appartient.",
+    help_p2: "<b>Déroulement de base.</b> Collez l’original (facultatif), si vous en avez besoin comme point de référence, remplissez deux versions de traduction ou plus et cliquez sur « Segmenter &amp; comparer ».",
+    help_p3: "<b>Boutons principaux.</b> « Segmenter &amp; comparer » : découpe les textes en segments, c’est-à-dire en phrases, paragraphes ou lignes, selon votre choix, et les affiche en correspondance. « Charger l’exemple » : charge un exemple prêt à l’emploi, pour voir immédiatement comment fonctionne l’outil. « Enregistrer la session » : crée un fichier local avec tout votre travail, c’est-à-dire textes, segmentation et annotations, pour le reprendre plus tard ou l’envoyer à d’autres personnes. « Charger une session » : ouvre un tel fichier et restaure les données. Pour l’enseignement, vous pouvez ainsi distribuer un exercice prêt à l’emploi. « Tout effacer » : supprime tout et repart de zéro.",
+    help_p4: "<b>Signification des symboles.</b> Dans les versions, le texte souligné diffère du texte de base. Le symbole ∅ signale un élément présent dans le texte de base mais non apparié dans la version concernée. Il ne s’agit pas nécessairement d’une omission : cela peut tenir à une reformulation, à une condensation ou à un changement d’ordre. Cliquez sur ∅ pour afficher le texte concerné.",
+    help_p5: "<b>Texte de base.</b> La comparaison se fait toujours par rapport à une version, qui sert de base. Vous pouvez la changer dans le menu correspondant, pour voir les différences sous un autre angle. La base n’est pas la version « correcte », mais le point de référence de la comparaison.",
+    help_p6: "<b>Alignement automatique.</b> Lorsque les versions découpent les phrases différemment, l’outil met les segments en correspondance d’après le vocabulaire que chaque version partage avec le texte de base. Si une version réunit deux phrases de la base, le segment comprend les deux. L’original, étant dans une autre langue, est aligné uniquement d’après la longueur des phrases : vérifiez-le. Si vous désactivez l’option, les segments sont appariés dans leur ordre. <b>Correction de la segmentation.</b> Si les segments ne s’alignent pas correctement, par exemple parce qu’une version a une ponctuation différente ou une répartition différente des phrases, ouvrez le volet « Vérification et correction de la segmentation », sous la comparaison, et corrigez le texte de chaque segment. Pour scinder un segment en deux, appuyez sur Ctrl+Entrée à l’endroit de la coupure dans la cellule, afin d’insérer le symbole ||, ou saisissez-le, puis cliquez sur « Scinder par || ». Les annotations sont conservées pour les segments non affectés par la correction. Lors d’une scission, l’annotation reste sur le premier des deux nouveaux segments. Lors d’une fusion, l’annotation du premier segment est conservée.",
+    help_p7: "<b>Évaluation.</b> Dans chaque segment, sous le texte de chaque version, les boutons « + Descriptive » et « + Évaluative » ouvrent les catégories. Les catégories descriptives relèvent les glissements par rapport à l’original, les évaluatives les types d’erreur selon MQM. Les deux groupes correspondent à deux modes de lecture distincts : un glissement n’est pas nécessairement une erreur. Les catégories choisies s’affichent sous le texte ; cliquez sur l’une d’elles pour la retirer. La version la plus adéquate, le commentaire et la justification se saisissent en ouvrant la ligne au bas de chaque segment. La « Synthèse par version », sous la comparaison, compte dans combien de segments chaque catégorie a été relevée pour chaque version.",
+    help_p8: "<b>Exportation.</b> « Exporter le rapport (HTML) » produit un fichier destiné à la lecture et à l’impression. « Exporter le tableau (CSV) » produit un fichier destiné au tableur. Le fichier de session (JSON) sert à reprendre le travail, non à la lecture.",
+    help_p9: "<b>Confidentialité.</b> Tout se passe localement dans le navigateur. Les textes sont traités localement et ne sont pas conservés. Aucun texte n’est envoyé à un serveur ni conservé sur celui-ci, et le rechargement de la page efface tout. Attention : le fichier de session que vous enregistrez contient vos textes. Ne le partagez pas s’il comprend des traductions protégées ou d’autres contenus qui ne doivent pas être diffusés.",
+    help_p10: "<b>Cadre et sources.</b> La dimension descriptive repose sur un sous-ensemble adapté du modèle comparatif-descriptif des glissements de traduction de van Leuven-Zwart, avec ses trois catégories principales : modulation, modification et mutation. L’outil n’implémente pas la procédure complète du modèle (transèmes, architransème, passage au niveau macrostructurel). La normalisation, la référence culturelle et la métaphore/image n’appartiennent pas au modèle ; elles ont été ajoutées comme questions fréquentes de la lecture critique. La dimension évaluative repose sur une sélection des dimensions d’erreur de la typologie MQM Core (six de ses sept dimensions, sans la dimension design and markup, qui ne concerne pas le texte brut), sans degrés de gravité ni notation. Références : van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/",
+    sec_source: "Texte original",
+    sec_source_note: "(facultatif, à titre de référence)",
+    vtag_source: "SOURCE",
+    ph_srcname: "p. ex. Alphonse Daudet, « La mule du Pape »",
+    ph_srctext: "Collez ici le texte original (p. ex. le texte français). Il s’affiche comme point de référence. Les différences ne sont marquées qu’entre les versions.",
+    load_txt: "📄 Charger un .txt",
+    sec_versions: "Versions de traduction",
+    versions_note: "Ajoutez deux versions ou plus dans la même langue. Les différences sont marquées entre les versions, par rapport à celle que vous choisirez comme texte de base.",
+    add_version: "+ Ajouter une version",
+    ph_vername: "Nom de la version (p. ex. IA-A, Trad. 1)",
+    ph_vertext: "Collez ici la traduction.",
+    ph_verprov: "Provenance de la version (modèle, invite, brute ou révisée, date)",
+    remove: "Supprimer",
+    fld_seg: "Segmentation",
+    seg_sentence: "Par phrase",
+    seg_paragraph: "Par paragraphe",
+    seg_line: "Par ligne",
+    fld_base: "Texte de base",
+    show_omit: "Afficher les éléments non appariés",
+    show_omit_title: "par rapport au texte de base",
+    auto_align: "Alignement automatique",
+    auto_align_title: "Met les segments en correspondance selon leur contenu, lorsque les versions découpent les phrases différemment",
+    btn_compare: "Segmenter &amp; comparer",
+    btn_sample: "Charger l’exemple",
+    btn_loadsession: "Charger une session",
+    btn_savesession: "Enregistrer la session",
+    btn_clear: "Tout effacer",
+    sec_compare: "Comparaison",
+    legend: "<u>soulignement</u> : différence par rapport au texte de base. <span class=\"lg-omit\">∅</span> : élément du texte de base non apparié (cliquer pour l’afficher). <span class=\"lg-warn\">⚠</span> : correspondance partielle des segments. Sous chaque version : <b>+ Descriptive</b> et <b>+ Évaluative</b>.",
+    empty_initial: "Remplissez les versions et cliquez sur « Segmenter &amp; comparer ».",
+    empty_loaded: "Session chargée sans résultats. Cliquez sur « Segmenter &amp; comparer ».",
+    segfix_title: "Vérification et correction de la segmentation",
+    segfix_hint: "(à ouvrir si une correction est nécessaire)",
+    seghelp: "Vérifiez et corrigez les segments. Pour scinder un segment, appuyez sur Ctrl+Entrée à l’endroit de la coupure dans la cellule afin d’insérer le symbole <code>||</code>, ou saisissez-le, puis cliquez sur « Scinder par || ». Les annotations sont conservées pour les segments non affectés par la correction.",
+    btn_applyseg: "Mettre à jour la comparaison",
+    btn_addrowend: "+ Segment vide à la fin",
+    btn_exphtml: "Exporter le rapport (HTML)",
+    btn_expcsv: "Exporter le tableau (CSV)",
+    foot_main: "<b>Synkrisis</b>. Modèle de comparaison : collation par rapport à un texte de base, c’est-à-dire la méthode utilisée dans les éditions critiques pour la comparaison systématique des différentes versions d’un texte, ici au niveau du mot. L’annotation s’organise en deux groupes distincts de catégories : descriptives, fondées sur un sous-ensemble adapté du modèle des glissements de traduction de van Leuven-Zwart, et évaluatives, fondées sur une sélection des dimensions d’erreur de MQM, sans notation. L’outil n’héberge ni textes ni traductions. Il fonctionne selon le principe « bring your own text » : n’introduisez que des textes auxquels vous avez légalement accès ; ils ne sont pas conservés.",
+    credit: "« Synkrisis », version {ver}. Eleni Tziafa, Université nationale et capodistrienne d’Athènes, 2026.{doi} Distribué sous licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 4.0 International (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Conception et réalisation en collaboration avec les modèles Claude Opus 5.5 et Claude Fable 5 (Anthropic).",
+    alert_need2: "Il faut au moins deux versions remplies.",
+    alert_nosegs: "Aucun segment n’a été produit.",
+    confirm_resegment: "Une nouvelle segmentation effacera les annotations existantes. Continuer ?",
+    mismatch_row: "⚠ Les segments ne correspondent pas entièrement. Vérifiez la correction de la segmentation.",
+    source_default: "Original",
+    ann_summary: "Version la plus adéquate, commentaire et justification · segment {n}",
+    best_in_summary: " · la plus adéquate : {v}",
+    add_desc: "+ Descriptive", add_eval: "+ Évaluative",
+    hint_desc: "Dimension descriptive : glissements par rapport à l’original, non par rapport au texte de base, selon le modèle de van Leuven-Zwart (sous-ensemble adapté). Un glissement n’est pas nécessairement une erreur.",
+    hint_eval: "Dimension évaluative : types d’erreur selon MQM, sans notation de gravité.",
+    sub_mod: "Modulation", sub_modif: "Modification", sub_mut: "Mutation",
+    sub_other: "Hors modèle : questions de lecture critique",
+    remove_tag: "Cliquer pour retirer",
+    colon: "\u00a0:",
+    best_label: "Version la plus adéquate :",
+    none: "aucune",
+    comment: "Commentaire",
+    justification: "Justification du choix",
+    nudge_text: "⚠ {n} segment(s) ne correspondent pas entièrement. Vérifiez la correction de la segmentation.",
+    nudge_btn: "Ouvrir la correction de la segmentation",
+    th_source: "Source",
+    base_suffix: " (base)",
+    src_suffix: " (source)",
+    badge_base: "base",
+    badge_source: "source",
+    th_actions: "Actions",
+    btn_split: "Scinder par ||",
+    btn_merge: "Fusionner avec le suivant",
+    btn_addafter: "+ Vide après",
+    btn_delrow: "Supprimer",
+    alert_split: "Insérez le symbole || à l’endroit de la coupure, ou appuyez sur Ctrl+Entrée dans la cellule pour l’insérer à la position du curseur.",
+    alert_nomerge: "Il n’y a pas de segment suivant à fusionner.",
+    alert_nodel: "Le seul segment restant ne peut pas être supprimé.",
+    omit_title: "Élément du texte de base non apparié : ",
+    report_title: "Rapport de comparaison",
+    report_h1: "Rapport de comparaison de versions de traduction",
+    report_meta: "Outil « Synkrisis », segmentation : {mode}, texte de base : {base}, {date}",
+    prov_h: "Provenance des versions",
+    seg_label: "Segment {n}",
+    seg_mm_suffix: ", ⚠ correspondance partielle",
+    cats_label: "Catégories :",
+    report_local: "Produit par traitement local. Aucun texte n’a été conservé ni transmis.",
+    report_credit: "« Synkrisis », version {ver}. Eleni Tziafa, Université nationale et capodistrienne d’Athènes, 2026.{doi} Distribué sous licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 4.0 International (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr\">CC BY-NC-ND 4.0</a>). Conception et réalisation en collaboration avec les modèles Claude Opus 5.5 et Claude Fable 5 (Anthropic).",
+    mode_sentence: "par phrase",
+    mode_paragraph: "par paragraphe",
+    mode_line: "par ligne",
+    csv_best: "Version la plus adéquate",
+    csv_cats: "Catégories",
+    csv_comment: "Commentaire",
+    csv_just: "Justification",
+    csv_mm: "Correspondance partielle",
+    yes: "oui",
+    confirm_clear: "Supprimer tous les textes, annotations et résultats ?",
+    confirm_sample: "Le chargement de l’exemple remplacera les textes et résultats actuels. Continuer ?",
+    alert_nothing: "Il n’y a encore rien à enregistrer.",
+    alert_badsession: "Le fichier n’est pas une session valide.",
+    confirm_loadsession: "Le chargement d’une session remplacera les textes et résultats actuels. Continuer ?",
+    alert_readsession: "Impossible de lire le fichier de session.",
+    file_report: "synkrisis-rapport.html",
+    file_csv: "synkrisis-tableau.csv",
+    file_session: "synkrisis-session.json",
+    grp_desc: "Descriptives", grp_eval: "Évaluatives",
+    vann_hint: "<b>Descriptives</b> : glissements par rapport à l’original, non par rapport au texte de base (sous-ensemble adapté des catégories de van Leuven-Zwart). Un glissement n’est pas nécessairement une erreur. <b>Évaluatives</b> : types d’erreur selon les dimensions de MQM, sans notation de gravité.",
+    legacy_label: "Catégories par segment (ancien format de session) :",
+    sum_title: "Synthèse par version",
+    sum_best: "Choisie comme la plus adéquate",
+    sum_annotated: "Segments annotés",
+    sum_tot_desc: "Total descriptives",
+    sum_tot_eval: "Total évaluatives",
+    sum_note: "Les chiffres indiquent dans combien de segments chaque catégorie a été relevée pour chaque version, et non des occurrences isolées. Seules les catégories utilisées sont affichées.",
+    sum_empty: "Aucune annotation n’a encore été saisie.",
+    d_gen: "Généralisation", d_spec: "Spécification", d_smod: "Modification sémantique",
+    d_styl: "Modification stylistique", d_synt: "Modification syntaxique", d_prag: "Modification pragmatique",
+    d_dadd: "Ajout", d_ddel: "Suppression", d_rad: "Changement radical de sens",
+    d_norm: "Normalisation", d_cult: "Référence culturelle", d_met: "Métaphore/image",
+    e_term: "Terminologie", e_mis: "Exactitude : erreur de traduction", e_eadd: "Exactitude : ajout",
+    e_eomit: "Exactitude : omission", e_ling: "Conventions linguistiques", e_sty: "Style",
+    e_loc: "Conventions locales", e_aud: "Adéquation au public",
+    cat_lex: "Choix lexical", cat_term: "Terminologie", cat_syn: "Syntaxe", cat_sty: "Style",
+    cat_reg: "Registre", cat_cult: "Référence culturelle", cat_met: "Métaphore/image",
+    cat_add: "Ajout", cat_omit: "Omission", cat_norm: "Normalisation",
+    cat_sem: "Glissement sémantique", cat_prag: "Glissement pragmatique",
+    cat_read: "Lisibilité", cat_coh: "Cohésion"
+  },
+  en: {
+    doc_title: "Synkrisis: comparative evaluation of translation versions",
+    sub: "An environment for the critical reading of translations:<br>comparison, evaluation and documentation of multiple versions of the same text, within the same language.",
+    privacy: "🔒 <b>Texts are processed locally and are not stored.</b> All processing takes place in the browser. Nothing is sent to a server. Reloading the page erases everything.",
+    theme_title: "Toggle light/dark theme",
+    help_title: "How to use",
+    help_p1: "<b>What it does.</b> It compares two or more translation versions of the same text, in the same target language, highlights their differences and helps you evaluate them and document your choices. It does not translate and does not evaluate automatically. The judgement remains yours.",
+    help_p2: "<b>Basic workflow.</b> Paste the original (optionally), if you need it as a point of reference, fill in two or more translation versions and click “Segment &amp; compare”.",
+    help_p3: "<b>Main buttons.</b> “Segment &amp; compare”: splits the texts into segments, i.e. sentences, paragraphs or lines, depending on your choice, and displays them in correspondence. “Load sample”: loads a ready-made example so you can see immediately how the tool works. “Save session”: creates a local file with all your work, i.e. texts, segmentation and annotations, so you can continue later or send it to others. “Load session”: opens such a file and restores the data. For teaching, you can thus distribute a ready-made exercise. “Clear all”: deletes everything and starts from scratch.",
+    help_p4: "<b>What the symbols mean.</b> In the versions, underlined text differs from the base text. The symbol ∅ marks an element that exists in the base but was not matched in the given version. This is not necessarily an omission, as it may be due to rephrasing, condensation or reordering. Click on ∅ to see the relevant text.",
+    help_p5: "<b>Base text.</b> The comparison is always made against one version, which serves as the base. You can change it from the corresponding menu, to see the differences from another perspective. The base is not the “correct” version, but the reference point of the comparison.",
+    help_p6: "<b>Automatic alignment.</b> When the versions split sentences differently, the tool matches segments using the vocabulary each version shares with the base text. Where a version joins two sentences of the base, the segment includes both. The original, being in another language, is aligned by sentence length only, so check it. If you turn the option off, segments are paired in order. <b>Correcting segmentation.</b> If the segments do not align correctly, for example because one version has different punctuation or a different distribution of sentences, open the collapsible field “Review and correct segmentation”, below the comparison, and correct the text of each segment. To split a segment in two, press Ctrl+Enter at the cut point inside the cell, so that the || symbol is inserted, or type it, and then click “Split by ||”. Annotations are preserved for segments unaffected by the correction. On a split, the annotation stays with the first of the two new segments. On a merge, the annotation of the first segment is kept.",
+    help_p7: "<b>Evaluation.</b> In each segment, below the text of each version, the “+ Descriptive” and “+ Evaluative” buttons open the categories. Descriptive categories record shifts with respect to the original; evaluative ones record MQM error types. The two groups are two distinct modes of reading: a shift is not necessarily an error. The categories you choose appear below the text; click one to remove it. The most suitable version, the comment and the justification are entered by opening the line at the bottom of each segment. The “Summary by version”, below the comparison, counts in how many segments each category was marked for each version.",
+    help_p8: "<b>Export.</b> “Export report (HTML)” produces a file for reading and printing. “Export table (CSV)” produces a file for editing in a spreadsheet. The session file (JSON) is for continuing your work, not for reading.",
+    help_p9: "<b>Privacy.</b> Everything happens locally in the browser. Texts are processed locally and are not stored. No text is sent to or stored on a server, and reloading the page erases everything. Caution: the session file you save contains your texts. Do not share it if it includes protected translations or other material that must not be distributed.",
+    help_p10: "<b>Framework and sources.</b> The descriptive dimension is based on an adapted subset of van Leuven-Zwart’s comparative-descriptive model of translation shifts, with its three main categories: modulation, modification and mutation. The tool does not implement the model’s full procedure (transemes, architranseme, transition to the macrostructural level). Normalisation, cultural reference and metaphor/image are not part of the model; they were added as recurrent issues in critical reading. The evaluative dimension is based on selected error dimensions of the MQM Core typology (six of its seven dimensions, leaving out design and markup, which does not apply to plain text), without severity levels or scoring. References: van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/",
+    sec_source: "Original text",
+    sec_source_note: "(optional, for reference)",
+    vtag_source: "SOURCE",
+    ph_srcname: "e.g. Alphonse Daudet, “La mule du Pape”",
+    ph_srctext: "Paste the original text here (e.g. the French text). It is shown as a point of reference. Differences are highlighted only between the versions.",
+    load_txt: "📄 Load .txt",
+    sec_versions: "Translation versions",
+    versions_note: "Add two or more versions in the same language. Differences are highlighted between the versions, relative to the one you select as the base text.",
+    add_version: "+ Add a version",
+    ph_vername: "Version name (e.g. AI-A, Transl. 1)",
+    ph_vertext: "Paste the translation here.",
+    ph_verprov: "Version provenance (model, prompt, raw or post-edited, date)",
+    remove: "Remove",
+    fld_seg: "Segmentation",
+    seg_sentence: "By sentence",
+    seg_paragraph: "By paragraph",
+    seg_line: "By line",
+    fld_base: "Base text",
+    show_omit: "Show unmatched elements",
+    show_omit_title: "relative to the base text",
+    auto_align: "Automatic alignment",
+    auto_align_title: "Matches segments by content when the versions split sentences differently",
+    btn_compare: "Segment &amp; compare",
+    btn_sample: "Load sample",
+    btn_loadsession: "Load session",
+    btn_savesession: "Save session",
+    btn_clear: "Clear all",
+    sec_compare: "Comparison",
+    legend: "<u>underline</u>: difference from the base text. <span class=\"lg-omit\">∅</span>: unmatched base element (click to reveal). <span class=\"lg-warn\">⚠</span>: partial segment correspondence. Below each version: <b>+ Descriptive</b> and <b>+ Evaluative</b>.",
+    empty_initial: "Fill in the versions and click “Segment &amp; compare”.",
+    empty_loaded: "Session loaded without results. Click “Segment &amp; compare”.",
+    segfix_title: "Review and correct segmentation",
+    segfix_hint: "(open if correction is needed)",
+    seghelp: "Review and correct the segments. To split a segment, press Ctrl+Enter at the cut point inside the cell to insert the <code>||</code> symbol, or type it, then click “Split by ||”. Annotations are preserved for segments unaffected by the correction.",
+    btn_applyseg: "Update comparison from edits",
+    btn_addrowend: "+ Empty segment at end",
+    btn_exphtml: "Export report (HTML)",
+    btn_expcsv: "Export table (CSV)",
+    foot_main: "<b>Synkrisis</b>. Comparison model: collation against a base text, i.e. the method used in critical editions for the systematic comparison of the different versions of a text, here at word level. Annotation is organised in two separate groups of categories: descriptive, based on an adapted subset of van Leuven-Zwart’s model of translation shifts, and evaluative, based on selected MQM error dimensions, without scoring. The tool does not host texts or translations. It works on a bring-your-own-text basis: enter only texts to which you have lawful access; they are not stored.",
+    credit: "“Synkrisis”, version {ver}. Eleni Tziafa, National and Kapodistrian University of Athens, 2026.{doi} Released under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International licence (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Designed and implemented in collaboration with the models Claude Opus 5.5 and Claude Fable 5 (Anthropic).",
+    alert_need2: "At least two filled-in versions are required.",
+    alert_nosegs: "No segments were produced.",
+    confirm_resegment: "Re-segmenting will delete the existing annotations. Continue?",
+    mismatch_row: "⚠ The segments do not fully correspond. Check the segmentation correction.",
+    source_default: "Original",
+    ann_summary: "Most suitable version, comment and justification · segment {n}",
+    best_in_summary: " · most suitable: {v}",
+    add_desc: "+ Descriptive", add_eval: "+ Evaluative",
+    hint_desc: "Descriptive dimension: shifts with respect to the original, not the base text, following van Leuven-Zwart’s model (adapted subset). A shift is not necessarily an error.",
+    hint_eval: "Evaluative dimension: MQM error types, without severity scoring.",
+    sub_mod: "Modulation", sub_modif: "Modification", sub_mut: "Mutation",
+    sub_other: "Outside the model: critical-reading issues",
+    remove_tag: "Click to remove",
+    colon: ":",
+    best_label: "Most suitable version:",
+    none: "none",
+    comment: "Comment",
+    justification: "Justification of choice",
+    nudge_text: "⚠ {n} segment(s) do not fully correspond. Check the segmentation correction.",
+    nudge_btn: "Open segmentation correction",
+    th_source: "Source",
+    base_suffix: " (base)",
+    src_suffix: " (source)",
+    badge_base: "base",
+    badge_source: "source",
+    th_actions: "Actions",
+    btn_split: "Split by ||",
+    btn_merge: "Merge with next",
+    btn_addafter: "+ Empty after",
+    btn_delrow: "Delete",
+    alert_split: "Insert the || symbol at the cut point, or press Ctrl+Enter inside the cell to insert it at the cursor position.",
+    alert_nomerge: "There is no next segment to merge with.",
+    alert_nodel: "The only remaining segment cannot be deleted.",
+    omit_title: "Unmatched base element: ",
+    report_title: "Comparison report",
+    report_h1: "Comparison report of translation versions",
+    report_meta: "Synkrisis tool, segmentation: {mode}, base text: {base}, {date}",
+    prov_h: "Version provenance",
+    seg_label: "Segment {n}",
+    seg_mm_suffix: ", ⚠ does not fully correspond",
+    cats_label: "Categories:",
+    report_local: "Produced by local processing. No text was stored or transmitted.",
+    report_credit: "“Synkrisis”, version {ver}. Eleni Tziafa, National and Kapodistrian University of Athens, 2026.{doi} Released under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International licence (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en\">CC BY-NC-ND 4.0</a>). Designed and implemented in collaboration with the models Claude Opus 5.5 and Claude Fable 5 (Anthropic).",
+    mode_sentence: "by sentence",
+    mode_paragraph: "by paragraph",
+    mode_line: "by line",
+    csv_best: "Most suitable version",
+    csv_cats: "Categories",
+    csv_comment: "Comment",
+    csv_just: "Justification",
+    csv_mm: "Partial correspondence",
+    yes: "yes",
+    confirm_clear: "Delete all texts, annotations and results?",
+    confirm_sample: "Loading the sample will replace the current texts and results. Continue?",
+    alert_nothing: "There is nothing to save yet.",
+    alert_badsession: "The file is not a valid session.",
+    confirm_loadsession: "Loading a session will replace the current texts and results. Continue?",
+    alert_readsession: "The session file could not be read.",
+    file_report: "synkrisis-report.html",
+    file_csv: "synkrisis-table.csv",
+    file_session: "synkrisis-session.json",
+    grp_desc: "Descriptive", grp_eval: "Evaluative",
+    vann_hint: "<b>Descriptive</b>: shifts with respect to the original, not to the base text (adapted subset of van Leuven-Zwart’s categories). A shift is not necessarily an error. <b>Evaluative</b>: error types following the MQM dimensions, without severity scoring.",
+    legacy_label: "Categories per segment (older session format):",
+    sum_title: "Summary by version",
+    sum_best: "Chosen as most suitable",
+    sum_annotated: "Annotated segments",
+    sum_tot_desc: "Total descriptive",
+    sum_tot_eval: "Total evaluative",
+    sum_note: "Figures count in how many segments each category was marked for each version, not individual occurrences. Only categories in use are shown.",
+    sum_empty: "No annotation has been entered yet.",
+    d_gen: "Generalisation", d_spec: "Specification", d_smod: "Semantic modification",
+    d_styl: "Stylistic modification", d_synt: "Syntactic modification", d_prag: "Pragmatic modification",
+    d_dadd: "Addition", d_ddel: "Deletion", d_rad: "Radical change of meaning",
+    d_norm: "Normalisation", d_cult: "Cultural reference", d_met: "Metaphor/image",
+    e_term: "Terminology", e_mis: "Accuracy: mistranslation", e_eadd: "Accuracy: addition",
+    e_eomit: "Accuracy: omission", e_ling: "Linguistic conventions", e_sty: "Style",
+    e_loc: "Locale conventions", e_aud: "Audience appropriateness",
+    cat_lex: "Lexical choice", cat_term: "Terminology", cat_syn: "Syntax", cat_sty: "Style",
+    cat_reg: "Register", cat_cult: "Cultural reference", cat_met: "Metaphor/image",
+    cat_add: "Addition", cat_omit: "Omission", cat_norm: "Normalisation",
+    cat_sem: "Semantic shift", cat_prag: "Pragmatic shift",
+    cat_read: "Readability", cat_coh: "Cohesion"
+  }};
+
+  let LANG = (function(){ try { const l = localStorage.getItem(LANG_KEY); if (l && I18N[l]) return l; } catch(e){} return "el"; })();
+  // Έκδοση και DOI. Το APP_VERSION πρέπει να ταυτίζεται με το tag του GitHub (v1.0.0) και το "version" του .zenodo.json.
+  // APP_DOI: το concept DOI του Zenodo («Cite all versions»), ΟΧΙ το DOI της έκδοσης, ώστε να μην χρειάζεται αλλαγή σε κάθε νέα έκδοση
+  // (π.χ. "10.5281/zenodo.1234567"). Κενό = δεν εμφανίζεται DOI.
+  const APP_VERSION = "1.0.0";
+  const APP_DOI = "";
+  function T(k){
+    let s = (I18N[LANG] && I18N[LANG][k]) || I18N.el[k] || k;
+    if(s.indexOf("{ver}") >= 0 || s.indexOf("{doi}") >= 0){
+      s = s.replace(/\{ver\}/g, APP_VERSION).replace(/\{doi\}/g,
+        APP_DOI ? ' DOI: <a href="https://doi.org/' + APP_DOI + '" target="_blank" rel="noopener">' + APP_DOI + '</a>.' : '');
+    }
+    return s;
+  }
+  function storePref(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+
+  function applyStatic(){
+    document.documentElement.lang = LANG;
+    document.title = T("doc_title");
+    document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = T(el.dataset.i18n); });
+    document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = T(el.dataset.i18nHtml); });
+    document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = T(el.dataset.i18nPh); });
+    document.querySelectorAll("[data-i18n-title]").forEach(el => { el.title = T(el.dataset.i18nTitle); if(el.id === "themeBtn") el.setAttribute("aria-label", el.title); });
+  }
+
+  function setLang(l){
+    if(!I18N[l]) return;
+    LANG = l;
+    storePref(LANG_KEY, l);
+    applyStatic();
+    document.querySelectorAll(".uictl button[data-lang]").forEach(b => b.classList.toggle("on", b.dataset.lang === l));
+    renderVersionCards();
+    refreshBaseSel();
+    if(rows.length && lastMeta){ renderSegEditor(); renderResults(); }
+    else if(!rows.length){ document.querySelector("#results").innerHTML = '<div class="empty">'+T("empty_initial")+'</div>'; }
+  }
+
+  function applyTheme(t){
+    document.documentElement.setAttribute("data-theme", t);
+    const b = document.getElementById("themeBtn");
+    if(b) b.textContent = (t === "dark") ? "☀" : "🌙";
+  }
+  function initTheme(){
+    let t = null;
+    try { t = localStorage.getItem(THEME_KEY); } catch(e){}
+    if(t !== "dark" && t !== "light"){
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    }
+    applyTheme(t);
+  }
+
+  const CAT_KEYS = ["lex","term","syn","sty","reg","cult","met","add","omit","norm","sem","prag","read","coh"];
+  const LEGACY_CATS = {"Λεξιλογική επιλογή":"lex","Ορολογία":"term","Σύνταξη":"syn","Ύφος":"sty","Register":"reg","Πολιτισμική αναφορά":"cult","Μεταφορά/εικόνα":"met","Προσθήκη":"add","Παράλειψη":"omit","Εξομάλυνση":"norm","Σημασιολογική μετατόπιση":"sem","Πραγματολογική μετατόπιση":"prag","Αναγνωσιμότητα":"read","Συνοχή":"coh"};
+  const DESC_KEYS = ["gen","spec","smod","styl","synt","prag","dadd","ddel","rad","norm","cult","met"];
+  const EVAL_KEYS = ["term","mis","eadd","eomit","ling","sty","loc","aud"];
+  const DESC_GROUPS = [["sub_mod",["gen","spec"]],["sub_modif",["smod","styl","synt","prag"]],["sub_mut",["dadd","ddel","rad"]],["sub_other",["norm","cult","met"]]];
+  function hasGreek(t){ return /[\u0370-\u03FF\u1F00-\u1FFF]/.test(t||""); }
+  function newAnn(){ return { cats:new Set(), d:{}, e:{}, best:null, comment:"", just:"" }; }
+  function annHasContent(a){
+    if(!a) return false;
+    if(a.best != null || (a.comment||"").trim() || (a.just||"").trim()) return true;
+    if(a.cats && a.cats.size) return true;
+    return ["d","e"].some(g=> a[g] && Object.values(a[g]).some(st=> st && st.size));
+  }
+  function vset(a, grp, ci){ if(!a[grp]) a[grp] = {}; return a[grp][ci] || (a[grp][ci] = new Set()); }
+  function vhas(a, grp, ci, k){ return !!(a && a[grp] && a[grp][ci] && a[grp][ci].has(k)); }
+  function vlabels(a, grp, ci){
+    const keys = grp === "d" ? DESC_KEYS : EVAL_KEYS;
+    return keys.filter(k=> vhas(a, grp, ci, k)).map(k=> T(grp+"_"+k));
+  }
+  const PALETTE = ["#7c2d2d","#2f5d57","#5b4a8a","#8a5a1f","#3a6ea5","#6b6f1f"];
+
+  // Authentic demo sample: Alphonse Daudet, «La mule du Pape» (public domain), with five
+  // machine outputs collected on 27/9/2026. Provenance of each output is stated in its field.
+  const SAMPLE = {
+    srcName: "Alphonse Daudet, «La mule du Pape», Lettres de mon moulin (1869)",
+    srcText: "Après le départ de Tistet, la mule du Pape retrouva son train de vie tranquille et ses allures d’autrefois. Plus de Quiquet, plus de Béluguet à l’écurie. Les beaux jours du vin à la française étaient revenus, et avec eux la bonne humeur, les longues siestes, et le petit pas de gavotte quand elle passait sur le pont d’Avignon.",
+    versions: [
+      { name: "Gemini · MT.com", prov: "Gemini μέσω machinetranslation.com · 27/9/2026 · η πλατφόρμα δεν δηλώνει έκδοση μοντέλου · προτροπή της πλατφόρμας μη γνωστή · ακατέργαστη έξοδος", text: "Μετά την αναχώρηση του Τιστέ, η μουλάρα του Πάπα ξαναβρήκε τον ήσυχο ρυθμό ζωής της και τα παλιά της χούγια. Τέλος ο Κικέ, τέλος ο Μπελυγκέ στον στάβλο. Οι καλές μέρες του γαλλικού κρασιού είχαν επιστρέψει, και μαζί τους η καλή διάθεση, οι μακρύες μεσημεριανές σiesτες και το μικρό βήμα της γαβότας όταν περνούσε από τη γέφυρα της Αβινιόν." },
+      { name: "Claude Haiku 4.5 · MT.com", prov: "Claude Haiku 4.5 (claude-haiku-4-5-20251001) μέσω machinetranslation.com · 27/9/2026 · προτροπή της πλατφόρμας μη γνωστή · ακατέργαστη έξοδος", text: "Μετά την αναχώρηση του Τιστέ, η μούλα του Πάπα ανέκτησε την ήρεμη ζωή της και τα παλιά της ήθη. Τέλος ο Κικέ, τέλος ο Μπελουγέ στο στάβλο. Οι ωραίες μέρες του κρασιού κατά τη γαλλική παράδοση είχαν επιστρέψει, και μαζί τους η καλή διάθεση, οι μακριές σιέστες, και το μικρό βήμα της γαβότ όταν περνούσε πάνω από τη γέφυρα της Αβινιόν." },
+      { name: "ChatGPT 5.6 Sol", prov: "ChatGPT 5.6 Sol · προσωρινή συνομιλία · 27/9/2026 · προτροπή: «Μετάφρασε το παρακάτω κείμενο από τα γαλλικά στα ελληνικά:» · ακατέργαστη έξοδος", text: "Μετά την αναχώρηση του Τιστέ, η φοράδα του Πάπα ξαναβρήκε την ήρεμη καθημερινότητά της και τις παλιές της συνήθειες. Ούτε Κικέ πια ούτε Μπελιγκέ στον στάβλο. Οι καλές μέρες του κρασιού αλά γαλλικά είχαν επιστρέψει και, μαζί τους, η καλή διάθεση, οι μακριές σιέστες και το μικρό βήμα γκαβότας κάθε φορά που περνούσε από τη γέφυρα της Αβινιόν." },
+      { name: "Qwen3.7 Flash · MT.com", prov: "Qwen3.7 Flash (qwen3.7-flash) μέσω machinetranslation.com · 27/9/2026 · προτροπή της πλατφόρμας μη γνωστή · ακατέργαστη έξοδος", text: "Μετά την αναχώρηση του Τιστετ, η γαϊδούρα του Πάπα επανέκτησε τον ήσυχο ρυθμό ζωής και τις παλιές της συνήθειες. Δεν υπήρχε πια ο Κικέ, δεν υπήρχε ο Μπελουγκέ στο στάβλο. Είχαν επιστρέψει οι όμορφες μέρες με το γαλλικό κρασί, μαζί με τη χαλαρή διάθεση, τις μεγάλες νάρκες και το μικρό βηματάκι της γαβότας όταν περνούσε από τη γέφυρα της Αβινιόν." },
+      { name: "Lara Faithful", prov: "Lara (Translated), λειτουργία Faithful · 27/9/2026 · ακατέργαστη έξοδος", text: "Μετά την αναχώρηση του Τιστέ, το μουλάρι του Πάπα επέστρεψε στον ήρεμο τρόπο ζωής του και στους ρυθμούς του παρελθόντος. Όχι πια ο Κικέ, όχι πια ο Μπελιγκέ στον στάβλο. Οι όμορφες μέρες του γαλλικού κρασιού είχαν επιστρέψει και μαζί τους η καλή διάθεση, οι μεγάλοι μεσημεριανοί ύπνοι και το χαρούμενο βήμα της όταν περνούσε από τη γέφυρα της Αβινιόν." }
+    ]
+  };
+
+  // ---- state (in-memory only) ----
+  let versions = [ mkVer(), mkVer(), mkVer() ];
+  let rows = [];          // [{cells:[txt,...], mismatch:bool}]
+  let ann = {};           // rowIndex -> {cats:Set (παλαιό), d:{ci:Set}, e:{ci:Set}, best:int|null, comment, just}
+  let baseIndex = 0;
+  let lastMeta = null;
+
+  function mkVer(name){ return { name: name||"", text:"", prov:"" }; }
+
+  // ---- tokenizer (Unicode-aware, keeps punctuation + whitespace) ----
+  const TOKEN_RE = /[\p{L}\p{N}\u0300-\u036f’'’]+|\s+|[^\p{L}\p{N}\s]+/gu;
+  function tokenize(s){
+    if(!s) return [];
+    const out = []; let m;
+    TOKEN_RE.lastIndex = 0;
+    while((m = TOKEN_RE.exec(s))){
+      const t = m[0];
+      out.push({ t, ws: /^\s+$/.test(t), word: /[\p{L}\p{N}]/u.test(t) });
+    }
+    return out;
+  }
+  function norm(t){ return t.toLowerCase().normalize("NFC"); }
+
+  // ---- segmentation ----
+  const DOT_PLACEHOLDER = "∯";
+  const MULTI_ABBR = [
+    "π.χ.", "Π.χ.", "Π.Χ.", "κ.λπ.", "Κ.λπ.", "δηλ.", "Δηλ.",
+    "c.-à-d.", "C.-à-d.", "p. ex.", "P. ex.", "J.-C.", "av. J.-C.", "apr. J.-C.",
+    "i.e.", "e.g.", "etc."
+  ];
+  const SINGLE_ABBR = [
+    "M", "MM", "Mme", "Mmes", "Mlle", "Mlles", "Dr", "Dre", "Pr", "Prof", "Mgr", "Me", "St", "Ste",
+    "No", "Nos", "n°", "cf", "fig", "vol", "éd", "chap", "p", "pp",
+    "κ", "κα", "κος", "δρ", "καθ", "βλ", "σελ", "αρ", "τόμ", "εκδ", "μτφρ", "επιμ"
+  ];
+  function reEscape(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+  function protectDots(s){
+    let out = s;
+    out = out.replace(/(\d)\.(\d)/g, "$1"+DOT_PLACEHOLDER+"$2");
+    MULTI_ABBR.forEach(a=>{
+      out = out.replace(new RegExp(reEscape(a), "g"), a.replace(/\./g, DOT_PLACEHOLDER));
+    });
+    SINGLE_ABBR.forEach(a=>{
+      const pat = new RegExp("(^|[^\\p{L}\\p{N}])("+reEscape(a)+")\\.", "gu");
+      out = out.replace(pat, "$1$2"+DOT_PLACEHOLDER);
+    });
+    out = out.replace(/\b([A-ZÀ-ÖØ-ÞΑ-ΩΆ-Ώ])\./gu, "$1"+DOT_PLACEHOLDER);
+    return out;
+  }
+  function restoreDots(s){ return s.replaceAll(DOT_PLACEHOLDER, "."); }
+  function isBoundaryNext(ch){
+    if(!ch) return true;
+    return /["'«“‘([{\u2014\u2013\u2015Α-ΩΆ-ΏA-ZÀ-ÖØ-Þ0-9]/u.test(ch);
+  }
+  function segment(text, mode){
+    if(!text || !text.trim()) return [];
+    const t = text.replace(/\r\n?/g,"\n");
+    if(mode === "line"){
+      return t.split("\n").map(s=>s.trim()).filter(s=>s.length);
+    }
+    if(mode === "paragraph"){
+      return t.split(/\n[ \t]*\n+/).map(s=>s.replace(/[^\S\u00a0\u202f]+/g," ").trim()).filter(s=>s.length);
+    }
+    const flat = protectDots(t.replace(/[^\S\u00a0\u202f]+/g," ").trim());
+    const segs = [];
+    let start = 0;
+    const closers = /["'»”’\)\]\}]/u;
+    for(let i=0;i<flat.length;i++){
+      const ch = flat[i];
+      const isEnd = ch === "." || ch === "!" || ch === "?" || ch === "…" || ch === "·" || ch === "·" || ch === ";";
+      if(!isEnd) continue;
+      // In French, semicolon is normally not a sentence boundary. In Greek it may be a question mark.
+      if(ch === ";" && !hasGreek(flat.slice(start, i+1))) continue;
+      let end = i + 1;
+      // French typography puts a (narrow) space before closing quotes: « … demain. »
+      let k = end;
+      while(k < flat.length && /\s/u.test(flat[k])) k++;
+      if(k < flat.length && k > end && /[»”]/u.test(flat[k])) end = k;
+      while(end < flat.length && closers.test(flat[end])) end++;
+      let j = end;
+      while(j < flat.length && /\s/u.test(flat[j])) j++;
+      if(isBoundaryNext(flat[j])){
+        const piece = restoreDots(flat.slice(start, end)).trim();
+        if(piece) segs.push(piece);
+        start = j;
+        i = j - 1;
+      }
+    }
+    const rest = restoreDots(flat.slice(start)).trim();
+    if(rest) segs.push(rest);
+    return segs.length ? segs : [restoreDots(flat)];
+  }
+
+  // ---- automatic alignment (παραλληλοποίηση) of segments against the base ----
+  // Dynamic programming over sentence groups (1-1, 1-2, 2-1, 2-2, 1-3, 3-1, 1-0, 0-1).
+  // Versions (same language as the base): weighted lexical overlap of word stems.
+  // Source (other language): relative length only (Gale-Church style), to be checked by the user.
+  const ALIGN_MOVES = [[1,1,0],[1,2,0.08],[2,1,0.08],[2,2,0.2],[1,3,0.15],[3,1,0.15],[1,0,0.02],[0,1,0.02]];
+  function stemsOf(seg){
+    return (seg.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ς/g,"σ").match(/[\p{L}\p{N}]+/gu) || [])
+      .map(w=> w.length > 5 ? w.slice(0,5) : w);
+  }
+  function lexicalScorer(A, B){
+    const SA = A.map(stemsOf), SB = B.map(stemsOf);
+    const df = new Map(), N = A.length + B.length;
+    SA.concat(SB).forEach(st=> new Set(st).forEach(t=> df.set(t, (df.get(t)||0)+1)));
+    const w = t=> Math.log(1 + N / (df.get(t)||1));
+    return (i0,i1,j0,j1)=>{
+      const ca = new Map(), cb = new Map();
+      for(let i=i0;i<i1;i++) SA[i].forEach(t=> ca.set(t,(ca.get(t)||0)+1));
+      for(let j=j0;j<j1;j++) SB[j].forEach(t=> cb.set(t,(cb.get(t)||0)+1));
+      let common = 0, tot = 0;
+      ca.forEach((c,t)=>{ tot += c*w(t); if(cb.has(t)) common += Math.min(c, cb.get(t))*w(t); });
+      cb.forEach((c,t)=>{ tot += c*w(t); });
+      return tot ? 2*common/tot : 0;
+    };
+  }
+  function lengthScorer(A, B){
+    const la = A.map(x=>x.length), lb = B.map(x=>x.length);
+    const ta = la.reduce((x,y)=>x+y,0)||1, tb = lb.reduce((x,y)=>x+y,0)||1;
+    return (i0,i1,j0,j1)=>{
+      let a=0,b=0; for(let i=i0;i<i1;i++) a+=la[i]; for(let j=j0;j<j1;j++) b+=lb[j];
+      if(!a || !b) return 0;
+      return Math.exp(-2*Math.abs(Math.log((a/ta)/(b/tb))));
+    };
+  }
+  function alignPair(A, B, score){
+    const n = A.length, m = B.length;
+    const best = Array.from({length:n+1}, ()=> new Float64Array(m+1).fill(-Infinity));
+    const back = Array.from({length:n+1}, ()=> new Int8Array(m+1).fill(-1));
+    best[0][0] = 0;
+    for(let i=0;i<=n;i++){
+      for(let j=0;j<=m;j++){
+        if(i===0 && j===0) continue;
+        ALIGN_MOVES.forEach(([di,dj,pen], k)=>{
+          const pi = i-di, pj = j-dj;
+          if(pi<0 || pj<0 || best[pi][pj] === -Infinity) return;
+          const sc = (di && dj) ? score(pi,i,pj,j) - pen : -pen;
+          const v = best[pi][pj] + sc;
+          if(v > best[i][j]){ best[i][j] = v; back[i][j] = k; }
+        });
+      }
+    }
+    const groups = [];
+    let i=n, j=m;
+    while(i>0 || j>0){
+      const k = back[i][j];
+      if(k < 0) break;
+      const [di,dj] = ALIGN_MOVES[k];
+      groups.push({ b0:i-di, b1:i, v0:j-dj, v1:j });
+      i -= di; j -= dj;
+    }
+    return groups.reverse();
+  }
+  function alignRows(segsPer, srcSegs, bi){
+    const base = segsPer[bi], n = base.length;
+    const streams = segsPer.map((sg, vi)=> (vi===bi || !sg.length) ? null : { segs: sg, groups: alignPair(base, sg, lexicalScorer(base, sg)) });
+    const srcStream = srcSegs.length ? { segs: srcSegs, groups: alignPair(base, srcSegs, lengthScorer(base, srcSegs)) } : null;
+    // a row may start at base i unless some stream binds i-1 and i together
+    const canStart = new Array(n).fill(true);
+    streams.concat([srcStream]).forEach(st=>{
+      if(!st) return;
+      st.groups.forEach(g=>{ for(let k=g.b0+1;k<g.b1;k++) canStart[k] = false; });
+    });
+    const spans = [];
+    for(let i=0;i<n;i++){ if(canStart[i] || !spans.length) spans.push([i,i+1]); else spans[spans.length-1][1] = i+1; }
+    const rowOf = new Array(n);
+    spans.forEach((sp,r)=>{ for(let i=sp[0];i<sp[1];i++) rowOf[i] = r; });
+    const collect = st=>{
+      const parts = spans.map(()=> []);
+      if(!st) return parts.map(()=> "");
+      st.groups.forEach(g=>{
+        if(g.v1 === g.v0) return;
+        const r = g.b1 > g.b0 ? rowOf[g.b0] : (g.b0 > 0 ? rowOf[g.b0-1] : 0);
+        for(let j=g.v0;j<g.v1;j++) parts[r].push(st.segs[j]);
+      });
+      return parts.map(p=> p.join(" "));
+    };
+    const cols = segsPer.map((sg, vi)=> vi===bi ? spans.map(sp=> base.slice(sp[0],sp[1]).join(" ")) : collect(streams[vi]));
+    const src = srcStream ? collect(srcStream) : spans.map(()=> "");
+    return spans.map((sp,r)=> ({ src: src[r], cells: cols.map(c=> c[r] || "") }));
+  }
+
+  // ---- LCS word diff of version vs base ----
+  function diffOps(baseToks, verToks){
+    // compare only on normalized token strings; operate on full token arrays
+    const a = baseToks, b = verToks;
+    const n = a.length, m = b.length;
+    // DP table of LCS lengths
+    const dp = Array.from({length:n+1}, ()=> new Uint32Array(m+1));
+    for(let i=n-1;i>=0;i--){
+      for(let j=m-1;j>=0;j--){
+        if(norm(a[i].t) === norm(b[j].t)) dp[i][j] = dp[i+1][j+1]+1;
+        else dp[i][j] = Math.max(dp[i+1][j], dp[i][j+1]);
+      }
+    }
+    const ops = []; let i=0,j=0;
+    while(i<n && j<m){
+      if(norm(a[i].t) === norm(b[j].t)){ ops.push({type:"eq", tok:b[j]}); i++; j++; }
+      else if(dp[i+1][j] >= dp[i][j+1]){ ops.push({type:"del", tok:a[i]}); i++; }   // in base, not version
+      else { ops.push({type:"add", tok:b[j]}); j++; }                                  // in version, not base
+    }
+    while(i<n){ ops.push({type:"del", tok:a[i]}); i++; }
+    while(j<m){ ops.push({type:"add", tok:b[j]}); j++; }
+    return ops;
+  }
+
+  // ---- rendering ----
+  const $ = sel => document.querySelector(sel);
+  const versionsEl = $("#versions");
+
+  function renderVersionCards(){
+    versionsEl.innerHTML = "";
+    versions.forEach((v, idx)=>{
+      const card = document.createElement("div");
+      card.className = "card";
+      const tag = "V"+(idx+1);
+      card.innerHTML =
+        '<div class="row1">'+
+          '<span class="vtag" style="background:'+PALETTE[idx%PALETTE.length]+'">'+tag+'</span>'+
+          '<input class="name" placeholder="'+esc(T("ph_vername"))+'">'+
+        '</div>'+
+        '<textarea placeholder="'+esc(T("ph_vertext"))+'"></textarea>'+
+        '<textarea class="prov" placeholder="'+esc(T("ph_verprov"))+'"></textarea>'+
+        '<div class="ctl">'+
+          '<label class="filelbl">'+T("load_txt")+'<input type="file" accept=".txt,text/plain"></label>'+
+          (versions.length>2 ? '<button class="rm">'+T("remove")+'</button>' : '<span></span>')+
+        '</div>';
+      const nameI = card.querySelector(".name");
+      const ta = card.querySelector("textarea");
+      const provI = card.querySelector("textarea.prov");
+      nameI.value = v.name; ta.value = v.text; provI.value = v.prov || "";
+      nameI.addEventListener("input", ()=> v.name = nameI.value);
+      nameI.addEventListener("change", ()=>{ if(lastMeta && lastMeta.versionNames && idx < lastMeta.versionNames.length){ lastMeta.versionNames[idx] = v.name.trim() || ("V"+(idx+1)); if(rows.length){ renderSegEditor(); renderResults(); } } });
+      ta.addEventListener("input", ()=> v.text = ta.value);
+      provI.addEventListener("input", ()=> v.prov = provI.value);
+      card.querySelector("input[type=file]").addEventListener("change", e=> loadFile(e, t=>{ v.text=t; ta.value=t; }));
+      const rm = card.querySelector(".rm");
+      if(rm) rm.addEventListener("click", ()=>{ removeVersion(idx); });
+      versionsEl.appendChild(card);
+    });
+  }
+
+  function removeVersion(idx){
+    versions.splice(idx,1);
+    const reidx = o=>{ const out = {}; Object.keys(o||{}).forEach(k=>{ const i = parseInt(k,10); if(i < idx) out[i] = o[k]; else if(i > idx) out[i-1] = o[k]; }); return out; };
+    Object.keys(ann).forEach(r=>{
+      const a = ann[r];
+      a.d = reidx(a.d); a.e = reidx(a.e);
+      if(a.best === idx) a.best = null; else if(a.best != null && a.best > idx) a.best--;
+    });
+    rows.forEach(row=>{ if(row.cells) row.cells.splice(idx,1); });
+    if(baseIndex === idx) baseIndex = 0; else if(baseIndex > idx) baseIndex--;
+    renderVersionCards(); refreshBaseSel();
+    if(rows.length && lastMeta){
+      lastMeta.versionNames = versions.map((v,i)=> v.name.trim() || ("V"+(i+1)));
+      lastMeta.versionProv = versions.map(v=> (v.prov||"").trim());
+      lastMeta.baseIndex = baseIndex;
+      recomputeMismatches(); renderSegEditor(); renderResults();
+    }
+  }
+
+  function loadFile(e, cb){
+    const f = e.target.files && e.target.files[0];
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = ()=> cb(String(r.result||""));
+    r.readAsText(f, "utf-8");
+  }
+
+  function refreshBaseSel(){
+    const sel = $("#baseSel");
+    sel.innerHTML = "";
+    versions.forEach((v,idx)=>{
+      const o = document.createElement("option");
+      o.value = idx; o.textContent = "V"+(idx+1)+(v.name? ": "+v.name : "");
+      sel.appendChild(o);
+    });
+    if(baseIndex >= versions.length) baseIndex = 0;
+    sel.value = baseIndex;
+  }
+
+  function compare(){
+    const mode = $("#segMode").value;
+    baseIndex = parseInt($("#baseSel").value,10) || 0;
+    const filled = versions.map((v,i)=>({i,v})).filter(o=>o.v.text && o.v.text.trim());
+    if(filled.length < 2){ alert(T("alert_need2")); return; }
+
+    const srcName = $("#srcName").value.trim();
+    const srcText = $("#srcText").value.trim();
+    const srcSegs = srcText ? segment(srcText, mode) : [];
+    const segsPer = versions.map(v=> segment(v.text, mode));
+    const maxLen = Math.max(...segsPer.map(s=>s.length), srcSegs.length);
+    if(maxLen === 0){ alert(T("alert_nosegs")); return; }
+
+    // reset annotations if any exist
+    if(Object.values(ann).some(annHasContent)){
+      if(!confirm(T("confirm_resegment"))) return;
+    }
+    ann = {};
+
+    const nFilled = segsPer.filter(sg=> sg.length).length;
+    const useAlign = $("#autoAlign").checked && segsPer[baseIndex] && segsPer[baseIndex].length;
+    rows = [];
+    if(useAlign){
+      alignRows(segsPer, srcSegs, baseIndex).forEach(rw=>{
+        const present = rw.cells.filter(c=>c.length).length;
+        rw.mismatch = present !== nFilled || (srcSegs.length > 0 && !rw.src);
+        rows.push(rw);
+      });
+    } else {
+      for(let r=0;r<maxLen;r++){
+        const cells = segsPer.map(s=> s[r] || "");
+        const present = cells.filter(c=>c.length).length;
+        const srcCell = srcSegs[r] || "";
+        const srcMismatch = srcSegs.length > 0 && !srcCell;
+        rows.push({ src: srcCell, cells, mismatch: present !== nFilled || srcMismatch });
+      }
+    }
+    lastMeta = {
+      mode, baseIndex,
+      src: { name: srcName, text: srcText, segments: srcSegs.length },
+      versionNames: versions.map((v,i)=> v.name.trim() || ("V"+(i+1))),
+      versionProv: versions.map(v=> (v.prov||"").trim()),
+      date: new Date().toLocaleString(LOCALES[LANG])
+    };
+    renderSegEditor();
+    renderResults();
+    $("#exportbar").style.display = rows.length ? "flex" : "none";
+  }
+
+  function renderResults(){
+    const wrap = $("#results");
+    wrap.innerHTML = "";
+    $("#legend").style.display = rows.length ? "block" : "none";
+    $("#mismatchNudge").innerHTML = "";
+    const showOmit = $("#showOmit").checked;
+    const hasSource = !!(lastMeta.src && lastMeta.src.text);
+    const colCount = versions.length + (hasSource ? 1 : 0);
+    const colTemplate = "grid-template-columns:repeat("+colCount+",minmax(0,1fr));";
+
+    rows.forEach((row, r)=>{
+      const baseToks = tokenize(row.cells[baseIndex]);
+      const seg = document.createElement("div");
+      seg.className = "seg" + (row.mismatch ? " mismatch":"");
+
+      const head = document.createElement("div");
+      head.className = "seghead";
+      head.innerHTML = '<span class="no">'+(r+1)+'</span>' + (row.mismatch ? '<span class="miss">'+T("mismatch_row")+'</span>' : '');
+      seg.appendChild(head);
+
+      const cols = document.createElement("div");
+      cols.className = "cols";
+      cols.setAttribute("style", colTemplate);
+
+      if(hasSource){
+        const srcCol = document.createElement("div");
+        srcCol.className = "col issource";
+        const srcLbl = document.createElement("div");
+        srcLbl.className = "lbl"; if(hasGreek(lastMeta && lastMeta.src ? lastMeta.src.name : "")) srcLbl.lang = "el";
+        const srcDot = document.createElement("span");
+        srcDot.style.cssText = "width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--teal)";
+        srcLbl.appendChild(srcDot);
+        srcLbl.appendChild(document.createTextNode(lastMeta.src.name || T("source_default")));
+        const srcBadge = document.createElement("span");
+        srcBadge.className = "rolebadge";
+        srcBadge.textContent = T("badge_source");
+        srcLbl.appendChild(srcBadge);
+        srcCol.appendChild(srcLbl);
+        const srcTxt = document.createElement("div");
+        srcTxt.className = "txt";
+        srcTxt.textContent = row.src || "—";
+        srcCol.appendChild(srcTxt);
+        cols.appendChild(srcCol);
+      }
+
+      versions.forEach((v, ci)=>{
+        const col = document.createElement("div");
+        col.className = "col" + (ci===baseIndex ? " isbase":"");
+        const lbl = document.createElement("div");
+        lbl.className = "lbl"; if(hasGreek(lastMeta.versionNames[ci])) lbl.lang = "el";
+        const dot = document.createElement("span");
+        dot.style.cssText = "width:9px;height:9px;border-radius:50%;display:inline-block;background:"+PALETTE[ci%PALETTE.length];
+        lbl.appendChild(dot);
+        lbl.appendChild(document.createTextNode(lastMeta.versionNames[ci]));
+        if(ci === baseIndex){
+          const bb = document.createElement("span");
+          bb.className = "rolebadge";
+          bb.textContent = T("badge_base");
+          lbl.appendChild(bb);
+        }
+        col.appendChild(lbl);
+
+        const txt = document.createElement("div");
+        txt.className = "txt";
+        if(ci === baseIndex){
+          txt.textContent = row.cells[ci] || "—";
+        } else if(!row.cells[ci]){
+          txt.textContent = "—";
+        } else {
+          renderDiff(txt, baseToks, tokenize(row.cells[ci]), showOmit);
+        }
+        col.appendChild(txt);
+        if(ci === versions.length-1) col.style.borderRight = "none";
+        cols.appendChild(col);
+      });
+
+      // per-version annotation cells, directly below each version's text
+      const a = ann[r] || (ann[r] = newAnn());
+      if(hasSource){
+        const ph = document.createElement("div");
+        ph.className = "col vcell issource";
+        cols.appendChild(ph);
+      }
+      versions.forEach((v, ci)=>{
+        const cell = buildVannCell(a, ci, !!row.cells[ci], ci === versions.length-1 && versions.length > 1);
+        if(ci === versions.length-1) cell.style.borderRight = "none";
+        cols.appendChild(cell);
+      });
+      seg.appendChild(cols);
+
+      // drawer: most suitable version, comment, justification
+      const det = document.createElement("details");
+      det.className = "ann";
+      const sum = document.createElement("summary");
+      const paintSum = ()=>{ sum.textContent = T("ann_summary").replace("{n}", r+1) + (a.best != null && lastMeta.versionNames[a.best] ? T("best_in_summary").replace("{v}", lastMeta.versionNames[a.best]) : ""); };
+      paintSum();
+      det.appendChild(sum);
+      const body = document.createElement("div");
+      body.className = "body";
+
+      // best version
+      const best = document.createElement("div");
+      best.className = "best";
+      best.innerHTML = '<span style="color:var(--ink);font-weight:700">'+esc(T("best_label"))+'</span>';
+      versions.forEach((v,ci)=>{
+        const id = "best-"+r+"-"+ci;
+        const l = document.createElement("label");
+        l.innerHTML = '<input type="radio" name="best-'+r+'" '+(a.best===ci?"checked":"")+'> '+esc(lastMeta.versionNames[ci]);
+        l.querySelector("input").addEventListener("change", ()=>{ a.best = ci; paintSum(); renderSummary(); });
+        best.appendChild(l);
+      });
+      const ln = document.createElement("label");
+      ln.innerHTML = '<input type="radio" name="best-'+r+'" '+(a.best===null?"checked":"")+'> '+esc(T("none"));
+      ln.querySelector("input").addEventListener("change", ()=>{ a.best = null; paintSum(); renderSummary(); });
+      best.appendChild(ln);
+      body.appendChild(best);
+
+      if(a.cats && a.cats.size){
+        const lg = document.createElement("div");
+        lg.className = "legacy";
+        lg.textContent = T("legacy_label") + " " + [...a.cats].map(k=>T("cat_"+k)).join(", ");
+        body.appendChild(lg);
+      }
+
+      // comment
+      const cl = document.createElement("div"); cl.className="flbl"; cl.textContent=T("comment");
+      const ct = document.createElement("textarea"); ct.value=a.comment;
+      ct.addEventListener("input", ()=> a.comment = ct.value);
+      ct.addEventListener("change", renderSummary);
+      body.appendChild(cl); body.appendChild(ct);
+
+      // justification
+      const jl = document.createElement("div"); jl.className="flbl"; jl.textContent=T("justification");
+      const jt = document.createElement("textarea"); jt.value=a.just;
+      jt.addEventListener("input", ()=> a.just = jt.value);
+      jt.addEventListener("change", renderSummary);
+      body.appendChild(jl); body.appendChild(jt);
+
+      det.appendChild(body);
+      seg.appendChild(det);
+      wrap.appendChild(seg);
+    });
+
+    const mismatchCount = rows.filter(r=>r.mismatch).length;
+    const nudge = $("#mismatchNudge");
+    if(mismatchCount){
+      const d = document.createElement("div");
+      d.className = "nudge";
+      d.appendChild(document.createTextNode(T("nudge_text").replace("{n}", mismatchCount)));
+      const b = document.createElement("button");
+      b.textContent = T("nudge_btn");
+      b.addEventListener("click", ()=>{
+        const w = $("#segEditorWrap");
+        w.open = true;
+        w.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+      d.appendChild(b);
+      nudge.appendChild(d);
+    }
+    renderSummary();
+  }
+
+  // ---- per-version annotation cell ----
+  function buildVannCell(a, ci, hasText, alignRight){
+    const cell = document.createElement("div");
+    cell.className = "col vcell";
+    if(!hasText) return cell;
+    const sel = document.createElement("div");
+    sel.className = "vsel";
+    const groups = [["d", DESC_KEYS, "desc", "add_desc", "hint_desc"], ["e", EVAL_KEYS, "eval", "add_eval", "hint_eval"]];
+    const paint = ()=>{
+      sel.innerHTML = "";
+      groups.forEach(([grp, keys, cls])=>{
+        keys.forEach(k=>{
+          if(!vhas(a, grp, ci, k)) return;
+          const tg = document.createElement("button");
+          tg.type = "button";
+          tg.className = "tag " + cls;
+          tg.title = T("remove_tag");
+          tg.textContent = T(grp+"_"+k);
+          const x = document.createElement("span"); x.className = "x"; x.textContent = "×"; x.setAttribute("aria-hidden","true");
+          tg.appendChild(x);
+          tg.addEventListener("click", ()=>{
+            vset(a, grp, ci).delete(k);
+            const cb = cell.querySelector('.pick.'+cls+' input[data-k="'+k+'"]');
+            if(cb) cb.checked = false;
+            paint(); renderSummary();
+          });
+          sel.appendChild(tg);
+        });
+      });
+    };
+    cell.appendChild(sel);
+    const bar = document.createElement("div");
+    bar.className = "vbtns";
+    groups.forEach(([grp, keys, cls, lbl, hint])=>{
+      const pk = document.createElement("details");
+      pk.className = "pick " + cls + (alignRight ? " right" : "");
+      const sm = document.createElement("summary");
+      sm.textContent = T(lbl);
+      sm.title = T(hint);
+      pk.appendChild(sm);
+      const list = document.createElement("div");
+      list.className = "plist";
+      const h = document.createElement("div"); h.className = "phint"; h.textContent = T(hint);
+      list.appendChild(h);
+      const sections = grp === "d" ? DESC_GROUPS : [[null, keys]];
+      sections.forEach(([subKey, subKeys])=>{
+      if(subKey){ const sh = document.createElement("div"); sh.className = "psub"; sh.textContent = T(subKey); list.appendChild(sh); }
+      subKeys.forEach(k=>{
+        const lab = document.createElement("label");
+        const cb = document.createElement("input");
+        cb.type = "checkbox"; cb.dataset.k = k; cb.checked = vhas(a, grp, ci, k);
+        cb.addEventListener("change", ()=>{
+          const set = vset(a, grp, ci);
+          if(cb.checked) set.add(k); else set.delete(k);
+          paint(); renderSummary();
+        });
+        lab.appendChild(cb);
+        lab.appendChild(document.createTextNode(T(grp+"_"+k)));
+        list.appendChild(lab);
+      });
+      });
+      pk.appendChild(list);
+      pk.addEventListener("toggle", ()=>{
+        if(pk.open) document.querySelectorAll("details.pick[open]").forEach(o=>{ if(o !== pk) o.open = false; });
+      });
+      bar.appendChild(pk);
+    });
+    cell.appendChild(bar);
+    paint();
+    return cell;
+  }
+  document.addEventListener("click", e=>{
+    document.querySelectorAll("details.pick[open]").forEach(d=>{ if(!d.contains(e.target)) d.open = false; });
+  });
+  document.addEventListener("keydown", e=>{
+    if(e.key === "Escape") document.querySelectorAll("details.pick[open]").forEach(d=>{ d.open = false; const sm = d.querySelector("summary"); if(sm) sm.focus(); });
+  });
+
+  // ---- per-version summary ----
+  function computeSummary(){
+    const nV = versions.length;
+    const best = new Array(nV).fill(0);
+    const annotated = new Array(nV).fill(0);
+    const d = {}, e = {};
+    DESC_KEYS.forEach(k=> d[k] = new Array(nV).fill(0));
+    EVAL_KEYS.forEach(k=> e[k] = new Array(nV).fill(0));
+    let any = false;
+    rows.forEach((row, r)=>{
+      const a = ann[r];
+      if(!a) return;
+      if(a.best != null && a.best < nV){ best[a.best]++; any = true; }
+      if((a.comment||"").trim() || (a.just||"").trim()) any = true;
+      for(let ci=0; ci<nV; ci++){
+        let has = false;
+        DESC_KEYS.forEach(k=>{ if(vhas(a,"d",ci,k)){ d[k][ci]++; has = true; } });
+        EVAL_KEYS.forEach(k=>{ if(vhas(a,"e",ci,k)){ e[k][ci]++; has = true; } });
+        if(has){ annotated[ci]++; any = true; }
+      }
+    });
+    const sum = arr=> arr.reduce((x,y)=>x+y,0);
+    return { any, best, annotated, d, e,
+      usedD: DESC_KEYS.filter(k=> sum(d[k])>0), usedE: EVAL_KEYS.filter(k=> sum(e[k])>0) };
+  }
+
+  function summaryTableHTML(names, forReport){
+    const S = computeSummary();
+    if(!S.any) return forReport ? "" : '<p class="sumnote">'+esc(T("sum_empty"))+'</p>';
+    const cell = n=> '<td'+(n? '' : ' class="z"')+'>'+n+'</td>';
+    const row = (label, arr, cls)=> '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+esc(label)+'</td>'+arr.map(cell).join("")+'</tr>';
+    const span = names.length + 1;
+    let h = '<table class="sumtable"><thead><tr><th></th>'+names.map(n=>'<th>'+esc(n)+'</th>').join("")+'</tr></thead><tbody>';
+    h += row(T("sum_best"), S.best);
+    h += row(T("sum_annotated")+" ("+rows.length+")", S.annotated);
+    if(S.usedD.length){
+      h += '<tr class="gh"><td colspan="'+span+'">'+esc(T("grp_desc"))+'</td></tr>';
+      S.usedD.forEach(k=> h += row(T("d_"+k), S.d[k]));
+    }
+    if(S.usedE.length){
+      h += '<tr class="gh"><td colspan="'+span+'">'+esc(T("grp_eval"))+'</td></tr>';
+      S.usedE.forEach(k=> h += row(T("e_"+k), S.e[k]));
+    }
+    h += '</tbody></table>';
+    return h;
+  }
+
+  function renderSummary(){
+    const el = $("#summary");
+    if(!el) return;
+    if(!rows.length || !lastMeta){ el.innerHTML = ""; return; }
+    el.innerHTML = '<h2 class="sec">'+esc(T("sum_title"))+'</h2>'+
+      '<div class="sumwrap">'+summaryTableHTML(lastMeta.versionNames, false)+'</div>'+
+      '<p class="sumnote">'+esc(T("sum_note"))+'</p>';
+  }
+
+
+  function recomputeMismatches(){
+    const hasSource = !!(lastMeta && lastMeta.src && lastMeta.src.text);
+    const nFilledV = versions.filter((v,i)=> rows.some(r=> (r.cells[i]||"").trim())).length;
+    rows.forEach(row=>{
+      const present = row.cells.filter(c=>c && c.trim().length).length;
+      const srcMismatch = hasSource && !(row.src && row.src.trim().length);
+      row.mismatch = present !== nFilledV || srcMismatch;
+    });
+  }
+
+  function collectSegEditor(){
+    document.querySelectorAll("#segEditor textarea[data-r]").forEach(ta=>{
+      const r = parseInt(ta.dataset.r,10);
+      if(!rows[r]) return;
+      if(ta.dataset.field === "src") rows[r].src = ta.value.trim();
+      else rows[r].cells[parseInt(ta.dataset.c,10)] = ta.value.trim();
+    });
+  }
+
+  function shiftAnn(from, delta, dropIdx){
+    const out = {};
+    Object.keys(ann).forEach(k=>{
+      const i = parseInt(k,10);
+      if(dropIdx != null && i === dropIdx) return;
+      if(i >= from) out[i+delta] = ann[k]; else out[i] = ann[k];
+    });
+    ann = out;
+  }
+
+  function renderSegEditor(){
+    const wrap = $("#segEditorWrap");
+    const holder = $("#segEditor");
+    if(!rows.length || !lastMeta){
+      wrap.style.display = "none";
+      holder.innerHTML = "";
+      return;
+    }
+    wrap.style.display = "block";
+    const hasSource = !!(lastMeta.src && lastMeta.src.text);
+    let html = '<table class="segtable"><thead><tr><th>#</th>';
+    if(hasSource) html += '<th>'+esc(T("th_source"))+'</th>';
+    lastMeta.versionNames.forEach((n,i)=>{ html += '<th'+(hasGreek(n)?' lang="el"':'')+'>'+esc(n)+(i===baseIndex?esc(T("base_suffix")):'')+'</th>'; });
+    html += '<th>'+esc(T("th_actions"))+'</th></tr></thead><tbody>';
+    rows.forEach((row,r)=>{
+      html += '<tr><td class="rno">'+(r+1)+(row.mismatch?'<br><span style="color:var(--oxblood)">⚠</span>':'')+'</td>';
+      if(hasSource){
+        html += '<td><textarea class="segcell source" data-r="'+r+'" data-field="src">'+esc(row.src||"")+'</textarea></td>';
+      }
+      row.cells.forEach((cell,c)=>{
+        html += '<td><textarea class="segcell" data-r="'+r+'" data-field="cell" data-c="'+c+'">'+esc(cell||"")+'</textarea></td>';
+      });
+      html += '<td><div class="segrowtools">'+
+        '<button data-act="split" data-r="'+r+'">'+esc(T("btn_split"))+'</button>'+
+        '<button data-act="merge" data-r="'+r+'">'+esc(T("btn_merge"))+'</button>'+
+        '<button data-act="add" data-r="'+r+'">'+esc(T("btn_addafter"))+'</button>'+
+        '<button data-act="del" data-r="'+r+'">'+esc(T("btn_delrow"))+'</button>'+
+      '</div></td></tr>';
+    });
+    html += '</tbody></table>';
+    holder.innerHTML = html;
+    holder.querySelectorAll("textarea.segcell").forEach(t=>{
+      t.addEventListener("keydown", e=>{
+        if((e.ctrlKey || e.metaKey) && e.key === "Enter"){
+          e.preventDefault();
+          const s = t.selectionStart, v = t.value;
+          t.value = v.slice(0,s) + "||" + v.slice(s);
+          t.selectionStart = t.selectionEnd = s + 2;
+        }
+      });
+    });
+    holder.querySelectorAll("button[data-act]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        collectSegEditor();
+        const r = parseInt(btn.dataset.r,10);
+        const act = btn.dataset.act;
+        if(act === "split") splitRowAtMarker(r);
+        if(act === "merge") mergeRowWithNext(r);
+        if(act === "add") addEmptyRowAfter(r);
+        if(act === "del") deleteRow(r);
+      });
+    });
+  }
+
+  function blankRow(){ return { src:"", cells: versions.map(()=>""), mismatch:true }; }
+  function splitParts(s){
+    const parts = String(s||"").split("||");
+    if(parts.length < 2) return null;
+    return [parts[0].trim(), parts.slice(1).join("||").trim()];
+  }
+  function splitRowAtMarker(r){
+    const row = rows[r];
+    if(!row) return;
+    const newRow = blankRow();
+    let did = false;
+    const sp = splitParts(row.src);
+    if(sp){ row.src = sp[0]; newRow.src = sp[1]; did = true; }
+    row.cells.forEach((cell,i)=>{
+      const parts = splitParts(cell);
+      if(parts){ row.cells[i] = parts[0]; newRow.cells[i] = parts[1]; did = true; }
+    });
+    if(!did){ alert(T("alert_split")); return; }
+    rows.splice(r+1,0,newRow);
+    shiftAnn(r+1, +1);
+    recomputeMismatches();
+    renderSegEditor(); renderResults();
+  }
+  function mergeRowWithNext(r){
+    if(r < 0 || r >= rows.length-1){ alert(T("alert_nomerge")); return; }
+    const a = rows[r], b = rows[r+1];
+    a.src = [a.src,b.src].filter(Boolean).join(" ").trim();
+    a.cells = a.cells.map((c,i)=> [c,b.cells[i]].filter(Boolean).join(" ").trim());
+    rows.splice(r+1,1);
+    if(!annHasContent(ann[r]) && ann[r+1]) ann[r] = ann[r+1];
+    shiftAnn(r+2, -1, r+1);
+    recomputeMismatches();
+    renderSegEditor(); renderResults();
+  }
+  function addEmptyRowAfter(r){
+    rows.splice(r+1,0,blankRow());
+    shiftAnn(r+1, +1);
+    recomputeMismatches();
+    renderSegEditor(); renderResults();
+  }
+  function deleteRow(r){
+    if(!rows[r]) return;
+    if(rows.length <= 1){ alert(T("alert_nodel")); return; }
+    rows.splice(r,1);
+    shiftAnn(r+1, -1, r);
+    recomputeMismatches();
+    renderSegEditor(); renderResults();
+  }
+  function applySegEdits(){
+    collectSegEditor();
+    recomputeMismatches();
+    renderSegEditor();
+    renderResults();
+  }
+
+  function renderDiff(container, baseToks, verToks, showOmit){
+    const ops = diffOps(baseToks, verToks);
+    let pendingOmit = [];
+    const flushOmit = ()=>{
+      if(showOmit && pendingOmit.length){
+        const words = pendingOmit.filter(t=>t.word).map(t=>t.t);
+        if(words.length){
+          const omitWrap = document.createElement("span");
+          const mark = document.createElement("span");
+          mark.className = "omit";
+          mark.textContent = "∅";
+          mark.title = T("omit_title") + words.join(" ");
+          const reveal = document.createElement("span");
+          reveal.className = "omit-reveal";
+          reveal.textContent = words.join(" ");
+          reveal.style.display = "none";
+          mark.addEventListener("click", ()=>{ reveal.style.display = (reveal.style.display === "none") ? "inline" : "none"; });
+          omitWrap.appendChild(mark);
+          omitWrap.appendChild(reveal);
+          container.appendChild(omitWrap);
+        }
+      }
+      pendingOmit = [];
+    };
+    ops.forEach(op=>{
+      if(op.type === "del"){ pendingOmit.push(op.tok); return; }
+      flushOmit();
+      if(op.type === "eq"){
+        container.appendChild(document.createTextNode(op.tok.t));
+      } else { // add
+        if(op.tok.ws){ container.appendChild(document.createTextNode(op.tok.t)); }
+        else{
+          const sp = document.createElement("span");
+          sp.className = "tok-add";
+          sp.textContent = op.tok.t;
+          container.appendChild(sp);
+        }
+      }
+    });
+    flushOmit();
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+  // ---- exports ----
+  function buildReportHTML(){
+    const m = lastMeta;
+    const showOmit = $("#showOmit").checked;
+    let body = "";
+    const hasSource = !!(m.src && m.src.text);
+    const provItems = (m.versionProv||[]).map((p,i)=> p ? '<li><b>'+esc(m.versionNames[i])+':</b> '+esc(p)+'</li>' : '').filter(Boolean).join("");
+    const provBlock = provItems ? '<div class="prov-block"><h3>'+esc(T("prov_h"))+'</h3><ul>'+provItems+'</ul></div>' : '';
+    rows.forEach((row,r)=>{
+      const a = ann[r] || newAnn();
+      const baseToks = tokenize(row.cells[baseIndex]);
+      let cols = "";
+      if(hasSource){
+        cols += '<td class="src-cell"><div class="vn"'+(hasGreek(m.src.name || T("source_default"))?' lang="el"':'')+'>'+esc((m.src.name || T("source_default")) + T("src_suffix"))+'</div>'+esc(row.src || "—")+'</td>';
+      }
+      versions.forEach((v,ci)=>{
+        let inner;
+        if(ci===baseIndex) inner = esc(row.cells[ci]||"—");
+        else if(!row.cells[ci]) inner = "—";
+        else inner = diffToHTML(baseToks, tokenize(row.cells[ci]), showOmit);
+        cols += '<td'+(ci===baseIndex?' class="base"':'')+'><div class="vn"'+(hasGreek(m.versionNames[ci])?' lang="el"':'')+'>'+esc(m.versionNames[ci]+(ci===baseIndex?T("base_suffix"):''))+'</div>'+inner+'</td>';
+      });
+      const cat = [...(a.cats||[])].map(k=>T("cat_"+k));
+      let vcat = "";
+      versions.forEach((v,ci)=>{
+        const dl = vlabels(a,"d",ci), el = vlabels(a,"e",ci);
+        if(!dl.length && !el.length) return;
+        vcat += '<p><b>'+esc(m.versionNames[ci])+T("colon")+'</b> '+
+          (dl.length ? '<i>'+esc(T("grp_desc"))+T("colon")+'</i> '+esc(dl.join(", ")) : '')+
+          (dl.length && el.length ? '. ' : '')+
+          (el.length ? '<i>'+esc(T("grp_eval"))+T("colon")+'</i> '+esc(el.join(", ")) : '')+'</p>';
+      });
+      body += '<section class="seg'+(row.mismatch?' mm':'')+'">'+
+        '<div class="sh">'+esc(T("seg_label").replace("{n}", r+1))+(row.mismatch?esc(T("seg_mm_suffix")):'')+'</div>'+
+        '<table><tr>'+cols+'</tr></table>'+
+        '<div class="meta">'+
+          '<p><b>'+esc(T("best_label"))+'</b> '+(a.best!=null?esc(m.versionNames[a.best]):'—')+'</p>'+
+          (vcat || '<p><b>'+esc(T("cats_label"))+'</b> —</p>')+
+          (cat.length ? '<p><b>'+esc(T("legacy_label"))+'</b> '+esc(cat.join(", "))+'</p>' : '')+
+          '<p><b>'+esc(T("comment"))+T("colon")+'</b> '+(a.comment?esc(a.comment):'—')+'</p>'+
+          '<p><b>'+esc(T("justification"))+T("colon")+'</b> '+(a.just?esc(a.just):'—')+'</p>'+
+        '</div></section>';
+    });
+    return '<!doctype html><html lang="'+LANG+'"><head><meta charset="utf-8"><title>'+esc(T("report_title"))+'</title>'+
+      '<style>body{font-family:Georgia,serif;max-width:1000px;margin:30px auto;padding:0 20px;color:#211c16;line-height:1.5}'+
+      'h1{font-size:30px;border-bottom:2px solid #211c16;padding-bottom:8px}'+
+      '.head-meta{font:13px system-ui;color:#5c5345;margin-bottom:20px}'+
+      'section.seg{border:1px solid #d8cfba;border-radius:5px;margin:16px 0}'+
+      'section.seg.mm{border-color:#7c2d2d}'+
+      '.sh{background:#efe8d9;padding:6px 12px;font:13px system-ui;color:#5c5345;border-bottom:1px solid #d8cfba}'+
+      'table{width:100%;border-collapse:collapse}td{vertical-align:top;padding:10px 12px;border-right:1px solid #eee;width:1%}td.base{background:#f4f8f6}td.src-cell{background:#f8fbf9}'+
+      '.vn{font:11px system-ui;text-transform:uppercase;letter-spacing:.08em;color:#5c5345;margin-bottom:5px}'+
+      '.add{background:rgba(47,93,87,.16);border-bottom:2px solid #2f5d57}'+
+      '.omit{color:#7c2d2d;font-weight:700;font-size:11px;vertical-align:super;font-family:system-ui}'+
+      '.meta{padding:8px 12px;border-top:1px dashed #d8cfba;font-size:14px}.meta p{margin:4px 0;white-space:pre-wrap}'+
+      'section.src h3{font:14px system-ui;color:#2f5d57}section.src p{background:#f4f8f6;padding:10px;border-radius:4px}'+
+      '.prov-block{background:#f4f8f6;border:1px solid #d8cfba;border-radius:5px;padding:8px 16px;margin-bottom:20px}'+
+      '.prov-block h3{font:12px system-ui;text-transform:uppercase;letter-spacing:.08em;color:#2f5d57;margin:6px 0}'+
+      '.prov-block ul{margin:6px 0;padding-left:18px;font-size:13.5px}.prov-block li{margin:3px 0}'+
+      '.sum-block{margin-bottom:22px}.sum-block h3{font:12px system-ui;text-transform:uppercase;letter-spacing:.08em;color:#7c2d2d;margin:6px 0}'+
+      'table.sumtable{border-collapse:collapse;width:100%;font:13px system-ui}table.sumtable td,table.sumtable th{border-bottom:1px solid #d8cfba;padding:5px 9px;text-align:right;width:auto}'+
+      'table.sumtable td:first-child,table.sumtable th:first-child{text-align:left}table.sumtable thead th{background:#efe8d9}'+
+      'table.sumtable tr.gh td{background:#efe8d9;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;text-align:left}table.sumtable tr.tot td{font-weight:700}table.sumtable td.z{color:#bbb}'+
+      '.sum-block p{font:12px system-ui;color:#5c5345}'+
+      '</style></head><body>'+
+      '<h1>'+esc(T("report_h1"))+'</h1>'+
+      '<div class="head-meta">'+T("report_meta").replace("{mode}", esc(modeLabel(m.mode))).replace("{base}", esc(m.versionNames[m.baseIndex])).replace("{date}", esc(m.date))+'</div>'+
+      provBlock+
+      (function(){ const t = summaryTableHTML(m.versionNames, true); return t ? '<div class="sum-block"><h3>'+esc(T("sum_title"))+'</h3>'+t+'<p>'+esc(T("sum_note"))+'</p></div>' : ''; })()+
+      body+
+      '<div class="head-meta" style="margin-top:30px;border-top:1px solid #d8cfba;padding-top:10px">'+esc(T("report_local"))+'</div>'+
+      '<div class="head-meta" style="margin-top:8px">'+T("report_credit")+'</div>'+
+      '</body></html>';
+  }
+
+  function diffToHTML(baseToks, verToks, showOmit){
+    const ops = diffOps(baseToks, verToks);
+    let out = "", pend = [];
+    const flush = ()=>{
+      if(showOmit && pend.length){
+        const w = pend.filter(t=>t.word).map(t=>t.t);
+        if(w.length) out += '<span class="omit" title="'+esc(T("omit_title") + w.join(" "))+'">∅</span>';
+      }
+      pend = [];
+    };
+    ops.forEach(op=>{
+      if(op.type==="del"){ pend.push(op.tok); return; }
+      flush();
+      if(op.type==="eq") out += esc(op.tok.t);
+      else out += op.tok.ws ? esc(op.tok.t) : '<span class="add">'+esc(op.tok.t)+'</span>';
+    });
+    flush();
+    return out;
+  }
+
+  function modeLabel(m){ return m==="sentence"?T("mode_sentence"):m==="paragraph"?T("mode_paragraph"):T("mode_line"); }
+
+  function buildCSV(){
+    const m = lastMeta;
+    const hasSource = !!(m.src && m.src.text);
+    const hasLegacy = rows.some((row,r)=> ann[r] && ann[r].cats && ann[r].cats.size);
+    const vcols = [];
+    m.versionNames.forEach(n=>{ vcols.push(n+T("colon")+" "+T("grp_desc")); vcols.push(n+T("colon")+" "+T("grp_eval")); });
+    const head = ["#"].concat(hasSource ? [T("source_default")] : []).concat(m.versionNames).concat([T("csv_best")]).concat(vcols)
+      .concat(hasLegacy ? [T("csv_cats")] : []).concat([T("csv_comment"),T("csv_just"),T("csv_mm")]);
+    const lines = [head];
+    rows.forEach((row,r)=>{
+      const a = ann[r] || newAnn();
+      const vvals = [];
+      m.versionNames.forEach((n,ci)=>{ vvals.push(vlabels(a,"d",ci).join("; ")); vvals.push(vlabels(a,"e",ci).join("; ")); });
+      const rec = [String(r+1)].concat(hasSource ? [row.src || ""] : []).concat(row.cells.map(c=>c||""))
+        .concat([ a.best!=null?m.versionNames[a.best]:"" ]).concat(vvals)
+        .concat(hasLegacy ? [[...(a.cats||[])].map(k=>T("cat_"+k)).join("; ")] : [])
+        .concat([ a.comment||"", a.just||"", row.mismatch?T("yes"):"" ]);
+      lines.push(rec);
+    });
+    const S = computeSummary();
+    if(S.any){
+      lines.push([]);
+      lines.push([T("sum_title")].concat(m.versionNames));
+      lines.push([T("sum_best")].concat(S.best.map(String)));
+      lines.push([T("sum_annotated")].concat(S.annotated.map(String)));
+      S.usedD.forEach(k=> lines.push([T("grp_desc")+T("colon")+" "+T("d_"+k)].concat(S.d[k].map(String))));
+      S.usedE.forEach(k=> lines.push([T("grp_eval")+T("colon")+" "+T("e_"+k)].concat(S.e[k].map(String))));
+    }
+    if((m.versionProv||[]).some(p=>p)){
+      lines.push([]);
+      lines.push([T("prov_h")]);
+      m.versionNames.forEach((n,i)=>{ if(m.versionProv[i]) lines.push([n, m.versionProv[i]]); });
+    }
+    return "\uFEFF" + lines.map(r=> r.map(csvCell).join(";")).join("\r\n");
+  }
+  function csvCell(s){ s = String(s); return /[";,\r\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
+
+  function download(filename, text, mime){
+    const blob = new Blob([text], {type: mime+";charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 0);
+  }
+
+  // ---- wiring ----
+  $("#addVer").addEventListener("click", ()=>{ if(versions.length<6){ versions.push(mkVer()); renderVersionCards(); refreshBaseSel(); } });
+  $("#compareBtn").addEventListener("click", compare);
+  $("#loadSample").addEventListener("click", loadSample);
+  $("#applySegEdits").addEventListener("click", applySegEdits);
+  $("#addSegRowEnd").addEventListener("click", ()=>{ if(!rows.length) return; collectSegEditor(); rows.push(blankRow()); recomputeMismatches(); renderSegEditor(); renderResults(); });
+  $("#showOmit").addEventListener("change", ()=>{ if(rows.length) renderResults(); });
+  $("#baseSel").addEventListener("change", ()=>{ baseIndex = parseInt($("#baseSel").value,10)||0; if(lastMeta) lastMeta.baseIndex = baseIndex; if(rows.length){ renderSegEditor(); renderResults(); } });
+  $("#clearBtn").addEventListener("click", ()=>{
+    if(!confirm(T("confirm_clear"))) return;
+    versions = [ mkVer(), mkVer(), mkVer() ];
+    rows = []; ann = {}; baseIndex = 0; lastMeta = null;
+    $("#srcName").value = ""; $("#srcText").value = "";
+    renderVersionCards(); refreshBaseSel();
+    $("#results").innerHTML = '<div class="empty">'+T("empty_initial")+'</div>';
+    $("#legend").style.display = "none";
+    $("#segEditorWrap").style.display = "none";
+    $("#segEditorWrap").open = false;
+    $("#segEditor").innerHTML = "";
+    $("#mismatchNudge").innerHTML = "";
+    $("#exportbar").style.display = "none";
+    $("#summary").innerHTML = "";
+  });
+  window.addEventListener("beforeunload", e=>{
+    const hasWork = rows.length > 0 || versions.some(v=> (v.text||"").trim()) || $("#srcText").value.trim();
+    if(hasWork){ e.preventDefault(); e.returnValue = ""; }
+  });
+
+  $("#expHtml").addEventListener("click", ()=>{ if(!lastMeta) return; download(T("file_report"), buildReportHTML(), "text/html"); });
+  $("#expCsv").addEventListener("click", ()=>{ if(!lastMeta) return; download(T("file_csv"), buildCSV(), "text/csv"); });
+
+  // source file loader
+  document.querySelector('input[type=file][data-src]').addEventListener("change", e=> loadFile(e, t=>{ $("#srcText").value = t; }));
+
+  function loadSample(){
+    const hasContent = versions.some(v=>v.text && v.text.trim()) || ($("#srcText").value.trim()) || rows.length;
+    if(hasContent && !confirm(T("confirm_sample"))) return;
+    ann = {}; baseIndex = 0;
+    versions = SAMPLE.versions.map(v=> mkVer(v.name));
+    versions.forEach((v,i)=>{ v.text = SAMPLE.versions[i].text; v.prov = SAMPLE.versions[i].prov || ""; });
+    $("#srcName").value = SAMPLE.srcName;
+    $("#srcText").value = SAMPLE.srcText;
+    $("#segMode").value = "sentence";
+    renderVersionCards();
+    refreshBaseSel();
+    compare();
+  }
+
+  // ---- session save / load (local file, nothing leaves the machine) ----
+  function buildSession(){
+    const annOut = {};
+    Object.keys(ann).forEach(k=>{
+      const a = ann[k];
+      const pack = grp=>{ const o = {}; Object.keys(a[grp]||{}).forEach(ci=>{ const arr = [...a[grp][ci]]; if(arr.length) o[ci] = arr; }); return o; };
+      annOut[k] = { cats: [...(a.cats||[])], d: pack("d"), e: pack("e"), best: (a.best==null?null:a.best), comment: a.comment||"", just: a.just||"" };
+    });
+    return {
+      _format: "synkrisis-session",
+      _version: 2,
+      savedAt: new Date().toISOString(),
+      mode: $("#segMode").value,
+      baseIndex: baseIndex,
+      showOmit: $("#showOmit").checked,
+      autoAlign: $("#autoAlign").checked,
+      src: { name: $("#srcName").value, text: $("#srcText").value },
+      versions: versions.map(v=>({ name: v.name||"", prov: v.prov||"", text: v.text||"" })),
+      rows: rows.map(r=>({ cells: (r.cells||[]).slice(), src: r.src||"", mismatch: !!r.mismatch })),
+      ann: annOut
+    };
+  }
+
+  function saveSession(){
+    const hasAny = versions.some(v=>v.text && v.text.trim()) || $("#srcText").value.trim() || rows.length;
+    if(!hasAny){ alert(T("alert_nothing")); return; }
+    download(T("file_session"), JSON.stringify(buildSession(), null, 2), "application/json");
+  }
+
+  function loadSessionData(data){
+    if(!data || (data._format !== "synkrisis-session" && data._format !== "antivoli-session") || !Array.isArray(data.versions)){
+      alert(T("alert_badsession")); return;
+    }
+    ann = {};
+    versions = data.versions.map(v=>{ const o = mkVer(v.name||""); o.text = v.text||""; o.prov = v.prov||""; return o; });
+    while(versions.length < 2) versions.push(mkVer());
+    $("#srcName").value = (data.src && data.src.name) || "";
+    $("#srcText").value = (data.src && data.src.text) || "";
+    $("#segMode").value = data.mode || "sentence";
+    $("#showOmit").checked = data.showOmit !== false;
+    $("#autoAlign").checked = data.autoAlign !== false;
+    baseIndex = Math.min(Math.max(parseInt(data.baseIndex,10) || 0, 0), versions.length - 1);
+    renderVersionCards();
+    refreshBaseSel();
+    $("#baseSel").value = baseIndex;
+
+    if(Array.isArray(data.rows) && data.rows.length){
+      rows = data.rows.map(r=>({ cells: (r.cells||[]).slice(), src: r.src||"", mismatch: !!r.mismatch }));
+      if(data.ann){
+        Object.keys(data.ann).forEach(k=>{
+          const a = data.ann[k] || {};
+          const unpack = o=>{ const out = {}; Object.keys(o||{}).forEach(ci=>{ out[ci] = new Set(o[ci]||[]); }); return out; };
+          ann[k] = { cats: new Set((a.cats||[]).map(c=> LEGACY_CATS[c] || c)), d: unpack(a.d), e: unpack(a.e), best: (a.best==null?null:a.best), comment: a.comment||"", just: a.just||"" };
+        });
+      }
+      lastMeta = {
+        mode: $("#segMode").value, baseIndex,
+        src: { name: $("#srcName").value.trim(), text: $("#srcText").value.trim() },
+        versionNames: versions.map((v,i)=> v.name.trim() || ("V"+(i+1))),
+        versionProv: versions.map(v=> (v.prov||"").trim()),
+        date: new Date().toLocaleString(LOCALES[LANG])
+      };
+      renderResults();
+      renderSegEditor();
+      $("#exportbar").style.display = "flex";
+    } else {
+      rows = []; lastMeta = null;
+      $("#summary").innerHTML = "";
+      $("#results").innerHTML = '<div class="empty">'+T("empty_loaded")+'</div>';
+      $("#segEditorWrap").style.display = "none";
+      $("#segEditorWrap").open = false;
+      $("#segEditor").innerHTML = "";
+      $("#mismatchNudge").innerHTML = "";
+      $("#exportbar").style.display = "none";
+    }
+  }
+
+  $("#saveSession").addEventListener("click", saveSession);
+  $("#loadSession").addEventListener("click", ()=>{
+    const hasContent = versions.some(v=>v.text && v.text.trim()) || $("#srcText").value.trim() || rows.length;
+    if(hasContent && !confirm(T("confirm_loadsession"))) return;
+    $("#sessionFile").value = "";
+    $("#sessionFile").click();
+  });
+  $("#sessionFile").addEventListener("change", e=>{
+    const f = e.target.files && e.target.files[0];
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = ()=>{
+      try { loadSessionData(JSON.parse(String(r.result||""))); }
+      catch(err){ alert(T("alert_readsession")); }
+    };
+    r.readAsText(f, "utf-8");
+  });
+
+  // init
+  document.querySelectorAll(".uictl button[data-lang]").forEach(b => b.addEventListener("click", ()=> setLang(b.dataset.lang)));
+  document.getElementById("themeBtn").addEventListener("click", ()=>{
+    const cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    storePref(THEME_KEY, cur);
+    applyTheme(cur);
+  });
+  initTheme();
+  /* γλώσσα διεπαφής από παράμετρο URL: ?lang=el|en|fr */
+  try{
+    var _q = new URLSearchParams(location.search).get("lang");
+    if(_q && I18N[_q]) LANG = _q;
+  }catch(e){}
+  setLang(LANG);
+})();
+</script>
+</body>
+</html>
