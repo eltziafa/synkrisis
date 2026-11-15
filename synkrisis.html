@@ -177,11 +177,23 @@
   .pick.desc>summary{color:var(--teal);border-color:var(--teal)}
   .pick.eval>summary{color:var(--oxblood);border-color:var(--oxblood)}
   .pick[open]>summary{border-style:solid}
-  .plist{position:absolute;z-index:30;top:calc(100% + 4px);left:0;width:300px;max-height:440px;overflow:auto;background:var(--card-bg);border:1px solid var(--line);border-radius:4px;box-shadow:0 10px 28px -10px rgba(33,28,22,.45);padding:10px 12px;display:flex;flex-direction:column;gap:5px;font-family:var(--sans);font-size:0.8125rem;color:var(--ink)}
+  .plist{position:absolute;z-index:30;top:calc(100% + 4px);left:0;width:330px;max-height:440px;overflow:auto;background:var(--card-bg);border:1px solid var(--line);border-radius:4px;box-shadow:0 10px 28px -10px rgba(33,28,22,.45);padding:10px 12px;display:flex;flex-direction:column;gap:5px;font-family:var(--sans);font-size:0.8125rem;color:var(--ink)}
   .pick.right .plist{left:auto;right:0}
   .plist label{display:flex;gap:7px;align-items:flex-start;cursor:pointer;line-height:1.3}
   .psub{font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin:6px 0 1px;border-top:1px solid var(--line);padding-top:6px}
   .phint{font-size:0.7188rem;color:var(--ink-soft);line-height:1.4;margin-bottom:4px}
+  .plist label>span{display:block}
+  .pdef{display:block;font-size:0.6875rem;color:var(--ink-soft);line-height:1.35;margin-top:1px}
+  .gloss h3{font-family:var(--sans);font-size:0.75rem;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 4px}
+  .gloss h3.gd{color:var(--teal)} .gloss h3.ge{color:var(--oxblood)}
+  .gloss h4{font-family:var(--sans);font-size:0.75rem;color:var(--ink-soft);margin:10px 0 2px;font-weight:700}
+  .gloss dl{margin:0;font-size:0.9062rem;line-height:1.45}
+  .gloss dt{font-family:var(--sans);font-weight:700;font-size:0.8125rem;margin-top:7px}
+  .gloss dd{margin:0 0 0 14px}
+  .gloss .gcols>div:first-child h3{margin-top:4px}
+  .gloss p.gnote{font-family:var(--sans);font-size:0.75rem;color:var(--ink-soft);margin-top:14px}
+  .refs{list-style:none;margin:4px 0 16px;padding:0;font-size:0.9062rem;line-height:1.5}
+  .refs li{margin:6px 0;padding-left:1.6em;text-indent:-1.6em;overflow-wrap:anywhere}
   .vann-hint{font-family:var(--sans);font-size:0.75rem;color:var(--ink-soft);line-height:1.45;margin:2px 0 8px}
   .vann-hint b{color:var(--ink)}
   .vann{display:grid;gap:8px;margin:0 0 12px}
@@ -296,10 +308,31 @@
       <p data-i18n-html="help_p4"><b>Τι σημαίνουν τα σύμβολα.</b> Στις εκδοχές, το υπογραμμισμένο κείμενο διαφέρει από το κείμενο-βάση. Το σύμβολο ∅ δηλώνει στοιχείο που υπάρχει στη βάση αλλά δεν αντιστοιχίστηκε στη συγκεκριμένη εκδοχή. Δεν πρόκειται κατ’ ανάγκη για παράλειψη, καθώς μπορεί να οφείλεται σε αναδιατύπωση, συμπύκνωση ή αλλαγή σειράς. Κάντε κλικ στο ∅ για να δείτε το σχετικό κείμενο.</p>
       <p data-i18n-html="help_p5"><b>Κείμενο-βάση.</b> Η σύγκριση γίνεται πάντα ως προς μία εκδοχή, η οποία λειτουργεί ως βάση. Μπορείτε να την αλλάξετε από το αντίστοιχο μενού, για να δείτε τις διαφορές από άλλη οπτική. Η βάση δεν είναι η «σωστή» εκδοχή, αλλά το σημείο αναφοράς της σύγκρισης.</p>
       <p data-i18n-html="help_p6"><b>Αυτόματη παραλληλοποίηση.</b> Όταν οι εκδοχές χωρίζουν διαφορετικά τις προτάσεις, το εργαλείο αντιστοιχίζει τα τμήματα με βάση το λεξιλόγιο που μοιράζεται κάθε εκδοχή με το κείμενο-βάση. Όπου μια εκδοχή ενώνει δύο προτάσεις της βάσης, το τμήμα περιλαμβάνει και τις δύο. Το πρωτότυπο, επειδή είναι σε άλλη γλώσσα, αντιστοιχίζεται μόνο με βάση το μήκος των προτάσεων, οπότε ελέγξτε το. Αν απενεργοποιήσετε την επιλογή, τα τμήματα αντιστοιχίζονται με τη σειρά τους. <b>Διόρθωση κατάτμησης.</b> Αν τα τμήματα δεν στοιχίζονται σωστά, για παράδειγμα επειδή μια εκδοχή έχει διαφορετική στίξη ή διαφορετική κατανομή προτάσεων, ανοίξτε το πτυσσόμενο πεδίο «Έλεγχος και διόρθωση κατάτμησης», κάτω από τη σύγκριση, και διορθώστε το κείμενο κάθε τμήματος. Για να χωρίσετε ένα τμήμα στα δύο, πατήστε Ctrl+Enter στο σημείο της τομής μέσα στο κελί, ώστε να εισαχθεί το σύμβολο ||, ή γράψτε το, και έπειτα πατήστε «Διαίρεση με ||». Οι σχολιασμοί διατηρούνται στα τμήματα που δεν επηρεάζονται από τη διόρθωση. Σε διαίρεση, ο σχολιασμός μένει στο πρώτο από τα δύο νέα τμήματα. Σε συγχώνευση, διατηρείται ο σχολιασμός του πρώτου τμήματος.</p>
-      <p data-i18n-html="help_p7"><b>Αξιολόγηση.</b> Σε κάθε τμήμα, κάτω από το κείμενο κάθε εκδοχής, τα κουμπιά «+ Περιγραφική» και «+ Αξιολογική» ανοίγουν τις κατηγορίες. Οι περιγραφικές καταγράφουν μετατοπίσεις ως προς το πρωτότυπο και οι αξιολογικές τύπους σφάλματος κατά MQM. Οι δύο ομάδες αντιστοιχούν σε δύο χωριστούς τρόπους ανάγνωσης: μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα. Οι κατηγορίες που επιλέγετε εμφανίζονται κάτω από το κείμενο· πατήστε μία για να την αφαιρέσετε. Την καταλληλότερη εκδοχή, το σχόλιο και την αιτιολόγηση τα συμπληρώνετε ανοίγοντας τη γραμμή στο κάτω μέρος κάθε τμήματος. Η «Σύνοψη ανά εκδοχή», κάτω από τη σύγκριση, μετρά σε πόσα τμήματα σημειώθηκε κάθε κατηγορία σε κάθε εκδοχή.</p>
-      <p data-i18n-html="help_p8"><b>Εξαγωγή.</b> Το «Εξαγωγή αναφοράς (HTML)» δίνει αρχείο για ανάγνωση και εκτύπωση. Το «Εξαγωγή πίνακα (CSV)» δίνει αρχείο για επεξεργασία σε λογιστικό φύλλο. Το αρχείο συνεδρίας (JSON) χρησιμεύει για να συνεχίσετε τη δουλειά, όχι για ανάγνωση.</p>
+      <p data-i18n-html="help_p7"><b>Αξιολόγηση.</b> Σε κάθε τμήμα, κάτω από το κείμενο κάθε εκδοχής, τα κουμπιά «+ Περιγραφική» και «+ Αξιολογική» ανοίγουν τις κατηγορίες. Οι περιγραφικές καταγράφουν μετατοπίσεις ως προς το πρωτότυπο και οι αξιολογικές τύπους σφάλματος κατά MQM. Οι δύο ομάδες αντιστοιχούν σε δύο χωριστούς τρόπους ανάγνωσης: μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα. Κάθε κατηγορία συνοδεύεται από τον ορισμό της. Όλοι οι ορισμοί βρίσκονται και στο πτυσσόμενο πεδίο «Ορισμοί κατηγοριών», κάτω από τις οδηγίες. Στις περιγραφικές, η ομάδα «Θεματικές ετικέτες» δεν καταγράφει τύπο μετατόπισης: σημειώνει ζητήματα προς σχολιασμό και μπορεί να συνδυαστεί με τις υπόλοιπες. Οι κατηγορίες που επιλέγετε εμφανίζονται κάτω από το κείμενο. Πατήστε μία για να την αφαιρέσετε. Την καταλληλότερη εκδοχή, το σχόλιο και την αιτιολόγηση τα συμπληρώνετε ανοίγοντας τη γραμμή στο κάτω μέρος κάθε τμήματος. Η «Σύνοψη ανά εκδοχή», κάτω από τη σύγκριση, μετρά σε πόσα τμήματα σημειώθηκε κάθε κατηγορία σε κάθε εκδοχή.</p>
+      <p data-i18n-html="help_p8"><b>Εξαγωγή.</b> Το «Εξαγωγή αναφοράς (HTML)» δίνει αρχείο για ανάγνωση και εκτύπωση. Το «Εξαγωγή πίνακα (CSV)» δίνει αρχείο για επεξεργασία σε λογιστικό φύλλο. Το «Εξαγωγή σχολιασμών (CSV)» δίνει πίνακα 0/1 ανά τμήμα και εκδοχή, με σταθερά κλειδιά κατηγοριών που δεν εξαρτώνται από τη γλώσσα της διεπαφής, ώστε να συγκρίνονται σχολιασμοί από διαφορετικά άτομα. Το αρχείο συνεδρίας (JSON) χρησιμεύει για να συνεχίσετε τη δουλειά, όχι για ανάγνωση. Η συνεδρία και τα αρχεία CSV καταγράφουν την έκδοση του εργαλείου και του σχήματος σχολιασμού.</p>
       <p data-i18n-html="help_p9"><b>Απόρρητο.</b> Όλα γίνονται τοπικά στον φυλλομετρητή. Τα κείμενα υποβάλλονται σε τοπική επεξεργασία και δεν αποθηκεύονται. Κανένα κείμενο δεν αποστέλλεται ούτε αποθηκεύεται σε διακομιστή, και η ανανέωση της σελίδας διαγράφει τα πάντα. Προσοχή: το αρχείο συνεδρίας που αποθηκεύετε περιέχει τα κείμενά σας. Μην το μοιράζεστε αν περιλαμβάνει προστατευμένες μεταφράσεις ή άλλο υλικό που δεν πρέπει να διανεμηθεί.</p>
-      <p data-i18n-html="help_p10"><b>Πλαίσιο και πηγές.</b> Η περιγραφική διάσταση βασίζεται σε προσαρμοσμένο υποσύνολο του συγκριτικού-περιγραφικού μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, με τις τρεις κύριες κατηγορίες του: μετατροπία (modulation), τροποποίηση (modification) και μετάλλαξη (mutation). Το εργαλείο δεν υλοποιεί την πλήρη διαδικασία του μοντέλου (transemes, architranseme, μετάβαση στο μακροδομικό επίπεδο). Η εξομάλυνση, η πολιτισμική αναφορά και η μεταφορά/εικόνα δεν ανήκουν στο μοντέλο· προστέθηκαν ως συχνά ζητήματα της κριτικής ανάγνωσης. Η αξιολογική διάσταση βασίζεται σε επιλεγμένες διαστάσεις σφαλμάτων της τυπολογίας MQM Core (έξι από τις επτά διαστάσεις της, χωρίς τη διάσταση design and markup, που δεν αφορά απλό κείμενο), χωρίς βαθμίδες σοβαρότητας και χωρίς βαθμολογία. Αναφορές: van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/</p>
+    </div>
+  </details>
+
+  <details id="glossBox" class="segtool" style="margin-top:10px">
+    <summary data-i18n="gloss_box">Πλαίσιο και πηγές</summary>
+    <div class="segtool-body help-body">
+      <p data-i18n-html="help_p10">Η περιγραφική διάσταση βασίζεται σε προσαρμοσμένο υποσύνολο του συγκριτικού-περιγραφικού μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, με τις τρεις κύριες κατηγορίες του: μετατροπία (modulation), τροποποίηση (modification) και μετάλλαξη (mutation). Το εργαλείο δεν υλοποιεί την πλήρη διαδικασία του μοντέλου (transemes, architranseme, μετάβαση στο μακροδομικό επίπεδο). Το υποσύνολο ενοποιεί ορισμένες διακρίσεις του μοντέλου: η γενίκευση και η εξειδίκευση δεν χωρίζονται σε σημασιολογική και υφολογική, η συντακτικο-σημασιολογική και η συντακτικο-υφολογική τροποποίηση ενοποιούνται ως «συντακτική», και η συντακτικο-πραγματολογική εμφανίζεται ως «πραγματολογική». Οι υποκατηγορίες του μοντέλου (π.χ. στοιχείο επιπέδου λόγου, χρόνος) δεν καταγράφονται χωριστά, εκτός από τις τρεις της μετάλλαξης. Η εξομάλυνση, η πολιτισμική αναφορά και η μεταφορά/εικόνα δεν είναι τύποι μετατόπισης. Είναι θεματικές ετικέτες που σημειώνουν ζητήματα της κριτικής ανάγνωσης. Η εξομάλυνση ακολουθεί την έννοια normalisation της Baker (1996). Το μοντέλο καλύπτει τα πολιτισμικά δεμένα στοιχεία και τη μεταφορική γλώσσα ως υποκατηγορίες της υφολογικής μετατροπίας και τροποποίησης. Η αξιολογική διάσταση βασίζεται σε επιλεγμένες διαστάσεις σφαλμάτων της τυπολογίας MQM Core (έξι από τις επτά διαστάσεις της, χωρίς τη διάσταση design and markup, που δεν αφορά απλό κείμενο), με τρεις από τους τύπους σφάλματος ακρίβειας (λανθασμένη απόδοση, προσθήκη, παράλειψη), χωρίς βαθμίδες σοβαρότητας και χωρίς βαθμολογία.</p>
+      <p><b data-i18n="refs_title">Ενδεικτική βιβλιογραφία</b></p>
+      <ul class="refs">
+        <li>Baker, M. (1996). Corpus-based translation studies: The challenges that lie ahead. In H. Somers (Ed.), <i>Terminology, LSP and Translation: Studies in language engineering in honour of Juan C. Sager</i> (pp. 175–186). John Benjamins. https://doi.org/10.1075/btl.18</li>
+        <li>Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77</li>
+        <li>MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/</li>
+        <li>van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu</li>
+        <li>van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu</li>
+      </ul>
+    </div>
+  </details>
+
+  <details id="defsBox" class="segtool" style="margin-top:10px">
+    <summary data-i18n="gloss_title">Ορισμοί κατηγοριών</summary>
+    <div class="segtool-body help-body">
+      <div id="glossary" class="gloss"></div>
     </div>
   </details>
 
@@ -369,11 +402,12 @@
   <div class="exportbar" id="exportbar" style="display:none">
     <button class="btn ghost" id="expHtml" data-i18n="btn_exphtml">Εξαγωγή αναφοράς (HTML)</button>
     <button class="btn ghost" id="expCsv" data-i18n="btn_expcsv">Εξαγωγή πίνακα (CSV)</button>
+    <button class="btn ghost" id="expAnn" data-i18n="btn_expann">Εξαγωγή σχολιασμών (CSV)</button>
   </div>
 
   <div class="foot">
     <span data-i18n-html="foot_main"><b>Synkrisis</b>. Μοντέλο σύγκρισης: αντιπαραβολή ως προς ένα κείμενο-βάση, δηλαδή η μέθοδος που χρησιμοποιείται στις κριτικές εκδόσεις για τη συστηματική σύγκριση των διαφορετικών εκδοχών ενός κειμένου, εδώ σε επίπεδο λέξης. Ο σχολιασμός οργανώνεται σε δύο χωριστές ομάδες κατηγοριών: περιγραφικές, με βάση προσαρμοσμένο υποσύνολο του μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, και αξιολογικές, με βάση επιλεγμένες διαστάσεις σφαλμάτων του MQM, χωρίς βαθμολόγηση. Το εργαλείο δεν φιλοξενεί κείμενα και μεταφράσεις. Λειτουργεί με τη λογική «bring your own text»: εισάγετε μόνο κείμενα στα οποία έχετε νόμιμη πρόσβαση, και αυτά δεν αποθηκεύονται.</span>
-    <div class="credit" data-i18n-html="credit">«Synkrisis», έκδοση 1.0.0. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026. Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5 και Claude Fable 5 (Anthropic).</div>
+    <div class="credit" data-i18n-html="credit">«Synkrisis», έκδοση 1.1.0. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026. Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5, Claude Fable 5 και Claude Fable 5.2 (Anthropic).</div>
 </div>
 </div>
 
@@ -396,10 +430,10 @@
     help_p4: "<b>Τι σημαίνουν τα σύμβολα.</b> Στις εκδοχές, το υπογραμμισμένο κείμενο διαφέρει από το κείμενο-βάση. Το σύμβολο ∅ δηλώνει στοιχείο που υπάρχει στη βάση αλλά δεν αντιστοιχίστηκε στη συγκεκριμένη εκδοχή. Δεν πρόκειται κατ’ ανάγκη για παράλειψη, καθώς μπορεί να οφείλεται σε αναδιατύπωση, συμπύκνωση ή αλλαγή σειράς. Κάντε κλικ στο ∅ για να δείτε το σχετικό κείμενο.",
     help_p5: "<b>Κείμενο-βάση.</b> Η σύγκριση γίνεται πάντα ως προς μία εκδοχή, η οποία λειτουργεί ως βάση. Μπορείτε να την αλλάξετε από το αντίστοιχο μενού, για να δείτε τις διαφορές από άλλη οπτική. Η βάση δεν είναι η «σωστή» εκδοχή, αλλά το σημείο αναφοράς της σύγκρισης.",
     help_p6: "<b>Αυτόματη παραλληλοποίηση.</b> Όταν οι εκδοχές χωρίζουν διαφορετικά τις προτάσεις, το εργαλείο αντιστοιχίζει τα τμήματα με βάση το λεξιλόγιο που μοιράζεται κάθε εκδοχή με το κείμενο-βάση. Όπου μια εκδοχή ενώνει δύο προτάσεις της βάσης, το τμήμα περιλαμβάνει και τις δύο. Το πρωτότυπο, επειδή είναι σε άλλη γλώσσα, αντιστοιχίζεται μόνο με βάση το μήκος των προτάσεων, οπότε ελέγξτε το. Αν απενεργοποιήσετε την επιλογή, τα τμήματα αντιστοιχίζονται με τη σειρά τους. <b>Διόρθωση κατάτμησης.</b> Αν τα τμήματα δεν στοιχίζονται σωστά, για παράδειγμα επειδή μια εκδοχή έχει διαφορετική στίξη ή διαφορετική κατανομή προτάσεων, ανοίξτε το πτυσσόμενο πεδίο «Έλεγχος και διόρθωση κατάτμησης», κάτω από τη σύγκριση, και διορθώστε το κείμενο κάθε τμήματος. Για να χωρίσετε ένα τμήμα στα δύο, πατήστε Ctrl+Enter στο σημείο της τομής μέσα στο κελί, ώστε να εισαχθεί το σύμβολο ||, ή γράψτε το, και έπειτα πατήστε «Διαίρεση με ||». Οι σχολιασμοί διατηρούνται στα τμήματα που δεν επηρεάζονται από τη διόρθωση. Σε διαίρεση, ο σχολιασμός μένει στο πρώτο από τα δύο νέα τμήματα. Σε συγχώνευση, διατηρείται ο σχολιασμός του πρώτου τμήματος.",
-    help_p7: "<b>Αξιολόγηση.</b> Σε κάθε τμήμα, κάτω από το κείμενο κάθε εκδοχής, τα κουμπιά «+ Περιγραφική» και «+ Αξιολογική» ανοίγουν τις κατηγορίες. Οι περιγραφικές καταγράφουν μετατοπίσεις ως προς το πρωτότυπο και οι αξιολογικές τύπους σφάλματος κατά MQM. Οι δύο ομάδες αντιστοιχούν σε δύο χωριστούς τρόπους ανάγνωσης: μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα. Οι κατηγορίες που επιλέγετε εμφανίζονται κάτω από το κείμενο· πατήστε μία για να την αφαιρέσετε. Την καταλληλότερη εκδοχή, το σχόλιο και την αιτιολόγηση τα συμπληρώνετε ανοίγοντας τη γραμμή στο κάτω μέρος κάθε τμήματος. Η «Σύνοψη ανά εκδοχή», κάτω από τη σύγκριση, μετρά σε πόσα τμήματα σημειώθηκε κάθε κατηγορία σε κάθε εκδοχή.",
-    help_p8: "<b>Εξαγωγή.</b> Το «Εξαγωγή αναφοράς (HTML)» δίνει αρχείο για ανάγνωση και εκτύπωση. Το «Εξαγωγή πίνακα (CSV)» δίνει αρχείο για επεξεργασία σε λογιστικό φύλλο. Το αρχείο συνεδρίας (JSON) χρησιμεύει για να συνεχίσετε τη δουλειά, όχι για ανάγνωση.",
+    help_p7: "<b>Αξιολόγηση.</b> Σε κάθε τμήμα, κάτω από το κείμενο κάθε εκδοχής, τα κουμπιά «+ Περιγραφική» και «+ Αξιολογική» ανοίγουν τις κατηγορίες. Οι περιγραφικές καταγράφουν μετατοπίσεις ως προς το πρωτότυπο και οι αξιολογικές τύπους σφάλματος κατά MQM. Οι δύο ομάδες αντιστοιχούν σε δύο χωριστούς τρόπους ανάγνωσης: μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα. Κάθε κατηγορία συνοδεύεται από τον ορισμό της. Όλοι οι ορισμοί βρίσκονται και στο πτυσσόμενο πεδίο «Ορισμοί κατηγοριών», κάτω από τις οδηγίες. Στις περιγραφικές, η ομάδα «Θεματικές ετικέτες» δεν καταγράφει τύπο μετατόπισης: σημειώνει ζητήματα προς σχολιασμό και μπορεί να συνδυαστεί με τις υπόλοιπες. Οι κατηγορίες που επιλέγετε εμφανίζονται κάτω από το κείμενο. Πατήστε μία για να την αφαιρέσετε. Την καταλληλότερη εκδοχή, το σχόλιο και την αιτιολόγηση τα συμπληρώνετε ανοίγοντας τη γραμμή στο κάτω μέρος κάθε τμήματος. Η «Σύνοψη ανά εκδοχή», κάτω από τη σύγκριση, μετρά σε πόσα τμήματα σημειώθηκε κάθε κατηγορία σε κάθε εκδοχή.",
+    help_p8: "<b>Εξαγωγή.</b> Το «Εξαγωγή αναφοράς (HTML)» δίνει αρχείο για ανάγνωση και εκτύπωση. Το «Εξαγωγή πίνακα (CSV)» δίνει αρχείο για επεξεργασία σε λογιστικό φύλλο. Το «Εξαγωγή σχολιασμών (CSV)» δίνει πίνακα 0/1 ανά τμήμα και εκδοχή, με σταθερά κλειδιά κατηγοριών που δεν εξαρτώνται από τη γλώσσα της διεπαφής, ώστε να συγκρίνονται σχολιασμοί από διαφορετικά άτομα. Το αρχείο συνεδρίας (JSON) χρησιμεύει για να συνεχίσετε τη δουλειά, όχι για ανάγνωση. Η συνεδρία και τα αρχεία CSV καταγράφουν την έκδοση του εργαλείου και του σχήματος σχολιασμού.",
     help_p9: "<b>Απόρρητο.</b> Όλα γίνονται τοπικά στον φυλλομετρητή. Τα κείμενα υποβάλλονται σε τοπική επεξεργασία και δεν αποθηκεύονται. Κανένα κείμενο δεν αποστέλλεται ούτε αποθηκεύεται σε διακομιστή, και η ανανέωση της σελίδας διαγράφει τα πάντα. Προσοχή: το αρχείο συνεδρίας που αποθηκεύετε περιέχει τα κείμενά σας. Μην το μοιράζεστε αν περιλαμβάνει προστατευμένες μεταφράσεις ή άλλο υλικό που δεν πρέπει να διανεμηθεί.",
-    help_p10: "<b>Πλαίσιο και πηγές.</b> Η περιγραφική διάσταση βασίζεται σε προσαρμοσμένο υποσύνολο του συγκριτικού-περιγραφικού μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, με τις τρεις κύριες κατηγορίες του: μετατροπία (modulation), τροποποίηση (modification) και μετάλλαξη (mutation). Το εργαλείο δεν υλοποιεί την πλήρη διαδικασία του μοντέλου (transemes, architranseme, μετάβαση στο μακροδομικό επίπεδο). Η εξομάλυνση, η πολιτισμική αναφορά και η μεταφορά/εικόνα δεν ανήκουν στο μοντέλο· προστέθηκαν ως συχνά ζητήματα της κριτικής ανάγνωσης. Η αξιολογική διάσταση βασίζεται σε επιλεγμένες διαστάσεις σφαλμάτων της τυπολογίας MQM Core (έξι από τις επτά διαστάσεις της, χωρίς τη διάσταση design and markup, που δεν αφορά απλό κείμενο), χωρίς βαθμίδες σοβαρότητας και χωρίς βαθμολογία. Αναφορές: van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/",
+    help_p10: "Η περιγραφική διάσταση βασίζεται σε προσαρμοσμένο υποσύνολο του συγκριτικού-περιγραφικού μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, με τις τρεις κύριες κατηγορίες του: μετατροπία (modulation), τροποποίηση (modification) και μετάλλαξη (mutation). Το εργαλείο δεν υλοποιεί την πλήρη διαδικασία του μοντέλου (transemes, architranseme, μετάβαση στο μακροδομικό επίπεδο). Το υποσύνολο ενοποιεί ορισμένες διακρίσεις του μοντέλου: η γενίκευση και η εξειδίκευση δεν χωρίζονται σε σημασιολογική και υφολογική, η συντακτικο-σημασιολογική και η συντακτικο-υφολογική τροποποίηση ενοποιούνται ως «συντακτική», και η συντακτικο-πραγματολογική εμφανίζεται ως «πραγματολογική». Οι υποκατηγορίες του μοντέλου (π.χ. στοιχείο επιπέδου λόγου, χρόνος) δεν καταγράφονται χωριστά, εκτός από τις τρεις της μετάλλαξης. Η εξομάλυνση, η πολιτισμική αναφορά και η μεταφορά/εικόνα δεν είναι τύποι μετατόπισης. Είναι θεματικές ετικέτες που σημειώνουν ζητήματα της κριτικής ανάγνωσης. Η εξομάλυνση ακολουθεί την έννοια normalisation της Baker (1996). Το μοντέλο καλύπτει τα πολιτισμικά δεμένα στοιχεία και τη μεταφορική γλώσσα ως υποκατηγορίες της υφολογικής μετατροπίας και τροποποίησης. Η αξιολογική διάσταση βασίζεται σε επιλεγμένες διαστάσεις σφαλμάτων της τυπολογίας MQM Core (έξι από τις επτά διαστάσεις της, χωρίς τη διάσταση design and markup, που δεν αφορά απλό κείμενο), με τρεις από τους τύπους σφάλματος ακρίβειας (λανθασμένη απόδοση, προσθήκη, παράλειψη), χωρίς βαθμίδες σοβαρότητας και χωρίς βαθμολογία.",
     sec_source: "Πρωτότυπο κείμενο",
     sec_source_note: "(προαιρετικό, για αντιπαραβολή)",
     vtag_source: "ΠΗΓΗ",
@@ -439,7 +473,7 @@
     btn_exphtml: "Εξαγωγή αναφοράς (HTML)",
     btn_expcsv: "Εξαγωγή πίνακα (CSV)",
     foot_main: "<b>Synkrisis</b>. Μοντέλο σύγκρισης: αντιπαραβολή ως προς ένα κείμενο-βάση, δηλαδή η μέθοδος που χρησιμοποιείται στις κριτικές εκδόσεις για τη συστηματική σύγκριση των διαφορετικών εκδοχών ενός κειμένου, εδώ σε επίπεδο λέξης. Ο σχολιασμός οργανώνεται σε δύο χωριστές ομάδες κατηγοριών: περιγραφικές, με βάση προσαρμοσμένο υποσύνολο του μοντέλου μεταφραστικών μετατοπίσεων της van Leuven-Zwart, και αξιολογικές, με βάση επιλεγμένες διαστάσεις σφαλμάτων του MQM, χωρίς βαθμολόγηση. Το εργαλείο δεν φιλοξενεί κείμενα και μεταφράσεις. Λειτουργεί με τη λογική «bring your own text»: εισάγετε μόνο κείμενα στα οποία έχετε νόμιμη πρόσβαση, και αυτά δεν αποθηκεύονται.",
-    credit: "«Synkrisis», έκδοση {ver}. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026.{doi} Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5 και Claude Fable 5 (Anthropic).",
+    credit: "«Synkrisis», έκδοση {ver}. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026.{doi} Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5, Claude Fable 5 και Claude Fable 5.2 (Anthropic).",
     alert_need2: "Χρειάζονται τουλάχιστον δύο συμπληρωμένες εκδοχές.",
     alert_nosegs: "Δεν προέκυψαν τμήματα.",
     confirm_resegment: "Η εκ νέου κατάτμηση θα διαγράψει τους υπάρχοντες σχολιασμούς. Συνέχεια;",
@@ -451,7 +485,7 @@
     hint_desc: "Περιγραφική διάσταση: μετατοπίσεις ως προς το πρωτότυπο, όχι ως προς το κείμενο-βάση, κατά το μοντέλο της van Leuven-Zwart (προσαρμοσμένο υποσύνολο). Μια μετατόπιση δεν είναι κατ’ ανάγκη σφάλμα.",
     hint_eval: "Αξιολογική διάσταση: τύποι σφάλματος κατά MQM, χωρίς βαθμολόγηση σοβαρότητας.",
     sub_mod: "Μετατροπία (modulation)", sub_modif: "Τροποποίηση (modification)", sub_mut: "Μετάλλαξη (mutation)",
-    sub_other: "Εκτός μοντέλου: ζητήματα κριτικής ανάγνωσης",
+    sub_other: "Θεματικές ετικέτες: ζητήματα κριτικής ανάγνωσης",
     remove_tag: "Πατήστε για αφαίρεση",
     colon: ":",
     best_label: "Καταλληλότερη εκδοχή:",
@@ -482,7 +516,7 @@
     seg_mm_suffix: ", ⚠ δεν αντιστοιχεί πλήρως",
     cats_label: "Κατηγορίες:",
     report_local: "Παραγωγή με τοπική επεξεργασία. Κανένα κείμενο δεν αποθηκεύτηκε ή απεστάλη.",
-    report_credit: "«Synkrisis», έκδοση {ver}. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026.{doi} Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el\">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5 και Claude Fable 5 (Anthropic).",
+    report_credit: "«Synkrisis», έκδοση {ver}. Ελένη Τζιάφα, Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, 2026.{doi} Διατίθεται με άδεια Creative Commons Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα 4.0 Διεθνές (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.el\">CC BY-NC-ND 4.0</a>). Ο σχεδιασμός και η υλοποίηση έγιναν σε συνεργασία με τα μοντέλα Claude Opus 5.5, Claude Fable 5 και Claude Fable 5.2 (Anthropic).",
     mode_sentence: "ανά πρόταση",
     mode_paragraph: "ανά παράγραφο",
     mode_line: "ανά γραμμή",
@@ -511,7 +545,7 @@
     sum_tot_eval: "Σύνολο αξιολογικών",
     sum_note: "Οι αριθμοί μετρούν σε πόσα τμήματα σημειώθηκε κάθε κατηγορία για κάθε εκδοχή, όχι μεμονωμένες εμφανίσεις. Εμφανίζονται μόνο οι κατηγορίες που χρησιμοποιήθηκαν.",
     sum_empty: "Δεν έχει καταχωριστεί ακόμη σχολιασμός.",
-    d_gen: "Γενίκευση", d_spec: "Εξειδίκευση", d_smod: "Σημασιολογική τροποποίηση",
+    d_gen: "Γενίκευση (νόημα ή ύφος)", d_spec: "Εξειδίκευση (νόημα ή ύφος)", d_smod: "Σημασιολογική τροποποίηση",
     d_styl: "Υφολογική τροποποίηση", d_synt: "Συντακτική τροποποίηση", d_prag: "Πραγματολογική τροποποίηση",
     d_dadd: "Προσθήκη", d_ddel: "Αφαίρεση", d_rad: "Ριζική αλλαγή σημασίας",
     d_norm: "Εξομάλυνση", d_cult: "Πολιτισμική αναφορά", d_met: "Μεταφορά/εικόνα",
@@ -522,7 +556,34 @@
     cat_reg: "Γλωσσικό επίπεδο", cat_cult: "Πολιτισμική αναφορά", cat_met: "Μεταφορά/εικόνα",
     cat_add: "Προσθήκη", cat_omit: "Παράλειψη", cat_norm: "Εξομάλυνση",
     cat_sem: "Σημασιολογική μετατόπιση", cat_prag: "Πραγματολογική μετατόπιση",
-    cat_read: "Αναγνωσιμότητα", cat_coh: "Συνοχή"
+    cat_read: "Αναγνωσιμότητα", cat_coh: "Συνοχή",
+    btn_expann: "Εξαγωγή σχολιασμών (CSV)",
+    file_ann: "synkrisis-sxoliasmoi.csv",
+    gloss_box: "Πλαίσιο και πηγές",
+    refs_title: "Ενδεικτική βιβλιογραφία",
+    gloss_title: "Ορισμοί κατηγοριών",
+    gloss_note: "Οι ορισμοί των αξιολογικών κατηγοριών αποδίδουν, σε μετάφραση και συντόμευση, τους ορισμούς της τυπολογίας MQM Core (The MQM Council, themqm.org, άδεια CC BY 4.0) και διατίθενται με την ίδια άδεια.",
+    csv_tool: "Εργαλείο", csv_scheme: "Σχήμα σχολιασμού",
+    def_d_gen: "Ένα σημασιολογικό ή υφολογικό χαρακτηριστικό υπάρχει στη φράση του πρωτοτύπου και λείπει από την αντίστοιχη φράση του μεταφράσματος, ενώ ο κοινός πυρήνας διατηρείται: το μετάφρασμα είναι γενικότερο.",
+    def_d_spec: "Ένα σημασιολογικό ή υφολογικό χαρακτηριστικό υπάρχει στη φράση του μεταφράσματος και λείπει από την αντίστοιχη φράση του πρωτοτύπου, ενώ ο κοινός πυρήνας διατηρείται: το μετάφρασμα είναι ειδικότερο.",
+    def_d_smod: "Η φράση του πρωτοτύπου και η αντίστοιχη φράση του μεταφράσματος φέρουν, πέρα από τον κοινό πυρήνα, ένα σημασιολογικό χαρακτηριστικό, διαφορετικό στην καθεμία (σχέση αντίθεσης).",
+    def_d_styl: "Η φράση του πρωτοτύπου και η αντίστοιχη φράση του μεταφράσματος φέρουν ένα υφολογικό χαρακτηριστικό του ίδιου είδους, διαφορετικό στην καθεμία (π.χ. οικείο στο πρωτότυπο, επίσημο στο μετάφρασμα), χωρίς να αλλάζει το περιγραφικό νόημα. Είδη: επίπεδο λόγου, επαγγελματικό λεξιλόγιο, χρονική απόχρωση, είδος κειμένου, πολιτισμικά δεμένο στοιχείο, σχήματα επανάληψης, μεταφορική γλώσσα.",
+    def_d_synt: "Αλλαγή συντακτικής μορφής με συνέπειες για το νόημα ή το ύφος: αλλάζει ένα γραμματικό χαρακτηριστικό (χρόνος, πρόσωπο, αριθμός), η γραμματική κατηγορία, η συντακτική λειτουργία ή μια λειτουργική λέξη, ή το ίδιο πληροφοριακό περιεχόμενο αποδίδεται με περισσότερα ή λιγότερα στοιχεία (explicitation, implicitation). Οι συντακτικές αλλαγές χωρίς τέτοιες συνέπειες δεν καταγράφονται.",
+    def_d_prag: "Αλλαγή συντακτικής μορφής με συνέπειες για την πραγματολογική λειτουργία: αλλάζει η γλωσσική πράξη (π.χ. ερώτηση που αποδίδεται ως κατάφαση) ή η θεματική οργάνωση (π.χ. παθητική που γίνεται ενεργητική, αλλαγή σειράς), ή ένα δεικτικό ή αναφορικό στοιχείο αποδίδεται με στοιχείο αυτοτελούς σημασίας, ή το αντίστροφο.",
+    def_d_dadd: "Πρόταση ή φράση του μεταφράσματος χωρίς αντίστοιχο στο πρωτότυπο. Μεμονωμένο πρόσθετο στοιχείο μέσα σε φράση που έχει αντίστοιχο καταγράφεται κατά κανόνα ως εξειδίκευση.",
+    def_d_ddel: "Πρόταση ή φράση του πρωτοτύπου χωρίς αντίστοιχο στο μετάφρασμα. Μεμονωμένο στοιχείο που λείπει μέσα σε φράση που έχει αντίστοιχο καταγράφεται κατά κανόνα ως γενίκευση.",
+    def_d_rad: "Η φράση του πρωτοτύπου έχει αντίστοιχη στο μετάφρασμα, αλλά δεν μπορεί να οριστεί κοινός πυρήνας: το μετάφρασμα λέει κάτι άλλο (π.χ. «κατευθύνομαι προς» που αποδίδεται ως «ετοιμάζω»).",
+    def_d_norm: "Στοιχείο ασυνήθιστο ή χαρακτηρισμένο στο πρωτότυπο αποδίδεται με επιλογή τυπικότερη για τη γλώσσα-στόχο, π.χ. στη σύνταξη, στη στίξη ή στις λεξικές συνάψεις. Η ετικέτα σημειώνει πιθανή εκδήλωση της τάσης που η Baker (1996: 183) ονομάζει normalisation. Ο τύπος της μετατόπισης καταγράφεται χωριστά (συνήθως γενίκευση).",
+    def_d_cult: "Το τμήμα περιέχει στοιχείο δεμένο με τον πολιτισμό του πρωτοτύπου (όνομα, θεσμό, έθιμο, αντικείμενο). Η ετικέτα σημειώνει το ζήτημα, όχι τον τύπο της μετατόπισης.",
+    def_d_met: "Το τμήμα περιέχει μεταφορά, παρομοίωση ή άλλη εικόνα της οποίας η απόδοση αξίζει σχολιασμό. Η ετικέτα σημειώνει το ζήτημα, όχι τον τύπο της μετατόπισης.",
+    def_e_term: "Όρος που δεν συμφωνεί με την καθιερωμένη ορολογία του γνωστικού πεδίου ή του φορέα, ή δεν είναι το σωστό ισοδύναμο του όρου του πρωτοτύπου.",
+    def_e_mis: "Το μετάφρασμα δεν αντιστοιχεί με ακρίβεια στο περιεχόμενο του πρωτοτύπου: το αλλοιώνει.",
+    def_e_eadd: "Το μετάφρασμα περιέχει περιεχόμενο που δεν υπάρχει στο πρωτότυπο.",
+    def_e_eomit: "Περιεχόμενο του πρωτοτύπου λείπει από το μετάφρασμα.",
+    def_e_ling: "Σφάλμα ως προς τη γλωσσική ορθότητα του μεταφράσματος: γραμματική, ορθογραφία, στίξη.",
+    def_e_sty: "Διατύπωση γραμματικά αποδεκτή, αλλά με ακατάλληλο ύφος ή αντίθετη προς τις υφολογικές οδηγίες: π.χ. αφύσικη ή μη ιδιωματική έκφραση, ακατάλληλο επίπεδο λόγου, ασυνέπεια.",
+    def_e_loc: "Παραβίαση των επιχώριων απαιτήσεων για το περιεχόμενο ή τη μορφή δεδομένων: π.χ. αριθμοί, ημερομηνίες, νομίσματα, μονάδες μέτρησης, διευθύνσεις.",
+    def_e_aud: "Περιεχόμενο μη έγκυρο ή ακατάλληλο για τον τόπο ή το κοινό-στόχο: π.χ. αναφορά που το κοινό δεν θα κατανοήσει, ή προσβλητικό περιεχόμενο."
   },
   fr: {
     doc_title: "Synkrisis : évaluation comparative de versions de traduction",
@@ -536,10 +597,10 @@
     help_p4: "<b>Signification des symboles.</b> Dans les versions, le texte souligné diffère du texte de base. Le symbole ∅ signale un élément présent dans le texte de base mais non apparié dans la version concernée. Il ne s’agit pas nécessairement d’une omission : cela peut tenir à une reformulation, à une condensation ou à un changement d’ordre. Cliquez sur ∅ pour afficher le texte concerné.",
     help_p5: "<b>Texte de base.</b> La comparaison se fait toujours par rapport à une version, qui sert de base. Vous pouvez la changer dans le menu correspondant, pour voir les différences sous un autre angle. La base n’est pas la version « correcte », mais le point de référence de la comparaison.",
     help_p6: "<b>Alignement automatique.</b> Lorsque les versions découpent les phrases différemment, l’outil met les segments en correspondance d’après le vocabulaire que chaque version partage avec le texte de base. Si une version réunit deux phrases de la base, le segment comprend les deux. L’original, étant dans une autre langue, est aligné uniquement d’après la longueur des phrases : vérifiez-le. Si vous désactivez l’option, les segments sont appariés dans leur ordre. <b>Correction de la segmentation.</b> Si les segments ne s’alignent pas correctement, par exemple parce qu’une version a une ponctuation différente ou une répartition différente des phrases, ouvrez le volet « Vérification et correction de la segmentation », sous la comparaison, et corrigez le texte de chaque segment. Pour scinder un segment en deux, appuyez sur Ctrl+Entrée à l’endroit de la coupure dans la cellule, afin d’insérer le symbole ||, ou saisissez-le, puis cliquez sur « Scinder par || ». Les annotations sont conservées pour les segments non affectés par la correction. Lors d’une scission, l’annotation reste sur le premier des deux nouveaux segments. Lors d’une fusion, l’annotation du premier segment est conservée.",
-    help_p7: "<b>Évaluation.</b> Dans chaque segment, sous le texte de chaque version, les boutons « + Descriptive » et « + Évaluative » ouvrent les catégories. Les catégories descriptives relèvent les glissements par rapport à l’original, les évaluatives les types d’erreur selon MQM. Les deux groupes correspondent à deux modes de lecture distincts : un glissement n’est pas nécessairement une erreur. Les catégories choisies s’affichent sous le texte ; cliquez sur l’une d’elles pour la retirer. La version la plus adéquate, le commentaire et la justification se saisissent en ouvrant la ligne au bas de chaque segment. La « Synthèse par version », sous la comparaison, compte dans combien de segments chaque catégorie a été relevée pour chaque version.",
-    help_p8: "<b>Exportation.</b> « Exporter le rapport (HTML) » produit un fichier destiné à la lecture et à l’impression. « Exporter le tableau (CSV) » produit un fichier destiné au tableur. Le fichier de session (JSON) sert à reprendre le travail, non à la lecture.",
+    help_p7: "<b>Évaluation.</b> Dans chaque segment, sous le texte de chaque version, les boutons « + Descriptive » et « + Évaluative » ouvrent les catégories. Les catégories descriptives relèvent les glissements par rapport à l’original, les évaluatives les types d’erreur selon MQM. Les deux groupes correspondent à deux modes de lecture distincts : un glissement n’est pas nécessairement une erreur. Chaque catégorie est accompagnée de sa définition ; toutes les définitions figurent aussi dans le volet « Définitions des catégories », sous le mode d’emploi. Parmi les catégories descriptives, le groupe « Étiquettes thématiques » ne relève pas un type de glissement : il signale des questions à commenter et peut se combiner avec les autres. Les catégories choisies s’affichent sous le texte ; cliquez sur l’une d’elles pour la retirer. La version la plus adéquate, le commentaire et la justification se saisissent en ouvrant la ligne au bas de chaque segment. La « Synthèse par version », sous la comparaison, compte dans combien de segments chaque catégorie a été relevée pour chaque version.",
+    help_p8: "<b>Exportation.</b> « Exporter le rapport (HTML) » produit un fichier destiné à la lecture et à l’impression. « Exporter le tableau (CSV) » produit un fichier destiné au tableur. « Exporter les annotations (CSV) » produit un tableau 0/1 par segment et par version, avec des clés de catégories stables, indépendantes de la langue de l’interface, pour comparer les annotations de plusieurs personnes. Le fichier de session (JSON) sert à reprendre le travail, non à la lecture. La session et les fichiers CSV indiquent la version de l’outil et celle du schéma d’annotation.",
     help_p9: "<b>Confidentialité.</b> Tout se passe localement dans le navigateur. Les textes sont traités localement et ne sont pas conservés. Aucun texte n’est envoyé à un serveur ni conservé sur celui-ci, et le rechargement de la page efface tout. Attention : le fichier de session que vous enregistrez contient vos textes. Ne le partagez pas s’il comprend des traductions protégées ou d’autres contenus qui ne doivent pas être diffusés.",
-    help_p10: "<b>Cadre et sources.</b> La dimension descriptive repose sur un sous-ensemble adapté du modèle comparatif-descriptif des glissements de traduction de van Leuven-Zwart, avec ses trois catégories principales : modulation, modification et mutation. L’outil n’implémente pas la procédure complète du modèle (transèmes, architransème, passage au niveau macrostructurel). La normalisation, la référence culturelle et la métaphore/image n’appartiennent pas au modèle ; elles ont été ajoutées comme questions fréquentes de la lecture critique. La dimension évaluative repose sur une sélection des dimensions d’erreur de la typologie MQM Core (six de ses sept dimensions, sans la dimension design and markup, qui ne concerne pas le texte brut), sans degrés de gravité ni notation. Références : van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/",
+    help_p10: "La dimension descriptive repose sur un sous-ensemble adapté du modèle comparatif-descriptif des glissements de traduction de van Leuven-Zwart, avec ses trois catégories principales : modulation, modification et mutation. L’outil n’implémente pas la procédure complète du modèle (transèmes, architransème, passage au niveau macrostructurel). Le sous-ensemble ne reprend pas toutes les distinctions du modèle : la généralisation et la spécification ne sont pas subdivisées en sémantique et stylistique, les modifications syntaxico-sémantique et syntaxico-stylistique sont réunies sous « syntaxique », et la modification syntaxico-pragmatique figure sous « pragmatique ». Les sous-catégories du modèle (p. ex. élément de registre, temps) ne sont pas relevées séparément, à l’exception des trois sous-catégories de la mutation. La normalisation, la référence culturelle et la métaphore/image ne sont pas des types de glissement ; ce sont des étiquettes thématiques qui signalent des questions de lecture critique. La normalisation reprend la notion définie par Baker (1996). Le modèle couvre les éléments propres à une culture et le langage figuré comme sous-catégories de la modulation et de la modification stylistiques. La dimension évaluative repose sur une sélection des dimensions d’erreur de la typologie MQM Core (six de ses sept dimensions, sans la dimension design and markup, qui ne concerne pas le texte brut), avec trois des types d’erreur d’exactitude (erreur de traduction, ajout, omission), sans degrés de gravité ni notation.",
     sec_source: "Texte original",
     sec_source_note: "(facultatif, à titre de référence)",
     vtag_source: "SOURCE",
@@ -551,7 +612,7 @@
     add_version: "+ Ajouter une version",
     ph_vername: "Nom de la version (p. ex. IA-A, Trad. 1)",
     ph_vertext: "Collez ici la traduction.",
-    ph_verprov: "Provenance de la version (modèle, invite, brute ou révisée, date)",
+    ph_verprov: "Provenance de la version (modèle, invite, brute ou post-éditée, date)",
     remove: "Supprimer",
     fld_seg: "Segmentation",
     seg_sentence: "Par phrase",
@@ -579,7 +640,7 @@
     btn_exphtml: "Exporter le rapport (HTML)",
     btn_expcsv: "Exporter le tableau (CSV)",
     foot_main: "<b>Synkrisis</b>. Modèle de comparaison : collation par rapport à un texte de base, c’est-à-dire la méthode utilisée dans les éditions critiques pour la comparaison systématique des différentes versions d’un texte, ici au niveau du mot. L’annotation s’organise en deux groupes distincts de catégories : descriptives, fondées sur un sous-ensemble adapté du modèle des glissements de traduction de van Leuven-Zwart, et évaluatives, fondées sur une sélection des dimensions d’erreur de MQM, sans notation. L’outil n’héberge ni textes ni traductions. Il fonctionne selon le principe « bring your own text » : n’introduisez que des textes auxquels vous avez légalement accès ; ils ne sont pas conservés.",
-    credit: "« Synkrisis », version {ver}. Eleni Tziafa, Université nationale et capodistrienne d’Athènes, 2026.{doi} Distribué sous licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 4.0 International (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Conception et réalisation en collaboration avec les modèles Claude Opus 5.5 et Claude Fable 5 (Anthropic).",
+    credit: "« Synkrisis », version {ver}. Eleni Tziafa, Université nationale et capodistrienne d’Athènes, 2026.{doi} Distribué sous licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 4.0 International (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Conception et réalisation en collaboration avec les modèles Claude Opus 5.5, Claude Fable 5 et Claude Fable 5.2 (Anthropic).",
     alert_need2: "Il faut au moins deux versions remplies.",
     alert_nosegs: "Aucun segment n’a été produit.",
     confirm_resegment: "Une nouvelle segmentation effacera les annotations existantes. Continuer ?",
@@ -591,7 +652,7 @@
     hint_desc: "Dimension descriptive : glissements par rapport à l’original, non par rapport au texte de base, selon le modèle de van Leuven-Zwart (sous-ensemble adapté). Un glissement n’est pas nécessairement une erreur.",
     hint_eval: "Dimension évaluative : types d’erreur selon MQM, sans notation de gravité.",
     sub_mod: "Modulation", sub_modif: "Modification", sub_mut: "Mutation",
-    sub_other: "Hors modèle : questions de lecture critique",
+    sub_other: "Étiquettes thématiques : questions de lecture critique",
     remove_tag: "Cliquer pour retirer",
     colon: "\u00a0:",
     best_label: "Version la plus adéquate :",
@@ -622,7 +683,7 @@
     seg_mm_suffix: ", ⚠ correspondance partielle",
     cats_label: "Catégories :",
     report_local: "Produit par traitement local. Aucun texte n’a été conservé ni transmis.",
-    report_credit: "« Synkrisis », version {ver}. Eleni Tziafa, Université nationale et capodistrienne d’Athènes, 2026.{doi} Distribué sous licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 4.0 International (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr\">CC BY-NC-ND 4.0</a>). Conception et réalisation en collaboration avec les modèles Claude Opus 5.5 et Claude Fable 5 (Anthropic).",
+    report_credit: "« Synkrisis », version {ver}. Eleni Tziafa, Université nationale et capodistrienne d’Athènes, 2026.{doi} Distribué sous licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 4.0 International (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr\">CC BY-NC-ND 4.0</a>). Conception et réalisation en collaboration avec les modèles Claude Opus 5.5, Claude Fable 5 et Claude Fable 5.2 (Anthropic).",
     mode_sentence: "par phrase",
     mode_paragraph: "par paragraphe",
     mode_line: "par ligne",
@@ -651,7 +712,7 @@
     sum_tot_eval: "Total évaluatives",
     sum_note: "Les chiffres indiquent dans combien de segments chaque catégorie a été relevée pour chaque version, et non des occurrences isolées. Seules les catégories utilisées sont affichées.",
     sum_empty: "Aucune annotation n’a encore été saisie.",
-    d_gen: "Généralisation", d_spec: "Spécification", d_smod: "Modification sémantique",
+    d_gen: "Généralisation (sens ou style)", d_spec: "Spécification (sens ou style)", d_smod: "Modification sémantique",
     d_styl: "Modification stylistique", d_synt: "Modification syntaxique", d_prag: "Modification pragmatique",
     d_dadd: "Ajout", d_ddel: "Suppression", d_rad: "Changement radical de sens",
     d_norm: "Normalisation", d_cult: "Référence culturelle", d_met: "Métaphore/image",
@@ -662,7 +723,34 @@
     cat_reg: "Registre", cat_cult: "Référence culturelle", cat_met: "Métaphore/image",
     cat_add: "Ajout", cat_omit: "Omission", cat_norm: "Normalisation",
     cat_sem: "Glissement sémantique", cat_prag: "Glissement pragmatique",
-    cat_read: "Lisibilité", cat_coh: "Cohésion"
+    cat_read: "Lisibilité", cat_coh: "Cohésion",
+    btn_expann: "Exporter les annotations (CSV)",
+    file_ann: "synkrisis-annotations.csv",
+    gloss_box: "Cadre et sources",
+    refs_title: "Bibliographie indicative",
+    gloss_title: "Définitions des catégories",
+    gloss_note: "Les définitions des catégories évaluatives reprennent, en traduction et sous forme abrégée, celles de la typologie MQM Core (The MQM Council, themqm.org, licence CC BY 4.0) et sont diffusées sous la même licence.",
+    csv_tool: "Outil", csv_scheme: "Schéma d’annotation",
+    def_d_gen: "Un trait sémantique ou stylistique est présent dans le syntagme de l’original et absent du syntagme correspondant de la traduction, le noyau commun étant conservé : la traduction est plus générale.",
+    def_d_spec: "Un trait sémantique ou stylistique est présent dans le syntagme de la traduction et absent du syntagme correspondant de l’original, le noyau commun étant conservé : la traduction est plus spécifique.",
+    def_d_smod: "Le syntagme de l’original et le syntagme correspondant de la traduction portent, au-delà du noyau commun, un trait sémantique différent dans chacun (relation de contraste).",
+    def_d_styl: "Le syntagme de l’original et le syntagme correspondant de la traduction portent un trait stylistique de même nature, différent dans chacun (p. ex. familier dans l’original, soutenu dans la traduction), sans que le sens descriptif change. Il peut s’agir du registre, de l’usage professionnel, d’une marque temporelle, du type de texte, d’un élément propre à une culture, d’une figure de répétition ou du langage figuré.",
+    def_d_synt: "Changement de forme syntaxique qui a une incidence sur le sens ou le style : un trait grammatical (temps, personne, nombre), la catégorie grammaticale, la fonction grammaticale ou un mot grammatical changent, ou le même contenu informatif est rendu avec plus ou moins d’éléments (explicitation, implicitation). Les changements syntaxiques sans incidence de ce type ne sont pas relevés.",
+    def_d_prag: "Changement de forme syntaxique qui a une incidence sur la fonction pragmatique : l’acte de langage change (p. ex. une interrogation rendue par une affirmation), la structure thématique change (p. ex. un passif rendu par un actif, un changement d’ordre), ou un élément déictique ou anaphorique est rendu par un élément de sens autonome, ou l’inverse.",
+    def_d_dadd: "Proposition ou syntagme de la traduction sans correspondant dans l’original. Un élément isolé ajouté dans un syntagme qui a un correspondant est en règle générale relevé comme spécification.",
+    def_d_ddel: "Proposition ou syntagme de l’original sans correspondant dans la traduction. Un élément isolé manquant dans un syntagme qui a un correspondant est en règle générale relevé comme généralisation.",
+    def_d_rad: "Le syntagme de l’original a un correspondant dans la traduction, mais aucun noyau commun ne peut être établi : la traduction dit autre chose (p. ex. « se diriger vers » rendu par « préparer »).",
+    def_d_norm: "Un élément inhabituel ou marqué dans l’original est rendu par un choix plus typique de la langue cible, p. ex. dans la syntaxe, la ponctuation ou les collocations. L’étiquette signale une manifestation possible de la tendance que Baker (1996 : 183) appelle normalisation ; le type de glissement est relevé séparément (le plus souvent une généralisation).",
+    def_d_cult: "Le segment contient un élément propre à la culture de l’original (nom, institution, coutume, objet). L’étiquette signale la question, non le type de glissement.",
+    def_d_met: "Le segment contient une métaphore, une comparaison ou une autre image dont le rendu mérite un commentaire. L’étiquette signale la question, non le type de glissement.",
+    def_e_term: "Terme non conforme à la terminologie établie du domaine ou de l’organisation, ou qui n’est pas l’équivalent correct du terme de l’original.",
+    def_e_mis: "La traduction ne rend pas fidèlement le contenu de l’original : elle le déforme.",
+    def_e_eadd: "La traduction contient un contenu absent de l’original.",
+    def_e_eomit: "Un contenu de l’original manque dans la traduction.",
+    def_e_ling: "Erreur de langue dans la traduction : grammaire, orthographe, ponctuation.",
+    def_e_sty: "Formulation grammaticalement acceptable, mais d’un style inadéquat ou contraire aux consignes stylistiques : p. ex. tournure maladroite ou non idiomatique, registre inadapté, style incohérent.",
+    def_e_loc: "Non-respect des conventions de la région cible pour le contenu ou le format des données : p. ex. nombres, dates, monnaies, unités de mesure, adresses.",
+    def_e_aud: "Contenu non valide ou inadapté à la région ou au public cibles : p. ex. référence que le public ne comprendra pas, ou contenu offensant."
   },
   en: {
     doc_title: "Synkrisis: comparative evaluation of translation versions",
@@ -676,10 +764,10 @@
     help_p4: "<b>What the symbols mean.</b> In the versions, underlined text differs from the base text. The symbol ∅ marks an element that exists in the base but was not matched in the given version. This is not necessarily an omission, as it may be due to rephrasing, condensation or reordering. Click on ∅ to see the relevant text.",
     help_p5: "<b>Base text.</b> The comparison is always made against one version, which serves as the base. You can change it from the corresponding menu, to see the differences from another perspective. The base is not the “correct” version, but the reference point of the comparison.",
     help_p6: "<b>Automatic alignment.</b> When the versions split sentences differently, the tool matches segments using the vocabulary each version shares with the base text. Where a version joins two sentences of the base, the segment includes both. The original, being in another language, is aligned by sentence length only, so check it. If you turn the option off, segments are paired in order. <b>Correcting segmentation.</b> If the segments do not align correctly, for example because one version has different punctuation or a different distribution of sentences, open the collapsible field “Review and correct segmentation”, below the comparison, and correct the text of each segment. To split a segment in two, press Ctrl+Enter at the cut point inside the cell, so that the || symbol is inserted, or type it, and then click “Split by ||”. Annotations are preserved for segments unaffected by the correction. On a split, the annotation stays with the first of the two new segments. On a merge, the annotation of the first segment is kept.",
-    help_p7: "<b>Evaluation.</b> In each segment, below the text of each version, the “+ Descriptive” and “+ Evaluative” buttons open the categories. Descriptive categories record shifts with respect to the original; evaluative ones record MQM error types. The two groups are two distinct modes of reading: a shift is not necessarily an error. The categories you choose appear below the text; click one to remove it. The most suitable version, the comment and the justification are entered by opening the line at the bottom of each segment. The “Summary by version”, below the comparison, counts in how many segments each category was marked for each version.",
-    help_p8: "<b>Export.</b> “Export report (HTML)” produces a file for reading and printing. “Export table (CSV)” produces a file for editing in a spreadsheet. The session file (JSON) is for continuing your work, not for reading.",
+    help_p7: "<b>Evaluation.</b> In each segment, below the text of each version, the “+ Descriptive” and “+ Evaluative” buttons open the categories. Descriptive categories record shifts with respect to the original; evaluative ones record MQM error types. The two groups are two distinct modes of reading: a shift is not necessarily an error. Each category comes with its definition; all definitions are also listed in the collapsible field “Category definitions”, below these instructions. Among the descriptive categories, the “Thematic labels” group does not record a type of shift: it flags issues for comment and can be combined with the others. The categories you choose appear below the text; click one to remove it. The most suitable version, the comment and the justification are entered by opening the line at the bottom of each segment. The “Summary by version”, below the comparison, counts in how many segments each category was marked for each version.",
+    help_p8: "<b>Export.</b> “Export report (HTML)” produces a file for reading and printing. “Export table (CSV)” produces a file for editing in a spreadsheet. “Export annotations (CSV)” produces a 0/1 table with one row per segment and version, with stable category keys that do not depend on the interface language, so that annotations by different people can be compared. The session file (JSON) is for continuing your work, not for reading. The session and the CSV files record the version of the tool and of the annotation scheme.",
     help_p9: "<b>Privacy.</b> Everything happens locally in the browser. Texts are processed locally and are not stored. No text is sent to or stored on a server, and reloading the page erases everything. Caution: the session file you save contains your texts. Do not share it if it includes protected translations or other material that must not be distributed.",
-    help_p10: "<b>Framework and sources.</b> The descriptive dimension is based on an adapted subset of van Leuven-Zwart’s comparative-descriptive model of translation shifts, with its three main categories: modulation, modification and mutation. The tool does not implement the model’s full procedure (transemes, architranseme, transition to the macrostructural level). Normalisation, cultural reference and metaphor/image are not part of the model; they were added as recurrent issues in critical reading. The evaluative dimension is based on selected error dimensions of the MQM Core typology (six of its seven dimensions, leaving out design and markup, which does not apply to plain text), without severity levels or scoring. References: van Leuven-Zwart, K. M. (1989). Translation and original: Similarities and dissimilarities, I. <i>Target</i>, 1(2). https://doi.org/10.1075/target.1.2.03leu · van Leuven-Zwart, K. M. (1990). Translation and original: Similarities and dissimilarities, II. <i>Target</i>, 2(1). https://doi.org/10.1075/target.2.1.05leu · Lommel, A., Uszkoreit, H. &amp; Burchardt, A. (2014). Multidimensional Quality Metrics (MQM): A framework for declaring and describing translation quality metrics. <i>Tradumàtica</i>, 12, 455–463. https://doi.org/10.5565/rev/tradumatica.77 · MQM Council. The MQM Core Typology. https://www.themqm.org/mqm-pillars/the-mqm-core-typology/",
+    help_p10: "The descriptive dimension is based on an adapted subset of van Leuven-Zwart’s comparative-descriptive model of translation shifts, with its three main categories: modulation, modification and mutation. The tool does not implement the model’s full procedure (transemes, architranseme, transition to the macrostructural level). The subset merges some of the model’s distinctions: generalisation and specification are not split into semantic and stylistic, syntactic-semantic and syntactic-stylistic modification are merged as “syntactic”, and syntactic-pragmatic modification appears as “pragmatic”. The model’s sub-categories (e.g. register element, tense) are not recorded separately, except for the three sub-categories of mutation. Normalisation, cultural reference and metaphor/image are not types of shift; they are thematic labels that flag issues in critical reading. Normalisation follows the notion defined by Baker (1996). The model covers culture-specific elements and figurative language as sub-categories of stylistic modulation and modification. The evaluative dimension is based on selected error dimensions of the MQM Core typology (six of its seven dimensions, leaving out design and markup, which does not apply to plain text), with three of the accuracy error types (mistranslation, addition, omission), without severity levels or scoring.",
     sec_source: "Original text",
     sec_source_note: "(optional, for reference)",
     vtag_source: "SOURCE",
@@ -719,7 +807,7 @@
     btn_exphtml: "Export report (HTML)",
     btn_expcsv: "Export table (CSV)",
     foot_main: "<b>Synkrisis</b>. Comparison model: collation against a base text, i.e. the method used in critical editions for the systematic comparison of the different versions of a text, here at word level. Annotation is organised in two separate groups of categories: descriptive, based on an adapted subset of van Leuven-Zwart’s model of translation shifts, and evaluative, based on selected MQM error dimensions, without scoring. The tool does not host texts or translations. It works on a bring-your-own-text basis: enter only texts to which you have lawful access; they are not stored.",
-    credit: "“Synkrisis”, version {ver}. Eleni Tziafa, National and Kapodistrian University of Athens, 2026.{doi} Released under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International licence (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Designed and implemented in collaboration with the models Claude Opus 5.5 and Claude Fable 5 (Anthropic).",
+    credit: "“Synkrisis”, version {ver}. Eleni Tziafa, National and Kapodistrian University of Athens, 2026.{doi} Released under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International licence (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en\" target=\"_blank\" rel=\"noopener\">CC BY-NC-ND 4.0</a>). Designed and implemented in collaboration with the models Claude Opus 5.5, Claude Fable 5 and Claude Fable 5.2 (Anthropic).",
     alert_need2: "At least two filled-in versions are required.",
     alert_nosegs: "No segments were produced.",
     confirm_resegment: "Re-segmenting will delete the existing annotations. Continue?",
@@ -731,7 +819,7 @@
     hint_desc: "Descriptive dimension: shifts with respect to the original, not the base text, following van Leuven-Zwart’s model (adapted subset). A shift is not necessarily an error.",
     hint_eval: "Evaluative dimension: MQM error types, without severity scoring.",
     sub_mod: "Modulation", sub_modif: "Modification", sub_mut: "Mutation",
-    sub_other: "Outside the model: critical-reading issues",
+    sub_other: "Thematic labels: critical-reading issues",
     remove_tag: "Click to remove",
     colon: ":",
     best_label: "Most suitable version:",
@@ -762,7 +850,7 @@
     seg_mm_suffix: ", ⚠ does not fully correspond",
     cats_label: "Categories:",
     report_local: "Produced by local processing. No text was stored or transmitted.",
-    report_credit: "“Synkrisis”, version {ver}. Eleni Tziafa, National and Kapodistrian University of Athens, 2026.{doi} Released under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International licence (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en\">CC BY-NC-ND 4.0</a>). Designed and implemented in collaboration with the models Claude Opus 5.5 and Claude Fable 5 (Anthropic).",
+    report_credit: "“Synkrisis”, version {ver}. Eleni Tziafa, National and Kapodistrian University of Athens, 2026.{doi} Released under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International licence (<a href=\"https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en\">CC BY-NC-ND 4.0</a>). Designed and implemented in collaboration with the models Claude Opus 5.5, Claude Fable 5 and Claude Fable 5.2 (Anthropic).",
     mode_sentence: "by sentence",
     mode_paragraph: "by paragraph",
     mode_line: "by line",
@@ -791,7 +879,7 @@
     sum_tot_eval: "Total evaluative",
     sum_note: "Figures count in how many segments each category was marked for each version, not individual occurrences. Only categories in use are shown.",
     sum_empty: "No annotation has been entered yet.",
-    d_gen: "Generalisation", d_spec: "Specification", d_smod: "Semantic modification",
+    d_gen: "Generalisation (meaning or style)", d_spec: "Specification (meaning or style)", d_smod: "Semantic modification",
     d_styl: "Stylistic modification", d_synt: "Syntactic modification", d_prag: "Pragmatic modification",
     d_dadd: "Addition", d_ddel: "Deletion", d_rad: "Radical change of meaning",
     d_norm: "Normalisation", d_cult: "Cultural reference", d_met: "Metaphor/image",
@@ -802,14 +890,43 @@
     cat_reg: "Register", cat_cult: "Cultural reference", cat_met: "Metaphor/image",
     cat_add: "Addition", cat_omit: "Omission", cat_norm: "Normalisation",
     cat_sem: "Semantic shift", cat_prag: "Pragmatic shift",
-    cat_read: "Readability", cat_coh: "Cohesion"
+    cat_read: "Readability", cat_coh: "Cohesion",
+    btn_expann: "Export annotations (CSV)",
+    file_ann: "synkrisis-annotations.csv",
+    gloss_box: "Framework and sources",
+    refs_title: "Selected references",
+    gloss_title: "Category definitions",
+    gloss_note: "The definitions of the evaluative categories are abridged paraphrases of those in the MQM Core typology (The MQM Council, themqm.org, CC BY 4.0 licence) and are released under the same licence.",
+    csv_tool: "Tool", csv_scheme: "Annotation scheme",
+    def_d_gen: "A semantic or stylistic feature is present in the phrase of the original and absent from the corresponding phrase of the translation, while the common core is kept: the translation is more general.",
+    def_d_spec: "A semantic or stylistic feature is present in the phrase of the translation and absent from the corresponding phrase of the original, while the common core is kept: the translation is more specific.",
+    def_d_smod: "The phrase of the original and the corresponding phrase of the translation each carry a semantic feature beyond the common core, a different one in each (a relation of contrast).",
+    def_d_styl: "The phrase of the original and the corresponding phrase of the translation each carry a stylistic feature of the same kind, a different one in each (e.g. familiar in the original, formal in the translation), without change to the descriptive meaning. This may be register, professional usage, temporal marking, text type, a culture-specific element, a figure of repetition or figurative language.",
+    def_d_synt: "A change of syntactic form with consequences for meaning or style: a grammatical feature (tense, person, number), the grammatical class, the grammatical function or a function word changes, or the same informative content is rendered with more or fewer elements (explicitation, implicitation). Syntactic changes without such consequences are not recorded.",
+    def_d_prag: "A change of syntactic form with consequences for pragmatic function: the speech act changes (e.g. a question rendered as a statement), the thematic meaning changes (e.g. a passive rendered as an active, a change of order), or a deictic or anaphoric element is rendered by an element with independent meaning, or the reverse.",
+    def_d_dadd: "A clause or phrase of the translation with no counterpart in the original. A single added element inside a phrase that has a counterpart is, as a rule, recorded as specification.",
+    def_d_ddel: "A clause or phrase of the original with no counterpart in the translation. A single missing element inside a phrase that has a counterpart is, as a rule, recorded as generalisation.",
+    def_d_rad: "The phrase of the original has a counterpart in the translation, but no common core can be established: the translation says something else (e.g. “to go toward” rendered as “to make ready”).",
+    def_d_norm: "An element that is unusual or marked in the original is rendered by a choice more typical of the target language, e.g. in syntax, punctuation or collocations. The label flags a possible manifestation of the tendency Baker (1996: 183) calls normalisation; the type of shift is recorded separately (usually generalisation).",
+    def_d_cult: "The segment contains a culture-specific element of the original (name, institution, custom, object). The label flags the issue, not the type of shift.",
+    def_d_met: "The segment contains a metaphor, simile or other image whose rendering deserves comment. The label flags the issue, not the type of shift.",
+    def_e_term: "A term that does not conform to the established terminology of the domain or organisation, or is not the correct equivalent of the source term.",
+    def_e_mis: "The translation does not accurately represent the content of the original: it distorts it.",
+    def_e_eadd: "The translation contains content that is not in the original.",
+    def_e_eomit: "Content of the original is missing from the translation.",
+    def_e_ling: "An error of linguistic well-formedness in the translation: grammar, spelling, punctuation.",
+    def_e_sty: "Wording that is grammatically acceptable but stylistically inappropriate or contrary to style guidelines: e.g. awkward or unidiomatic wording, unsuitable register, inconsistent style.",
+    def_e_loc: "Failure to meet locale-specific requirements for content or data formats: e.g. numbers, dates, currencies, units of measurement, addresses.",
+    def_e_aud: "Content that is invalid or inappropriate for the target locale or audience: e.g. a reference the audience will not understand, or offensive content."
   }};
 
   let LANG = (function(){ try { const l = localStorage.getItem(LANG_KEY); if (l && I18N[l]) return l; } catch(e){} return "el"; })();
-  // Έκδοση και DOI. Το APP_VERSION πρέπει να ταυτίζεται με το tag του GitHub (v1.0.0) και το "version" του .zenodo.json.
+  // Έκδοση και DOI. Το APP_VERSION πρέπει να ταυτίζεται με το tag του GitHub (π.χ. v1.1.0) και το "version" του .zenodo.json.
   // APP_DOI: το concept DOI του Zenodo («Cite all versions»), ΟΧΙ το DOI της έκδοσης, ώστε να μην χρειάζεται αλλαγή σε κάθε νέα έκδοση
   // (π.χ. "10.5281/zenodo.1234567"). Κενό = δεν εμφανίζεται DOI.
-  const APP_VERSION = "1.0.0";
+  const APP_VERSION = "1.1.0";
+  // Σχήμα σχολιασμού: αλλάζει μόνο όταν αλλάζουν οι κατηγορίες (κλειδιά DESC_KEYS / EVAL_KEYS), όχι σε κάθε έκδοση του εργαλείου.
+  const SCHEME = { id: "synkrisis-vlz-mqm", version: "1.0" };
   const APP_DOI = "10.5281/zenodo.23127836";
   function T(k){
     let s = (I18N[LANG] && I18N[LANG][k]) || I18N.el[k] || k;
@@ -830,11 +947,23 @@
     document.querySelectorAll("[data-i18n-title]").forEach(el => { el.title = T(el.dataset.i18nTitle); if(el.id === "themeBtn") el.setAttribute("aria-label", el.title); });
   }
 
+  function renderGlossary(){
+    const el = document.getElementById("glossary");
+    if(!el) return;
+    const item = (grp, k)=> '<dt>'+esc(T(grp+"_"+k))+'</dt><dd>'+esc(T("def_"+grp+"_"+k))+'</dd>';
+    let h = '<div class="gcols"><div><h3 class="gd">'+esc(T("grp_desc"))+'</h3>';
+    DESC_GROUPS.forEach(([sub, keys])=>{ h += '<h4>'+esc(T(sub))+'</h4><dl>'+keys.map(k=> item("d", k)).join("")+'</dl>'; });
+    h += '</div><div><h3 class="ge">'+esc(T("grp_eval"))+'</h3><dl>'+EVAL_KEYS.map(k=> item("e", k)).join("")+'</dl></div></div>';
+    h += '<p class="gnote">'+esc(T("gloss_note"))+'</p>';
+    el.innerHTML = h;
+  }
+
   function setLang(l){
     if(!I18N[l]) return;
     LANG = l;
     storePref(LANG_KEY, l);
     applyStatic();
+    renderGlossary();
     document.querySelectorAll(".uictl button[data-lang]").forEach(b => b.classList.toggle("on", b.dataset.lang === l));
     renderVersionCards();
     refreshBaseSel();
@@ -1400,7 +1529,7 @@
           const tg = document.createElement("button");
           tg.type = "button";
           tg.className = "tag " + cls;
-          tg.title = T("remove_tag");
+          tg.title = T("def_"+grp+"_"+k) + "\n" + T("remove_tag");
           tg.textContent = T(grp+"_"+k);
           const x = document.createElement("span"); x.className = "x"; x.textContent = "×"; x.setAttribute("aria-hidden","true");
           tg.appendChild(x);
@@ -1441,7 +1570,11 @@
           paint(); renderSummary();
         });
         lab.appendChild(cb);
-        lab.appendChild(document.createTextNode(T(grp+"_"+k)));
+        const tx = document.createElement("span");
+        tx.appendChild(document.createTextNode(T(grp+"_"+k)));
+        const df = document.createElement("span"); df.className = "pdef"; df.textContent = T("def_"+grp+"_"+k);
+        tx.appendChild(df);
+        lab.appendChild(tx);
         list.appendChild(lab);
       });
       });
@@ -1831,6 +1964,27 @@
       lines.push([T("prov_h")]);
       m.versionNames.forEach((n,i)=>{ if(m.versionProv[i]) lines.push([n, m.versionProv[i]]); });
     }
+    lines.push([]);
+    lines.push([T("csv_tool"), "Synkrisis " + APP_VERSION]);
+    lines.push([T("csv_scheme"), SCHEME.id + " " + SCHEME.version]);
+    return "\uFEFF" + lines.map(r=> r.map(csvCell).join(";")).join("\r\n");
+  }
+  // Πίνακας 0/1 ανά τμήμα και εκδοχή. Οι κεφαλίδες είναι τα σταθερά κλειδιά των κατηγοριών (ίδια σε κάθε γλώσσα διεπαφής),
+  // ώστε τα αρχεία διαφορετικών σχολιαστών να συγκρίνονται απευθείας (π.χ. για υπολογισμό συμφωνίας).
+  function buildAnnCSV(){
+    const m = lastMeta;
+    const head = ["segment","version_no","version"].concat(DESC_KEYS.map(k=> "d_"+k)).concat(EVAL_KEYS.map(k=> "e_"+k)).concat(["best","scheme","tool_version"]);
+    const lines = [head];
+    rows.forEach((row, r)=>{
+      const a = ann[r] || newAnn();
+      m.versionNames.forEach((n, ci)=>{
+        if(!(row.cells[ci] || "").trim()) return;
+        lines.push([String(r+1), String(ci+1), n]
+          .concat(DESC_KEYS.map(k=> vhas(a, "d", ci, k) ? "1" : "0"))
+          .concat(EVAL_KEYS.map(k=> vhas(a, "e", ci, k) ? "1" : "0"))
+          .concat([a.best === ci ? "1" : "0", SCHEME.id + " " + SCHEME.version, APP_VERSION]));
+      });
+    });
     return "\uFEFF" + lines.map(r=> r.map(csvCell).join(";")).join("\r\n");
   }
   function csvCell(s){ s = String(s); return /[";,\r\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
@@ -1873,6 +2027,7 @@
 
   $("#expHtml").addEventListener("click", ()=>{ if(!lastMeta) return; download(T("file_report"), buildReportHTML(), "text/html"); });
   $("#expCsv").addEventListener("click", ()=>{ if(!lastMeta) return; download(T("file_csv"), buildCSV(), "text/csv"); });
+  $("#expAnn").addEventListener("click", ()=>{ if(!lastMeta) return; download(T("file_ann"), buildAnnCSV(), "text/csv"); });
 
   // source file loader
   document.querySelector('input[type=file][data-src]').addEventListener("change", e=> loadFile(e, t=>{ $("#srcText").value = t; }));
@@ -1902,6 +2057,9 @@
     return {
       _format: "synkrisis-session",
       _version: 2,
+      app: "Synkrisis",
+      appVersion: APP_VERSION,
+      scheme: { id: SCHEME.id, version: SCHEME.version },
       savedAt: new Date().toISOString(),
       mode: $("#segMode").value,
       baseIndex: baseIndex,
